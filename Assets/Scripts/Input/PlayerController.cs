@@ -107,18 +107,18 @@ public class PlayerController : MonoBehaviour
                 m_running = false;
             }
            
-            m_movement.x = -speed;
+            m_movement.x = speed;
 
             float xRot = transform.rotation.eulerAngles.x;
             float zRot = transform.rotation.eulerAngles.z;
 
             if (input.x < 0)
             {
-                m_rotation = Quaternion.Euler(xRot, -90, zRot);
+                m_rotation = Quaternion.Euler(xRot, 90, zRot);
             }
             else
             {
-                m_rotation = Quaternion.Euler(xRot, 90, zRot);
+                m_rotation = Quaternion.Euler(xRot, -90, zRot);
             }
         }
         else
