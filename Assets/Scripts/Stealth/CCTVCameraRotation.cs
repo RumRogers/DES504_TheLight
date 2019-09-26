@@ -34,7 +34,7 @@ public class CCTVCameraRotation : MonoBehaviour
     {
         while (true)
         {
-            if (m_rotationDir == -1 && transform.rotation.eulerAngles.y <= -90)
+            if (m_rotationDir == -1 && transform.rotation.eulerAngles.y <= 90)
             {
                 m_rotationDir = 1;
             }

@@ -104,8 +104,6 @@ GameObject:
   - component: {fileID: 784799499454862487}
   - component: {fileID: 784799499454862486}
   - component: {fileID: 784799499454862481}
-  - component: {fileID: 784799499454862485}
-  - component: {fileID: 784799499454862490}
   m_Layer: 0
   m_Name: Cop
   m_TagString: Untagged
@@ -127,6 +125,7 @@ Transform:
   - {fileID: 784799500768653873}
   - {fileID: 74973665319082408}
   - {fileID: 3490253005446817352}
+  - {fileID: 7837534657866795219}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -190,47 +189,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &784799499454862485
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784799499454862480}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &784799499454862490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784799499454862480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7437870654ae24da076575aecfad0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_walking: 0
-  m_jumping: 0
-  m_falling: 0
-  m_crouching: 0
-  m_running: 0
-  m_speed: 7
-  m_runningSpeedMultiplier: 2.92
-  m_crouchSpeedPercentage: 0.35
-  m_gravityOnJumping: 0.25
-  m_gravityOnFalling: 0.35
-  m_jumpForce: 0.75
 --- !u!1 &784799499929558385
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,3 +873,33 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!1 &7905816056813530688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7837534657866795219}
+  m_Layer: 0
+  m_Name: Lens
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7837534657866795219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7905816056813530688}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.017, y: 0.433, z: -0.494}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 784799499454862484}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}

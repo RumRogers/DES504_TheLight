@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_falling = false;
     [SerializeField] private bool m_crouching = false;
     [SerializeField] private bool m_running = false;
-
+    private bool m_dead = false;
+    [SerializeField] private Transform m_respawnPoint;
     // Actual movement vars
     private Vector3 m_velocity = Vector3.zero; // needed for keeping track of gravity & custom physics
     private Vector3 m_movement = Vector3.zero; // needed for input
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if(!m)
         GetInput();
         ManageInput(ref input);
         ApplyMovement();
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
-        input.jump = Input.GetButton("Jump");
+        input.jump = Input.GetButtonDown("Jump");
         input.dash = Input.GetButton("Dash");
     }
 
@@ -132,21 +134,18 @@ public class PlayerController : MonoBehaviour
     {
         m_characterController.Move(m_movement * Time.deltaTime);
 
-        if (!m_characterController.isGrounded)
+        if (m_velocity.y > 0)
         {
-            if (m_velocity.y > 0)
-            {
-                m_velocity.y += (Physics.gravity.y * m_gravityOnJumping * Time.deltaTime);
-            }
-            else
-            {
-                m_velocity.y += (Physics.gravity.y * m_gravityOnFalling * Time.deltaTime);
-                m_jumping = false;
-                m_falling = true;
-            }
-
-            m_characterController.Move(m_velocity);
+            m_velocity.y += (Physics.gravity.y * m_gravityOnJumping * Time.deltaTime);
         }
+        else
+        {
+            m_velocity.y += (Physics.gravity.y * m_gravityOnFalling * Time.deltaTime);
+            m_jumping = false;
+            m_falling = true;
+        }
+
+        m_characterController.Move(m_velocity);
 
         if (m_characterController.isGrounded)
         {
@@ -159,5 +158,13 @@ public class PlayerController : MonoBehaviour
     private void ApplyRotation()
     {
         transform.rotation = m_rotation;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name.Equals("Death"))
+        {
+            transform.position = m_respawnPoint.position;
+        }
     }
 }

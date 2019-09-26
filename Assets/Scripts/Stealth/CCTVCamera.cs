@@ -10,31 +10,28 @@ public class CCTVCamera : MonoBehaviour
     [SerializeField] private float m_distance = 5f;
     [SerializeField] protected float m_fovDegrees = 90;
     [SerializeField] protected bool m_alarm = false;
+    private Color m_nativeColor;
    
     public Transform Target { get { return m_target; } set { m_target = value;  } }
     private Vector3 m_viewconeBaseCenter;
 
 
     private MeshRenderer[] m_meshRenderers = new MeshRenderer[2];
-    private void Awake()
+    protected virtual void Awake()
     {
         m_lens = transform.Find("Lens");
+        Component[] components = GetComponentsInChildren(typeof(MeshRenderer), false);
+        m_meshRenderers[0] = (MeshRenderer)components[0];
+        m_meshRenderers[1] = (MeshRenderer)components[1];
+        m_nativeColor = m_meshRenderers[0].material.color;
 
-        //Component[] components = GetComponentsInChildren(typeof(MeshRenderer), false);
-        //m_meshRenderers[0] = (MeshRenderer)components[0];
-        //m_meshRenderers[1] = (MeshRenderer)components[1];
-       
-    }
-
-    void Start()
-    {
-         
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected virtual void Update()
     {
-        if(m_debugMode)
+               //m_lens = transform.Find("Lens");
+        if (m_debugMode)
         {
             DrawDebuggingGraphics();
         }
@@ -54,13 +51,17 @@ public class CCTVCamera : MonoBehaviour
 
     
 
-    private void DrawDebuggingGraphics()
+    protected void DrawDebuggingGraphics()
     {
-        Debug.DrawLine(m_lens.position, m_lens.position + transform.forward * m_distance, Color.red);
-        Debug.DrawLine(m_lens.position, m_target.position, Color.green);
+        Debug.DrawLine(m_lens.position, m_lens.position + m_lens.forward * m_distance, Color.blue);
+        if(m_alarm)
+        {
+            Debug.DrawLine(m_lens.position, m_target.position, Color.red);
+        }
+        //
 
 
-        /*if (m_alarm)
+        if (m_alarm)
         {
             for(int i = 0; i < m_meshRenderers.Length; i++)
             {
@@ -71,8 +72,8 @@ public class CCTVCamera : MonoBehaviour
         {
             for (int i = 0; i < m_meshRenderers.Length; i++)
             {
-                m_meshRenderers[i].material.color = Color.white;
+                m_meshRenderers[i].material.color = m_nativeColor;
             }
-        }*/
+        }
     }
 }
