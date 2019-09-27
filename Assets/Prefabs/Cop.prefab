@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 784799499046660645}
   - component: {fileID: 784799499046660644}
   - component: {fileID: 784799499046660647}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,9 +104,8 @@ GameObject:
   - component: {fileID: 784799499454862487}
   - component: {fileID: 784799499454862486}
   - component: {fileID: 784799499454862481}
-  - component: {fileID: 784799499454862485}
-  - component: {fileID: 784799499454862490}
-  m_Layer: 0
+  - component: {fileID: 1280645109}
+  m_Layer: 9
   m_Name: Cop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,31 +183,13 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784799499454862480}
   m_Material: {fileID: 13400000, guid: fd87c3c64b69bf54c973d25ee7925aec, type: 2}
-  m_IsTrigger: 1
-  m_Enabled: 1
+  m_IsTrigger: 0
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &784799499454862485
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784799499454862480}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &784799499454862490
+--- !u!114 &1280645109
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,20 +198,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 784799499454862480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7437870654ae24da076575aecfad0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 838b41d84976a5142ade7cad2df5e0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_walking: 0
-  m_jumping: 0
-  m_falling: 0
-  m_crouching: 0
-  m_running: 0
-  m_speed: 7
-  m_runningSpeedMultiplier: 2.92
-  m_crouchSpeedPercentage: 0.35
-  m_gravityOnJumping: 0.25
-  m_gravityOnFalling: 0.35
-  m_jumpForce: 0.75
+  m_debugMode: 1
+  m_target: {fileID: 0}
+  m_distance: 5
+  m_fovDegrees: 160
+  m_alarm: 0
 --- !u!1 &784799499929558385
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +218,7 @@ GameObject:
   - component: {fileID: 784799499929558389}
   - component: {fileID: 784799499929558388}
   - component: {fileID: 784799499929558391}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +311,7 @@ GameObject:
   - component: {fileID: 784799500032753592}
   - component: {fileID: 784799500032753595}
   - component: {fileID: 784799500032753594}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +403,7 @@ GameObject:
   - component: {fileID: 784799500250542243}
   - component: {fileID: 784799500250542242}
   - component: {fileID: 784799500250543965}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -520,7 +495,7 @@ GameObject:
   - component: {fileID: 784799500476200486}
   - component: {fileID: 784799500476200481}
   - component: {fileID: 784799500476200480}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -609,7 +584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 784799500768653873}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +623,7 @@ GameObject:
   - component: {fileID: 784799501128472280}
   - component: {fileID: 784799501128472283}
   - component: {fileID: 784799501128472282}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +716,7 @@ GameObject:
   - component: {fileID: 5845218161009557698}
   - component: {fileID: 7681892728562422622}
   - component: {fileID: 6500215219656182233}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -834,7 +809,7 @@ GameObject:
   - component: {fileID: 4989800057279010003}
   - component: {fileID: 4936921775569912076}
   - component: {fileID: 1376169369961598012}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -850,7 +825,7 @@ Transform:
   m_GameObject: {fileID: 5591685625323575037}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.000333786, y: -0.164505, z: 0.020389557}
-  m_LocalScale: {x: 1.1179, y: -0.030984, z: 1.1021}
+  m_LocalScale: {x: 1.1179, y: -0.050606165, z: 1.1021}
   m_Children: []
   m_Father: {fileID: 784799499454862484}
   m_RootOrder: 2

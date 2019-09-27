@@ -56,7 +56,7 @@ public class CCTVCamera : MonoBehaviour
 
     private void DrawDebuggingGraphics()
     {
-        Debug.DrawLine(m_lens.position, m_lens.position + transform.forward * m_distance, Color.red);
+        Debug.DrawLine(m_lens.position, m_lens.position + m_lens.forward * m_distance, Color.red);
         Debug.DrawLine(m_lens.position, m_target.position, Color.green);
 
 
