@@ -20,11 +20,13 @@ public class PlayerController : MonoBehaviour
     private CharacterController m_characterController;
 
     // State vars
+    [Header("Player state")]
     [SerializeField] private bool m_walking = false;
     [SerializeField] private bool m_jumping = false;
     [SerializeField] private bool m_falling = false;
     [SerializeField] private bool m_crouching = false;
     [SerializeField] private bool m_running = false;
+    [SerializeField] private bool m_canJump = true;
 
     // Actual movement vars
     private Vector3 m_velocity = Vector3.zero; // needed for keeping track of gravity & custom physics
@@ -32,14 +34,17 @@ public class PlayerController : MonoBehaviour
     private Quaternion m_rotation; // where is the character facing?
 
     // Tweak these for fine tuning
+    [Header("Movement")]
     [SerializeField] private float m_speed = 7f;
     [SerializeField] [Range(1.1f, 5f)] float m_runningSpeedMultiplier = 1.5f;
     [SerializeField] [Range(0, 1)] private float m_crouchSpeedPercentage = .35f;
+    [SerializeField] private float m_jumpForce = 3f;
+
+    [Header("Gravity")]
     [SerializeField] [Range(.1f, 5f)] private float m_gravityOnJumping = .25f;
     [SerializeField] [Range(.1f, 5f)] private float m_gravityOnFalling = 1f;
-    [SerializeField] private float m_additionalGravity = 0.05f;
-    [SerializeField] private float m_jumpForce = 3f;
-    private bool m_canJump = true;
+    [SerializeField] [Range(0f, 1f)] private float m_additionalGravity = 0.05f;
+ 
     private InputRetrieved input;
 
     private void Awake()

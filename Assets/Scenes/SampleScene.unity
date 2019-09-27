@@ -487,7 +487,7 @@ PrefabInstance:
     - target: {fileID: 5574342727472842158, guid: 48fbeccaba0e26a4b962b6e377d0d8e0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5574342727472842159, guid: 48fbeccaba0e26a4b962b6e377d0d8e0,
         type: 3}
@@ -730,7 +730,7 @@ MonoBehaviour:
   m_rotationTimeInterval: 5
   m_initialYRotationDegs: 90
   m_finalYRotationDegs: 270
-  m_rotateClockwise: 0
+  m_rotateClockwise: 1
 --- !u!1001 &853219222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1969,6 +1969,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_jumpForce
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 395274966980441242, guid: a2fe116059e162e4095a3e626d26c858,
+        type: 3}
+      propertyPath: m_walking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395274966980441242, guid: a2fe116059e162e4095a3e626d26c858,
+        type: 3}
+      propertyPath: m_falling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395274966980441242, guid: a2fe116059e162e4095a3e626d26c858,
+        type: 3}
+      propertyPath: m_jumping
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2fe116059e162e4095a3e626d26c858, type: 3}
