@@ -7,12 +7,21 @@ public class CCTVCameraRotation : MonoBehaviour
     [SerializeField] private float m_rotationSpeed = 10f;
     [SerializeField] private bool m_shouldRotate = true;
     [SerializeField] private float m_rotationTimeInterval = 10f;
+    [SerializeField] [Range(0, 360)] private float m_initialYRotationDegs;
+    [SerializeField] [Range(0, 360)] private float m_finalYRotationDegs;
+    [SerializeField] private bool m_rotateClockwise = false;
     private int m_rotationDir;
+    private float m_targetDegrees;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if (transform.rotation.eulerAngles.y == 270f)
+        Vector3 currentRotation = transform.rotation.eulerAngles;
+
+        transform.rotation = Quaternion.Euler(currentRotation.x, m_initialYRotationDegs, currentRotation.x);
+        m_targetDegrees = Mathf.Abs(m_initialYRotationDegs - m_finalYRotationDegs);
+
+        if (!m_rotateClockwise)
         {
             m_rotationDir = -1;
         }
@@ -32,35 +41,29 @@ public class CCTVCameraRotation : MonoBehaviour
     // Update is called once per frame
     IEnumerator RotateCamera()
     {
-        while (true)
+        float rotationSoFar = 0f; // Counter for degrees
+
+        while(true)
         {
-            print("Rot: " + transform.rotation.eulerAngles);
-            if (m_rotationDir == -1 && transform.rotation.eulerAngles.y <= 90)
-            {
-                m_rotationDir = 1;
-            }
-            else if (m_rotationDir == 1 && transform.rotation.eulerAngles.y >= 270)
-            {
-                m_rotationDir = -1;
+            float nextRotationAmount = m_rotationSpeed * Time.deltaTime;
+
+            if(rotationSoFar + nextRotationAmount > m_targetDegrees)
+            {                
+                nextRotationAmount = m_targetDegrees - rotationSoFar; // Clamp amount if next rotation exceeds target rotation
             }
 
-            transform.Rotate(0, m_rotationSpeed * m_rotationDir * Time.deltaTime, 0, Space.World);
+            rotationSoFar += nextRotationAmount;
+            transform.Rotate(0, nextRotationAmount * m_rotationDir, 0, Space.World);
 
-            if (transform.rotation.eulerAngles.y < 90)
+            if(rotationSoFar == m_targetDegrees)
             {
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 90, transform.rotation.eulerAngles.z);
-                break;
+                m_rotationDir *= -1;
+                yield break;
             }
-            else if (transform.rotation.eulerAngles.y > 270)
-            {
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 270, transform.rotation.eulerAngles.z);
-                break;
-            }
-
+            
+            
             yield return new WaitForEndOfFrame();
-        }
-
-        yield return null;
+        }       
     }
 
     IEnumerator RotateEternally()
