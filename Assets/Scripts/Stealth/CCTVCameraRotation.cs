@@ -34,6 +34,7 @@ public class CCTVCameraRotation : MonoBehaviour
     {
         while (true)
         {
+            print("Rot: " + transform.rotation.eulerAngles);
             if (m_rotationDir == -1 && transform.rotation.eulerAngles.y <= 90)
             {
                 m_rotationDir = 1;

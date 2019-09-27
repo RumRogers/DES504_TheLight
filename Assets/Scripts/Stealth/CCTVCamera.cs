@@ -16,14 +16,21 @@ public class CCTVCamera : MonoBehaviour
     private Vector3 m_viewconeBaseCenter;
 
 
-    private MeshRenderer[] m_meshRenderers = new MeshRenderer[2];
+    private List<MeshRenderer> m_meshRenderers = new List<MeshRenderer>();
     protected virtual void Awake()
     {
         m_lens = transform.Find("Lens");
         Component[] components = GetComponentsInChildren(typeof(MeshRenderer), false);
-        m_meshRenderers[0] = (MeshRenderer)components[0];
-        m_meshRenderers[1] = (MeshRenderer)components[1];
-        m_nativeColor = m_meshRenderers[0].material.color;
+        for(int i = 0; i < components.Length; i++)
+        {
+            m_meshRenderers.Add((MeshRenderer)components[i]);
+        }
+
+        if(components.Length > 0)
+        {
+            m_nativeColor = m_meshRenderers[0].material.color;
+        }
+        
 
     }
 
@@ -63,14 +70,14 @@ public class CCTVCamera : MonoBehaviour
 
         if (m_alarm)
         {
-            for(int i = 0; i < m_meshRenderers.Length; i++)
+            for(int i = 0; i < m_meshRenderers.Count; i++)
             {
                 m_meshRenderers[i].material.color = Color.red;
             }
         }
         else
         {
-            for (int i = 0; i < m_meshRenderers.Length; i++)
+            for (int i = 0; i < m_meshRenderers.Count; i++)
             {
                 m_meshRenderers[i].material.color = m_nativeColor;
             }
