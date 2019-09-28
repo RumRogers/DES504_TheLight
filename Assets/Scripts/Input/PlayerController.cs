@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(.1f, 5f)] private float m_gravityOnJumping = .25f;
     [SerializeField] [Range(.1f, 5f)] private float m_gravityOnFalling = 1f;
     [SerializeField] [Range(0f, 1f)] private float m_additionalGravity = 0.05f;
+    [SerializeField] [Range(-5f, -.1f)] private float m_gravityLimiter = -.8f;
  
     private InputRetrieved input;
 
@@ -162,6 +163,10 @@ public class PlayerController : MonoBehaviour
             m_velocity.y += (Physics.gravity.y * m_additionalGravity * Time.deltaTime);
         }
 
+        if (m_velocity.y < m_gravityLimiter)
+        {
+            m_velocity.y = m_gravityLimiter;
+        }
         m_characterController.Move(m_velocity);
 
         if (m_characterController.isGrounded)
