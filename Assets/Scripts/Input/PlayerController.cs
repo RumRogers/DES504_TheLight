@@ -17,6 +17,12 @@ public class PlayerController : MonoBehaviour
         public bool dash;
     };
 
+    struct CurrentLadder
+    {
+        public Transform transform;
+        public Transform top;
+        public Transform bottom;
+    };
     private CharacterController m_characterController;
 
     // State vars
@@ -41,6 +47,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(1.1f, 5f)] float m_runningSpeedMultiplier = 1.5f;
     [SerializeField] [Range(0, 1)] private float m_crouchSpeedPercentage = .35f;
     [SerializeField] private float m_jumpForce = 3f;
+    [SerializeField] private float m_climbSpeed = 7f;
 
     [Header("Gravity")]
     [SerializeField] [Range(.1f, 5f)] private float m_gravityOnJumping = .25f;
@@ -49,12 +56,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(-5f, -.1f)] private float m_gravityLimiter = -.8f;
  
     private InputRetrieved input;
-    private GameObject m_currentLadder;
+    private CurrentLadder m_currentLadder;
+    private Transform m_top;
+    private Transform m_bottom;
 
     private void Awake()
     {
         m_characterController = GetComponent<CharacterController>();
         m_rotation = Quaternion.Euler(0, -90, 0);
+        m_top = transform.Find("Head");
+        m_bottom = transform.Find("Feet");
     }
 
     // Update is called once per frame
@@ -84,17 +95,27 @@ public class PlayerController : MonoBehaviour
     {
         m_movement = Vector3.zero; // Reset movement each frame
 
-        if (m_onLadder)
-        {
-            if (input.y != 0)
-            {
+        if (m_onLadder && !m_climbing)
+        {           
+            //print("Feet Y: " + m_bottom.position.y);
+            //print("Ladder Y: " + m_currentLadder.top.position.y);
+            //print("Input.y:" + input.y);
+            if(((input.y < 0 && m_bottom.position.y >= m_currentLadder.bottom.position.y) ||
+                (input.y > 0 && m_top.position.y <= m_currentLadder.top.position.y)))
+            {             
                 AnchorToLadder(); 
             }
         }
         if(m_climbing)
         {
-            m_movement.y = input.y;
-            
+            if (input.y != 0 && !IsRegularClimbing())
+            {
+                DetachFromLadder();
+            }
+            else
+            {
+                m_movement.y = input.y * m_climbSpeed;
+            }       
         }
 
         else
@@ -218,12 +239,10 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Ladder"))
         {
             m_onLadder = true;
-            m_currentLadder = other.gameObject;
-      
-            /*Vector3 newPos = other.transform.position;        
-            gameObject.SetActive(false);
-            transform.position = new Vector3(newPos.x, transform.position.y, transform.position.z);
-            gameObject.SetActive(true);*/
+            m_currentLadder.transform = other.gameObject.transform;
+            m_currentLadder.top = other.transform.GetChild(0).transform;
+            m_currentLadder.bottom = other.transform.GetChild(1).transform;
+
         }
     }
 
@@ -233,15 +252,37 @@ public class PlayerController : MonoBehaviour
         {
             //print(transform.position);
             m_onLadder = false;
+            m_currentLadder.transform = null;
+            m_currentLadder.top = null;
+            m_currentLadder.bottom = null;
         }
     }
 
     private void AnchorToLadder()
-    {
+    {        
         m_climbing = true;
         Vector3 newPos = m_currentLadder.transform.position;
         gameObject.SetActive(false);
-        transform.position = new Vector3(newPos.x, transform.position.y, transform.position.z);
+        transform.position = new Vector3(newPos.x, transform.position.y, newPos.z - .5f);
+        m_rotation = Quaternion.Euler(0, 180f, 0);
         gameObject.SetActive(true);
+        
+    }
+
+    private void DetachFromLadder()
+    {
+        m_climbing = false;
+        gameObject.SetActive(false);
+        transform.position += new Vector3(0f, -.1f, .5f);
+        m_rotation = Quaternion.Euler(0, 90f, 0);
+        gameObject.SetActive(true);
+
+    }
+
+  
+    private bool IsRegularClimbing()
+    {
+        return ((input.y < 0 && m_top.position.y >= m_currentLadder.bottom.position.y) ||
+                (input.y > 0 && m_bottom.position.y <= m_currentLadder.top.position.y));
     }
 }
