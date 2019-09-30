@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_crouching = false;
     [SerializeField] private bool m_running = false;
     [SerializeField] private bool m_canJump = true;
+    [SerializeField] private bool m_onLadder = false;
+    [SerializeField] private bool m_climbing = false;
 
     // Actual movement vars
     private Vector3 m_velocity = Vector3.zero; // needed for keeping track of gravity & custom physics
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(-5f, -.1f)] private float m_gravityLimiter = -.8f;
  
     private InputRetrieved input;
+    private GameObject m_currentLadder;
 
     private void Awake()
     {
@@ -81,104 +84,164 @@ public class PlayerController : MonoBehaviour
     {
         m_movement = Vector3.zero; // Reset movement each frame
 
-        if (input.jump && m_characterController.isGrounded && m_canJump)
+        if (m_onLadder)
         {
-            m_canJump = false;
-            m_jumping = true;
-            m_crouching = false;
-            m_velocity.y += m_jumpForce;
-        }
-
-        if (input.y != 0 && m_characterController.isGrounded)
-        {
-            if (input.y < 0 && !m_jumping)
+            if (input.y != 0)
             {
-                m_crouching = true;
+                AnchorToLadder(); 
             }
         }
-        else if (input.y == 0)
+        if(m_climbing)
         {
-            m_crouching = false;
+            m_movement.y = input.y;
+            
         }
 
-        if (input.x != 0)
-        {
-            float speed = input.x * m_speed;
-
-            if (m_crouching)
-            {
-                speed *= m_crouchSpeedPercentage;
-            }
-            else if (input.dash)
-            {
-                m_walking = false;
-                m_running = true;
-                speed *= m_runningSpeedMultiplier;
-            }
-            else
-            {
-                m_walking = true;
-                m_running = false;
-            }
-           
-            m_movement.x = speed;
-
-            float xRot = transform.rotation.eulerAngles.x;
-            float zRot = transform.rotation.eulerAngles.z;
-
-            if (input.x < 0)
-            {
-                m_rotation = Quaternion.Euler(xRot, 90, zRot);
-            }
-            else
-            {
-                m_rotation = Quaternion.Euler(xRot, -90, zRot);
-            }
-        }
         else
         {
-            m_walking = false;
-            m_running = false;
+            if (input.jump && m_characterController.isGrounded && m_canJump)
+            {
+                m_canJump = false;
+                m_jumping = true;
+                m_crouching = false;
+                m_velocity.y += m_jumpForce;
+            }
+
+            if (input.y != 0 && m_characterController.isGrounded)
+            {
+                if (input.y < 0 && !m_jumping)
+                {
+                    if (m_onLadder)
+                    {
+                        m_climbing = true;
+                    }
+                    else
+                    {
+                        m_crouching = true;
+                    }
+                }
+            }
+            else if (input.y == 0)
+            {
+                m_crouching = false;
+            }
+
+            if (input.x != 0)
+            {
+                float speed = input.x * m_speed;
+
+                if (m_crouching)
+                {
+                    speed *= m_crouchSpeedPercentage;
+                }
+                else if (input.dash)
+                {
+                    m_walking = false;
+                    m_running = true;
+                    speed *= m_runningSpeedMultiplier;
+                }
+                else
+                {
+                    m_walking = true;
+                    m_running = false;
+                }
+
+                m_movement.x = speed;
+
+                float xRot = transform.rotation.eulerAngles.x;
+                float zRot = transform.rotation.eulerAngles.z;
+
+                if (input.x < 0)
+                {
+                    m_rotation = Quaternion.Euler(xRot, 90, zRot);
+                }
+                else
+                {
+                    m_rotation = Quaternion.Euler(xRot, -90, zRot);
+                }
+            }
+            else
+            {
+                m_walking = false;
+                m_running = false;
+            }
         }
+        
     }
 
     private void ApplyMovement()
     {
         m_characterController.Move(m_movement * Time.deltaTime);
 
-        if (m_velocity.y > 0)
+        if(!m_climbing)
         {
-            m_velocity.y += (Physics.gravity.y * m_gravityOnJumping * Time.deltaTime);
-        }
-        else
-        {
-            m_velocity.y += (Physics.gravity.y * m_gravityOnFalling * Time.deltaTime);
-            m_jumping = false;
-            m_falling = true;
-        }
+            if (m_velocity.y > 0)
+            {
+                m_velocity.y += (Physics.gravity.y * m_gravityOnJumping * Time.deltaTime);
+            }
+            else
+            {
+                m_velocity.y += (Physics.gravity.y * m_gravityOnFalling * Time.deltaTime);
+                m_jumping = false;
+                m_falling = true;
+            }
 
-        if(!input.jump)
-        {
-            
-            m_velocity.y += (Physics.gravity.y * m_additionalGravity * Time.deltaTime);
-        }
+            if (!input.jump)
+            {
 
-        if (m_velocity.y < m_gravityLimiter)
-        {
-            m_velocity.y = m_gravityLimiter;
-        }
-        m_characterController.Move(m_velocity);
+                m_velocity.y += (Physics.gravity.y * m_additionalGravity * Time.deltaTime);
+            }
 
-        if (m_characterController.isGrounded)
-        {
-            m_jumping = false;
-            m_falling = false;
-            m_velocity.y = 0;
-        }   
+            if (m_velocity.y < m_gravityLimiter)
+            {
+                m_velocity.y = m_gravityLimiter;
+            }
+            m_characterController.Move(m_velocity);
+
+            if (m_characterController.isGrounded)
+            {
+                m_jumping = false;
+                m_falling = false;
+                m_velocity.y = 0;
+            }
+        }
+        
     }
 
     private void ApplyRotation()
     {
         transform.rotation = m_rotation;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            m_onLadder = true;
+            m_currentLadder = other.gameObject;
+      
+            /*Vector3 newPos = other.transform.position;        
+            gameObject.SetActive(false);
+            transform.position = new Vector3(newPos.x, transform.position.y, transform.position.z);
+            gameObject.SetActive(true);*/
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            //print(transform.position);
+            m_onLadder = false;
+        }
+    }
+
+    private void AnchorToLadder()
+    {
+        m_climbing = true;
+        Vector3 newPos = m_currentLadder.transform.position;
+        gameObject.SetActive(false);
+        transform.position = new Vector3(newPos.x, transform.position.y, transform.position.z);
+        gameObject.SetActive(true);
     }
 }
