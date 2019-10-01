@@ -17,9 +17,9 @@ public class PlayerDeath : MonoBehaviour
 
     private IEnumerator DieWithDignity(Transform player)
     {
-        m_cameraFollowTarget.Smooth = false;
+        //m_cameraFollowTarget.Smooth = false;
         yield return new WaitForSeconds(1);
-        m_cameraFollowTarget.Smooth = true;
+        //m_cameraFollowTarget.Smooth = true;
         player.gameObject.SetActive(false);
         player.transform.position = m_respawnPoint.position;
         player.gameObject.SetActive(true);

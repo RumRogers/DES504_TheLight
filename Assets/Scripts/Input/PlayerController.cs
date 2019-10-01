@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
  
     private InputRetrieved input;
     private CurrentLadder m_currentLadder;
+    private GameObject m_currentPipe;
     private Transform m_top;
     private Transform m_bottom;
 
@@ -284,5 +285,11 @@ public class PlayerController : MonoBehaviour
     {
         return ((input.y < 0 && m_top.position.y >= m_currentLadder.bottom.position.y) ||
                 (input.y > 0 && m_bottom.position.y <= m_currentLadder.top.position.y));
+    }
+
+    public void SetCurrentPipe(GameObject pipe)
+    {
+        m_currentPipe = pipe;
+        print("Current pipe: " + pipe);
     }
 }
