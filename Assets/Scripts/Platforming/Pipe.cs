@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pipe : MonoBehaviour
 {
-    enum PipeDirection
+    public enum PipeDirection
     {
         Left,
         Right
@@ -13,14 +13,21 @@ public class Pipe : MonoBehaviour
     [SerializeField] private PipeDirection m_direction;
     [SerializeField] private bool m_isStuck = false;
     private PlayerController m_playerController;
+    [SerializeField] private PlayerTimeline m_playerTimeline;
 
     private void Awake()
     {
 
-        GameObject player = GameObject.Find("Player");
-        if(player != null)
+        GameObject gameObject = GameObject.Find("Player");
+        if(gameObject != null)
         {
-            m_playerController = player.GetComponent<PlayerController>();
+            m_playerController = gameObject.GetComponent<PlayerController>();
+        }
+
+        gameObject = GameObject.Find("PlayerTimeline");
+        if(gameObject != null)
+        {
+            m_playerTimeline = gameObject.GetComponent<PlayerTimeline>();
         }
 
     }

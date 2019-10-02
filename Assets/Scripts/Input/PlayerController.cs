@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* TODO: the player shouldn't know anything about specific pipes and ladders...
+ * the pipes and ladders scripts should manage inputs in a particular trigger collider 
+ * and from there communicate with the player controller... fix asap
+*/
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -35,6 +39,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_canJump = true;
     [SerializeField] private bool m_onLadder = false;
     [SerializeField] private bool m_climbing = false;
+    private Vector3 m_timelineOffset;
 
     // Actual movement vars
     private Vector3 m_velocity = Vector3.zero; // needed for keeping track of gravity & custom physics
