@@ -11,9 +11,11 @@ public class Pipe : MonoBehaviour
     }
 
     [SerializeField] private PipeDirection m_direction;
+    [SerializeField] private Transform m_pipeJumpHotspot;
+    [SerializeField] private Transform m_pipeEnd;
     [SerializeField] private bool m_isStuck = false;
+    
     private PlayerController m_playerController;
-    [SerializeField] private PlayerTimeline m_playerTimeline;
 
     private void Awake()
     {
@@ -24,15 +26,10 @@ public class Pipe : MonoBehaviour
             m_playerController = gameObject.GetComponent<PlayerController>();
         }
 
-        gameObject = GameObject.Find("PlayerTimeline");
-        if(gameObject != null)
-        {
-            m_playerTimeline = gameObject.GetComponent<PlayerTimeline>();
-        }
-
+      
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
@@ -45,6 +42,17 @@ public class Pipe : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             m_playerController.SetCurrentPipe(null);
+        }
+    }*/
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            if(Input.GetButtonDown("Action"))
+            {
+                StartCoroutine(m_playerController.GrabPipe(m_pipeJumpHotspot.position, m_pipeEnd.position, m_direction));
+            }
         }
     }
 }

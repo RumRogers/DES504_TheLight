@@ -14,7 +14,7 @@ public class NPCBasicBehavior : CCTVCamera
     protected override void Awake()
     {
         base.Awake();
-        m_fovDegrees = 160;
+        //m_fovDegrees = 160;
         m_alarm = false;
         m_pathStart = transform.position;
         m_currentStart = m_pathStart;

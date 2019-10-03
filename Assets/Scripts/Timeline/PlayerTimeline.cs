@@ -12,18 +12,9 @@ public class PlayerTimeline : MonoBehaviour
     }
 
     public PlayableDirector director;
-    [SerializeField] private Transform m_target;
     [SerializeField] private List<TimelineAsset> m_timelineAssets;
-
-    private void Update()
-    {
-        /*if(Input.GetKeyDown(KeyCode.E))
-        {
-            GrabPipe();
-        }*/
-    }
     
-    public void GrabPipe(Pipe.PipeDirection pipeDirection)
+    public void GrabPipe(Transform character, Pipe.PipeDirection pipeDirection)
     {
         if(pipeDirection == Pipe.PipeDirection.Left)
         {
@@ -34,9 +25,9 @@ public class PlayerTimeline : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
-        m_target.SetParent(null);
-        transform.position = m_target.position;
-        m_target.SetParent(transform);
+        character.SetParent(null);
+        transform.position = character.position;
+        character.SetParent(transform);
 
         director.Play(m_timelineAssets[(int)TimelineIndices.GRAB]);
     }

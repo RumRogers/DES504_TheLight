@@ -6,6 +6,7 @@ public class PlayerDeath : MonoBehaviour
 {
     [SerializeField] private CameraFollowTarget m_cameraFollowTarget;
     [SerializeField] private Transform m_respawnPoint;
+    [SerializeField] private PlayerController m_playerController;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,8 +21,6 @@ public class PlayerDeath : MonoBehaviour
         //m_cameraFollowTarget.Smooth = false;
         yield return new WaitForSeconds(1);
         //m_cameraFollowTarget.Smooth = true;
-        player.gameObject.SetActive(false);
-        player.transform.position = m_respawnPoint.position;
-        player.gameObject.SetActive(true);
+        m_playerController.Respawn(m_respawnPoint.position);
     }
 }

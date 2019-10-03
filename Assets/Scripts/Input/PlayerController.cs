@@ -10,6 +10,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    public delegate void Callback();
+
     struct InputRetrieved
     {
         /* Since we're using GetAxisRaw, x and y integers are enough
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     // State vars
     [Header("Player state")]
+    [SerializeField] private bool m_ignoreInput = false;
     [SerializeField] private bool m_walking = false;
     [SerializeField] private bool m_jumping = false;
     [SerializeField] private bool m_falling = false;
@@ -39,6 +42,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_canJump = true;
     [SerializeField] private bool m_onLadder = false;
     [SerializeField] private bool m_climbing = false;
+    [SerializeField] private bool m_dead = false;
     private Vector3 m_timelineOffset;
 
     // Actual movement vars
@@ -59,28 +63,51 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(.1f, 5f)] private float m_gravityOnFalling = 1f;
     [SerializeField] [Range(0f, 1f)] private float m_additionalGravity = 0.05f;
     [SerializeField] [Range(-5f, -.1f)] private float m_gravityLimiter = -.8f;
- 
+
+    [Header("Animations")]
+    [SerializeField] private PlayerTimelineController m_timelineController;
+
+    [Header("Misc")]
+    [SerializeField] private Transform m_respawnPoint;
+    [SerializeField] private Transform m_deathByHeightGameObject;
+    
+
     private InputRetrieved input;
     private CurrentLadder m_currentLadder;
     private GameObject m_currentPipe;
     private Transform m_top;
     private Transform m_bottom;
+    private Vector3 m_deathByHeightGameObjectOffset;
+
+    public bool IgnoreInput { get { return m_ignoreInput;  } set { m_ignoreInput = value; } }
+    public bool Dead { get { return m_dead; } set { m_dead = value; } }
 
     private void Awake()
     {
+        transform.SetParent(null);
         m_characterController = GetComponent<CharacterController>();
         m_rotation = Quaternion.Euler(0, -90, 0);
         m_top = transform.Find("Head");
         m_bottom = transform.Find("Feet");
+        m_deathByHeightGameObjectOffset = m_deathByHeightGameObject.position - transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         GetInput();
-        ManageInput(ref input);
+
+        if (!m_ignoreInput)
+        {
+            ManageInput(ref input);
+        }
+
+        if (!m_ignoreInput)
+        {
+            ApplyRotation();
+        }
         ApplyMovement();
-        ApplyRotation();
+               
     }
 
     private void GetInput()
@@ -103,9 +130,6 @@ public class PlayerController : MonoBehaviour
 
         if (m_onLadder && !m_climbing)
         {           
-            //print("Feet Y: " + m_bottom.position.y);
-            //print("Ladder Y: " + m_currentLadder.top.position.y);
-            //print("Input.y:" + input.y);
             if(((input.y < 0 && m_bottom.position.y >= m_currentLadder.bottom.position.y) ||
                 (input.y > 0 && m_top.position.y <= m_currentLadder.top.position.y)))
             {             
@@ -248,7 +272,11 @@ public class PlayerController : MonoBehaviour
             m_currentLadder.transform = other.gameObject.transform;
             m_currentLadder.top = other.transform.GetChild(0).transform;
             m_currentLadder.bottom = other.transform.GetChild(1).transform;
-
+        }
+        else if(other.CompareTag("Death") && !m_dead)
+        {
+            //other.gameObject.SetActive(false);
+            Die();
         }
     }
 
@@ -256,7 +284,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Ladder"))
         {
-            //print(transform.position);
             m_onLadder = false;
             m_currentLadder.transform = null;
             m_currentLadder.top = null;
@@ -265,7 +292,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void AnchorToLadder()
-    {        
+    {
+        m_deathByHeightGameObject.SetParent(transform);
         m_climbing = true;
         Vector3 newPos = m_currentLadder.transform.position;
         gameObject.SetActive(false);
@@ -277,9 +305,11 @@ public class PlayerController : MonoBehaviour
 
     private void DetachFromLadder()
     {
-        m_climbing = false;
+        m_deathByHeightGameObject.SetParent(null);        
         gameObject.SetActive(false);
-        transform.position += new Vector3(0f, -.1f, .5f);
+        m_climbing = false;
+        m_onLadder = false;
+        transform.position += new Vector3(0f, -.1f, 1f);
         m_rotation = Quaternion.Euler(0, 90f, 0);
         gameObject.SetActive(true);
 
@@ -296,5 +326,63 @@ public class PlayerController : MonoBehaviour
     {
         m_currentPipe = pipe;
         print("Current pipe: " + pipe);
+    }
+
+    public IEnumerator GrabPipe(Vector3 pipeHotspot, Vector3 pipeEnd, Pipe.PipeDirection pipeDir)
+    {
+        //m_ignoreInput = true;
+
+        //Vector3 initialPos = transform.position;
+        //float tLerp = 0;
+
+        //transform.LookAt(pipeHotspot);
+
+        /*while (transform.position != pipeHotspot)
+        {
+            print((transform.position - pipeHotspot).magnitude);
+            tLerp += Time.deltaTime;
+            transform.position = Vector3.Lerp(initialPos, pipeHotspot, tLerp);
+            yield return new WaitForEndOfFrame();            
+        }*/
+
+        m_deathByHeightGameObject.position += m_deathByHeightGameObjectOffset;
+
+        gameObject.SetActive(false);
+        transform.position = new Vector3(pipeHotspot.x, transform.position.y, transform.position.z);
+        gameObject.SetActive(true);
+        //m_rotation = Quaternion.Euler(0, 180f, 0);
+
+
+        IgnoreInput = true;
+        Callback callback = () => { IgnoreInput = false; /*m_deathByHeightGameObject.SetParent(null);*/ };
+        StartCoroutine(m_timelineController.GrabPipe(transform, pipeEnd, pipeDir, callback));
+
+        yield return null;
+    }
+
+    public void Die()
+    {
+        m_dead = true;
+        m_ignoreInput = true;
+        m_movement = Vector3.zero;
+        //transform.rotation = Quaternion.Euler(180, 180, 45);
+        StartCoroutine(m_timelineController.Die(transform, () => 
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 180);            
+        }));
+    }
+
+    public void Respawn(Vector3 respawnPoint)
+    {
+        //player.gameObject.SetActive(false);
+        transform.position = respawnPoint;
+        transform.rotation = Quaternion.identity;
+        m_ignoreInput = false;
+        m_dead = false;
+        m_deathByHeightGameObject.gameObject.SetActive(false);
+        m_deathByHeightGameObject.position = transform.position + m_deathByHeightGameObjectOffset;
+        m_deathByHeightGameObject.gameObject.SetActive(true);
+        //m_playerController.IgnoreInput = false;
+        //m_playerController.Dead = false;
     }
 }
