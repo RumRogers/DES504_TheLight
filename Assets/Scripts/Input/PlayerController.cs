@@ -366,8 +366,10 @@ public class PlayerController : MonoBehaviour
     public void Respawn(Vector3 respawnPoint)
     {
         ManagePlatformsColliders.Instance.DetectCollisions(true);
+        gameObject.SetActive(false);
         transform.position = respawnPoint;
         transform.rotation = Quaternion.identity;
+        gameObject.SetActive(true);
         m_ignoreInput = false;
         m_dead = false;
     }

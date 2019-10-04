@@ -12,15 +12,8 @@ public class PlayerDeath : MonoBehaviour
     {
         if(other.name.Equals("Player"))
         {
-            StartCoroutine(DieWithDignity(other.transform));
+            m_playerController.Respawn(m_respawnPoint.position);
+            
         }
-    }
-
-    private IEnumerator DieWithDignity(Transform player)
-    {
-        //m_cameraFollowTarget.Smooth = false;
-        yield return new WaitForSeconds(1);
-        //m_cameraFollowTarget.Smooth = true;
-        m_playerController.Respawn(m_respawnPoint.position);
     }
 }
