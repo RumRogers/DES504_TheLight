@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
         public Transform transform;
         public Transform top;
         public Transform bottom;
+        public bool lowerThanCharacter;
     };
     private CharacterController m_characterController;
 
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_canJump = true;
     [SerializeField] private bool m_onLadder = false;
     [SerializeField] private bool m_climbing = false;
+    [SerializeField] private bool m_sliding = false;
     [SerializeField] private bool m_dead = false;
     private Vector3 m_timelineOffset;
 
@@ -68,19 +70,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerTimelineController m_timelineController;
 
     [Header("Misc")]
-    [SerializeField] private Transform m_respawnPoint;
-    [SerializeField] private Transform m_deathByHeightGameObject;
-    
+    [SerializeField] private Transform m_respawnPoint;    
 
     private InputRetrieved input;
     private CurrentLadder m_currentLadder;
     private GameObject m_currentPipe;
     private Transform m_top;
     private Transform m_bottom;
-    private Vector3 m_deathByHeightGameObjectOffset;
 
     public bool IgnoreInput { get { return m_ignoreInput;  } set { m_ignoreInput = value; } }
     public bool Dead { get { return m_dead; } set { m_dead = value; } }
+    public bool ChangingFloor { get { return m_climbing || m_sliding; } }
 
     private void Awake()
     {
@@ -89,7 +89,6 @@ public class PlayerController : MonoBehaviour
         m_rotation = Quaternion.Euler(0, -90, 0);
         m_top = transform.Find("Head");
         m_bottom = transform.Find("Feet");
-        m_deathByHeightGameObjectOffset = m_deathByHeightGameObject.position - transform.position;
     }
 
     // Update is called once per frame
@@ -103,15 +102,7 @@ public class PlayerController : MonoBehaviour
         }
 
         ApplyRotation();
-        if (!m_ignoreInput)
-        {
-            
-        }
-
-        ApplyMovement();
-
-        
-               
+        ApplyMovement();      
     }
 
     private void GetInput()
@@ -279,17 +270,11 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Ladder"))
         {
-            //m_deathByHeightGameObject.SetParent(transform);
             m_onLadder = true;
             m_currentLadder.transform = other.gameObject.transform;
             m_currentLadder.top = other.transform.GetChild(0).transform;
             m_currentLadder.bottom = other.transform.GetChild(1).transform;
-        }
-        else if(other.CompareTag("Death") && !m_dead)
-        {
-            print("you died");
-            //other.gameObject.SetActive(false);
-            Die();
+            
         }
     }
 
@@ -297,7 +282,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Ladder"))
         {
-            //m_deathByHeightGameObject.SetParent(null);
             m_onLadder = false;
             m_currentLadder.transform = null;
             m_currentLadder.top = null;
@@ -306,11 +290,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void AnchorToLadder()
-    {        
-        //m_deathByHeightGameObject.gameObject.SetActive(false);
-        print("Initial Pos: " + m_deathByHeightGameObject.position);
-        m_deathByHeightGameObject.SetParent(transform);
-        //m_deathByHeightGameObject.gameObject.SetActive(true);
+    {
         m_climbing = true;
         Vector3 newPos = m_currentLadder.transform.position;
         gameObject.SetActive(false);
@@ -321,12 +301,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void DetachFromLadder()
-    {
-        m_deathByHeightGameObject.SetParent(null);
-        print("Final Pos: " + m_deathByHeightGameObject.position);
-        //m_deathByHeightGameObject.gameObject.SetActive(false);
-        //m_deathByHeightGameObject.SetParent(null);
-        //m_deathByHeightGameObject.gameObject.SetActive(true);
+    {       
         gameObject.SetActive(false);
         m_climbing = false;
         m_onLadder = false;
@@ -350,9 +325,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public IEnumerator GrabPipe(Vector3 pipeHotspot, Vector3 pipeEnd, Pipe.PipeDirection pipeDir)
-    {
-        //m_ignoreInput = true;
-
+    {  
         //Vector3 initialPos = transform.position;
         //float tLerp = 0;
 
@@ -365,17 +338,13 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.Lerp(initialPos, pipeHotspot, tLerp);
             yield return new WaitForEndOfFrame();            
         }*/
-
-        m_deathByHeightGameObject.position += Vector3.up * m_deathByHeightGameObjectOffset.y;
-
+      
+        m_sliding = true;
         gameObject.SetActive(false);
         transform.position = new Vector3(pipeHotspot.x, transform.position.y, transform.position.z);
         gameObject.SetActive(true);
-        //m_rotation = Quaternion.Euler(0, 180f, 0);
-
-
         IgnoreInput = true;
-        Callback callback = () => { IgnoreInput = false; /*m_deathByHeightGameObject.SetParent(null);*/ };
+        Callback callback = () => { IgnoreInput = false; m_sliding = false;  };
         StartCoroutine(m_timelineController.GrabPipe(transform, pipeEnd, pipeDir, callback));
 
         yield return null;
@@ -397,15 +366,9 @@ public class PlayerController : MonoBehaviour
     public void Respawn(Vector3 respawnPoint)
     {
         ManagePlatformsColliders.Instance.DetectCollisions(true);
-        //player.gameObject.SetActive(false);
         transform.position = respawnPoint;
         transform.rotation = Quaternion.identity;
         m_ignoreInput = false;
         m_dead = false;
-        m_deathByHeightGameObject.gameObject.SetActive(false);
-        m_deathByHeightGameObject.position = transform.position + m_deathByHeightGameObjectOffset;
-        m_deathByHeightGameObject.gameObject.SetActive(true);
-        //m_playerController.IgnoreInput = false;
-        //m_playerController.Dead = false;
     }
 }
