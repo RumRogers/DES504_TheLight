@@ -18,7 +18,8 @@ public class PlayerDeath : MonoBehaviour
     {
         if(other.name.Equals("Player"))
         {
-            StartCoroutine(DieWithDignity(other.transform));
+            m_playerController.Respawn(m_respawnPoint.position);
+            
         }
     }
 
