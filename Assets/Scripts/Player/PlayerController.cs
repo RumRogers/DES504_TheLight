@@ -73,8 +73,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform m_respawnPoint;
 
     [Header("Items Carried")]
+    [SerializeField] private Inventory.InventoryItems m_currentItem = Inventory.InventoryItems.None;
     [SerializeField] private Transform m_armCrowbar;
     [SerializeField] private Transform m_armWrench;
+    private Dictionary<Inventory.InventoryItems, Transform> m_inventoryBindings = new Dictionary<Inventory.InventoryItems, Transform>();
 
 
     private InputRetrieved input;
@@ -86,6 +88,7 @@ public class PlayerController : MonoBehaviour
     public bool IgnoreInput { get { return m_ignoreInput;  } set { m_ignoreInput = value; } }
     public bool Dead { get { return m_dead; } set { m_dead = value; } }
     public bool ChangingFloor { get { return m_climbing || m_sliding; } }
+    public Inventory.InventoryItems CurrentItem { get { return m_currentItem; } }
 
     private void Awake()
     {
@@ -94,6 +97,8 @@ public class PlayerController : MonoBehaviour
         m_rotation = Quaternion.Euler(0, -90, 0);
         m_top = transform.Find("Head");
         m_bottom = transform.Find("Feet");
+        m_inventoryBindings[Inventory.InventoryItems.Crowbar] = m_armCrowbar;
+        m_inventoryBindings[Inventory.InventoryItems.MonkeyWrench] = m_armWrench;
     }
 
     // Update is called once per frame
@@ -137,7 +142,14 @@ public class PlayerController : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2))
         {
-
+            if (Inventory.Instance.ContainsItem(Inventory.InventoryItems.MonkeyWrench))
+            {
+                SetCurrentItem(Inventory.InventoryItems.MonkeyWrench);
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SetCurrentItem(Inventory.InventoryItems.None);
         }
 
         if (m_onLadder && !m_climbing)
@@ -216,11 +228,11 @@ public class PlayerController : MonoBehaviour
 
                 if (input.x < 0)
                 {
-                    m_rotation = Quaternion.Euler(xRot, 90, zRot);
+                    m_rotation = Quaternion.Euler(0, 90, 0);
                 }
                 else
                 {
-                    m_rotation = Quaternion.Euler(xRot, -90, zRot);
+                    m_rotation = Quaternion.Euler(0, -90, 0);
                 }
             }
             else
@@ -279,7 +291,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            transform.rotation = m_rotation;
+            transform.rotation = m_rotation;            
         }
     }
 
@@ -342,7 +354,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public IEnumerator GrabPipe(Vector3 pipeHotspot, Vector3 pipeEnd, Pipe.PipeDirection pipeDir)
-    {  
+    {
         //Vector3 initialPos = transform.position;
         //float tLerp = 0;
 
@@ -355,16 +367,21 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.Lerp(initialPos, pipeHotspot, tLerp);
             yield return new WaitForEndOfFrame();            
         }*/
-      
+
+        m_velocity = Vector3.zero;
+        m_movement = Vector3.zero;
         m_sliding = true;
         gameObject.SetActive(false);
         transform.position = new Vector3(pipeHotspot.x, transform.position.y, transform.position.z);
         gameObject.SetActive(true);
         IgnoreInput = true;
-        Callback callback = () => { IgnoreInput = false; m_sliding = false;  };
-        StartCoroutine(m_timelineController.GrabPipe(transform, pipeEnd, pipeDir, callback));
-
-        yield return null;
+        Callback callback = () =>
+        {
+            m_rotation = Quaternion.Euler(0, 90f, 0);
+            IgnoreInput = false;
+            m_sliding = false;            
+        };
+        yield return StartCoroutine(m_timelineController.GrabPipe(transform, pipeEnd, pipeDir, callback));
     }
 
     public void Die()
@@ -383,6 +400,7 @@ public class PlayerController : MonoBehaviour
     public void Respawn(Vector3 respawnPoint)
     {
         gameObject.SetActive(false);
+        SetCurrentItem(Inventory.InventoryItems.None);
         ManagePlatformsColliders.Instance.DetectCollisions(true);
         gameObject.SetActive(false);
         transform.position = respawnPoint;
@@ -395,11 +413,18 @@ public class PlayerController : MonoBehaviour
 
     private void SetCurrentItem(Inventory.InventoryItems item)
     {
-        switch(item)
+        foreach(var x in m_inventoryBindings)
         {
-            case Inventory.InventoryItems.Crowbar:
-                m_armCrowbar.gameObject.SetActive(true);
-                break;
+            if(x.Key == item)
+            {
+                x.Value.gameObject.SetActive(true);
+            }
+            else
+            {
+                x.Value.gameObject.SetActive(false);
+            }
         }
+
+        m_currentItem = item;
     }
 }

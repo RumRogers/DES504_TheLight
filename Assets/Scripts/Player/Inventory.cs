@@ -6,7 +6,7 @@ public class Inventory
 {
     public enum InventoryItems
     {
-        Crowbar, MonkeyWrench, Gold
+        Crowbar, MonkeyWrench, Gold, None
     }
 
     private const int m_possibleItems = 3;
