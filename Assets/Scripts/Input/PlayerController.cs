@@ -11,7 +11,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public delegate void Callback();
-
     struct InputRetrieved
     {
         /* Since we're using GetAxisRaw, x and y integers are enough
@@ -372,5 +371,6 @@ public class PlayerController : MonoBehaviour
         gameObject.SetActive(true);
         m_ignoreInput = false;
         m_dead = false;
+        this.GetComponent<Health>().health--;
     }
 }
