@@ -33,7 +33,7 @@ public class TimedPlatform : Resettable
             TimeLeft -= Time.deltaTime;
             if(TimeLeft <= 0 && m_alive)
             {
-                Collapse();      
+                StartCoroutine(Collapse());      
             }
         }
     }
@@ -58,18 +58,14 @@ public class TimedPlatform : Resettable
     {
         while (TimeLeft > 0)
         {
-            //print("Collapsing in " + TimeLeft + " seconds...");
             yield return new WaitForSeconds(1);
             TimeLeft -= 1;
         }
 
-        //print("Platform collapsed. Coroutine end.");
-        Collapse();
-
-        yield return null;
+        yield return StartCoroutine(Collapse());
     }
 
-    private void Collapse()
+    private IEnumerator Collapse()
     {
         m_alive = false;
         m_boxCollider.enabled = false;
@@ -77,6 +73,8 @@ public class TimedPlatform : Resettable
         {
             shatter.Collapse();
         }
+
+        yield return new WaitForSeconds(5f);
 
         gameObject.SetActive(false);
     }

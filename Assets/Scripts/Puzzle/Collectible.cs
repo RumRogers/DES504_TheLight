@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class Collectible : MonoBehaviour
 {
     [SerializeField] Inventory.InventoryItems m_itemID;
     [SerializeField] protected bool m_pickedUp = false;
+    [SerializeField] private Vector3 m_rotationAxis = new Vector3(0, 1, 0);
 
     private void Update()
     {
-        transform.Rotate(0, 1, 0);
+        transform.Rotate(m_rotationAxis, Space.World);
     }
 
     private void OnTriggerStay(Collider other)
