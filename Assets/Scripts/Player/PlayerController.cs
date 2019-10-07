@@ -70,7 +70,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerTimelineController m_timelineController;
 
     [Header("Misc")]
-    [SerializeField] private Transform m_respawnPoint;    
+    [SerializeField] private Transform m_respawnPoint;
+
+    [Header("Items Carried")]
+    [SerializeField] private Transform m_armCrowbar;
+    [SerializeField] private Transform m_armWrench;
+
 
     private InputRetrieved input;
     private CurrentLadder m_currentLadder;
@@ -122,6 +127,18 @@ public class PlayerController : MonoBehaviour
     private void ManageInput(ref InputRetrieved input)
     {
         m_movement = Vector3.zero; // Reset movement each frame
+
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if(Inventory.Instance.ContainsItem(Inventory.InventoryItems.Crowbar))
+            {
+                SetCurrentItem(Inventory.InventoryItems.Crowbar);
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+
+        }
 
         if (m_onLadder && !m_climbing)
         {           
@@ -374,5 +391,15 @@ public class PlayerController : MonoBehaviour
         m_ignoreInput = false;
         m_dead = false;
         gameObject.SetActive(true);
+    }
+
+    private void SetCurrentItem(Inventory.InventoryItems item)
+    {
+        switch(item)
+        {
+            case Inventory.InventoryItems.Crowbar:
+                m_armCrowbar.gameObject.SetActive(true);
+                break;
+        }
     }
 }

@@ -19,6 +19,7 @@ public class PlayerDeath : MonoBehaviour
         if(other.name.Equals("Player"))
         {
             m_playerController.Respawn(m_respawnPoint.position);
+            Inventory.Instance.Empty();
             m_stateManager.ResetAll();
         }
     }

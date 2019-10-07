@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class Collectible : MonoBehaviour
+public class Collectible : Resettable
 {
     [SerializeField] Inventory.InventoryItems m_itemID;
     [SerializeField] protected bool m_pickedUp = false;
@@ -28,5 +28,11 @@ public class Collectible : MonoBehaviour
             gameObject.SetActive(false);
             print(string.Format("{0} added to inventory", Inventory.Instance.GetItemName(m_itemID)));
         }
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+        m_pickedUp = false;
     }
 }

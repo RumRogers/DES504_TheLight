@@ -9,8 +9,8 @@ public class Inventory
         Crowbar, MonkeyWrench, Gold
     }
 
-    private const int m_PossibleItems = 3;
-    private int[] m_itemsCarried = new int[m_PossibleItems];
+    private const int m_possibleItems = 3;
+    private int[] m_itemsCarried = new int[m_possibleItems];
     private static Inventory m_instance = null;
     private Dictionary<InventoryItems, string> m_itemNames = new Dictionary<InventoryItems, string>();
 
@@ -43,5 +43,18 @@ public class Inventory
     public string GetItemName(InventoryItems item)
     {
         return m_itemNames[item];
+    }
+
+    public bool ContainsItem(InventoryItems item)
+    {
+        return m_itemsCarried[(int)item] > 0;
+    }
+
+    public void Empty()
+    {
+        for(int i = 0; i < m_possibleItems; i++)
+        {
+            m_itemsCarried[i] = 0;
+        }
     }
 }
