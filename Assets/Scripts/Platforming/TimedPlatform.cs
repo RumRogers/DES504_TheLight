@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimedPlatform : MonoBehaviour
+public class TimedPlatform : Resettable
 {
     public enum TimingStyle { STRICT_COUNTDOWN, CONTACT_COUNTDOWN };
 
     [SerializeField] private TimingStyle m_style = TimingStyle.CONTACT_COUNTDOWN;
+    [SerializeField] private float m_maxTime = 5;
     [SerializeField] private float m_timeLeft = 5;
+    
     private BoxCollider m_boxCollider;
     public float TimeLeft { get { return m_timeLeft; } set { m_timeLeft = value;  } }
     public TimingStyle Style { get { return m_style; } set { m_style = value; } }
@@ -16,10 +18,12 @@ public class TimedPlatform : MonoBehaviour
     private bool m_alive = true;
     private TestCrumbling[] m_platformShatters;
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         m_platformShatters = GetComponentsInChildren<TestCrumbling>();
         m_boxCollider = GetComponent<BoxCollider>();
+        m_timeLeft = m_maxTime;
     }
 
     void Update()
@@ -29,7 +33,7 @@ public class TimedPlatform : MonoBehaviour
             TimeLeft -= Time.deltaTime;
             if(TimeLeft <= 0 && m_alive)
             {
-                Collapse();      
+                StartCoroutine(Collapse());      
             }
         }
     }
@@ -54,18 +58,14 @@ public class TimedPlatform : MonoBehaviour
     {
         while (TimeLeft > 0)
         {
-            //print("Collapsing in " + TimeLeft + " seconds...");
             yield return new WaitForSeconds(1);
             TimeLeft -= 1;
         }
 
-        //print("Platform collapsed. Coroutine end.");
-        Collapse();
-
-        yield return null;
+        yield return StartCoroutine(Collapse());
     }
 
-    private void Collapse()
+    private IEnumerator Collapse()
     {
         m_alive = false;
         m_boxCollider.enabled = false;
@@ -74,6 +74,23 @@ public class TimedPlatform : MonoBehaviour
             shatter.Collapse();
         }
 
-        Destroy(gameObject, 3);
+        yield return new WaitForSeconds(5f);
+
+        gameObject.SetActive(false);
+    }
+
+    public override void Reset()
+    {
+        foreach (var shatter in m_platformShatters)
+        {
+            shatter.Reset();
+        }
+
+        base.Reset();
+
+        m_timeLeft = m_maxTime;
+        m_contact = false;
+        m_aboutToCollapse = false;
+        m_alive = true;
     }
 }

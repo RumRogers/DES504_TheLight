@@ -7,13 +7,19 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private CameraFollowTarget m_cameraFollowTarget;
     [SerializeField] private Transform m_respawnPoint;
     [SerializeField] private PlayerController m_playerController;
+    private StateManager m_stateManager;
+
+    private void Awake()
+    {
+        m_stateManager = GameObject.Find("StateManager").GetComponent<StateManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.name.Equals("Player"))
         {
             m_playerController.Respawn(m_respawnPoint.position);
-            
+            m_stateManager.ResetAll();
         }
     }
 }
