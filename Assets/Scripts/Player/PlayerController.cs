@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
             if(((input.y < 0 && m_bottom.position.y >= m_currentLadder.bottom.position.y) ||
                 (input.y > 0 && m_top.position.y <= m_currentLadder.top.position.y)))
             {             
-                AnchorToLadder(); 
+                AttachToLadder(); 
             }
         }
         if(m_climbing)
@@ -301,9 +301,8 @@ public class PlayerController : MonoBehaviour
         {
             m_onLadder = true;
             m_currentLadder.transform = other.gameObject.transform;
-            m_currentLadder.top = other.transform.GetChild(0).transform;
-            m_currentLadder.bottom = other.transform.GetChild(1).transform;
-            
+            m_currentLadder.top = other.transform.GetChild(3).transform;
+            m_currentLadder.bottom = other.transform.GetChild(4).transform;       
         }
     }
 
@@ -318,7 +317,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void AnchorToLadder()
+    private void AttachToLadder()
     {
         m_climbing = true;
         Vector3 newPos = m_currentLadder.transform.position;
@@ -353,7 +352,7 @@ public class PlayerController : MonoBehaviour
         print("Current pipe: " + pipe);
     }
 
-    public IEnumerator GrabPipe(Vector3 pipeHotspot, Vector3 pipeEnd, Pipe.PipeDirection pipeDir)
+    public IEnumerator GrabPipe(Vector3 pipeHotspot, Transform pipeEnd, Pipe.PipeDirection pipeDir)
     {
         //Vector3 initialPos = transform.position;
         //float tLerp = 0;

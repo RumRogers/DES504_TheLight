@@ -14,9 +14,9 @@ public class PlayerTimelineController : MonoBehaviour
     public PlayableDirector director;
     [SerializeField] private List<TimelineAsset> m_timelineAssets;
 
-    public IEnumerator GrabPipe(Transform character, Vector3 pipeEnd, Pipe.PipeDirection pipeDirection, PlayerController.Callback callback)
+    public IEnumerator GrabPipe(Transform character, Transform pipeEnd, Pipe.PipeDirection pipeDirection, PlayerController.Callback callback)
     {
-        if (character.rotation.eulerAngles.y <= 0)
+        if (character.position.x > pipeEnd.parent.transform.position.x)
         {
             PlayAnimation(character, m_timelineAssets[(int)TimelineIndices.GRAB_LEFT]);
         }
@@ -24,10 +24,9 @@ public class PlayerTimelineController : MonoBehaviour
         {
             PlayAnimation(character, m_timelineAssets[(int)TimelineIndices.GRAB_RIGHT]);
         }
-        //PlayAnimation(character, m_timelineAssets[(int)TimelineIndices.GRAB]);
 
         yield return new WaitWhile(() => { return director.state == PlayState.Paused;  });
-        yield return new WaitWhile(() => { return character.transform.position.y > pipeEnd.y; });
+        yield return new WaitWhile(() => { return character.transform.position.y > pipeEnd.position.y; });
         yield return StartCoroutine(LandFromPipe(character, pipeDirection));
 
         callback();

@@ -13,11 +13,12 @@ public class Pipe : MonoBehaviour
     private static float rotation_speed = 100;
 
     [SerializeField] private PipeDirection m_direction;
-    [SerializeField] private Transform m_pipeJumpHotspot;
+    [SerializeField] private Transform m_pipeJumpHotspotTransform;
     [SerializeField] private Transform m_pipeEnd;
     [SerializeField] private bool m_isStuck = false;
     private PlayerController m_playerController;
     private bool m_rotating = false;
+    private Vector3 m_pipeJumpHotspot;
 
     private void Awake()
     {
@@ -26,7 +27,9 @@ public class Pipe : MonoBehaviour
         if(gameObject != null)
         {
             m_playerController = gameObject.GetComponent<PlayerController>();
-        }      
+        }
+
+        m_pipeJumpHotspot = m_pipeJumpHotspotTransform.position;
     }
 
     private void Update()
@@ -67,7 +70,7 @@ public class Pipe : MonoBehaviour
                 switch(m_playerController.CurrentItem)
                 {
                     case Inventory.InventoryItems.None:
-                        StartCoroutine(m_playerController.GrabPipe(m_pipeJumpHotspot.position, m_pipeEnd.position, m_direction));
+                        StartCoroutine(m_playerController.GrabPipe(m_pipeJumpHotspot, m_pipeEnd, m_direction));
                         break;
                     case Inventory.InventoryItems.MonkeyWrench:
                         m_rotating = true;
