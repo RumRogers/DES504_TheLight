@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
@@ -17,12 +18,12 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float t = 20 - (Time.time - startTime);
-        if ( t < 10)
+        float t = 60 - (Time.time - startTime);
+        if ( t < 20)
         {
             timerText.color = Color.red;
             if (t <= 0)
-                return;
+                SceneManager.LoadScene(0);
         }
        
         string minutes = ((int)t / 60).ToString();
