@@ -16,10 +16,10 @@ public class Loading_drainpipes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        image_RadialProgressBar.enabled = false;
-        text_TextIndicator.enabled = false;
-        image_LoadingBar.enabled = false;
-        image_Center.enabled = false;
+       // image_RadialProgressBar.enabled = false;
+       // text_TextIndicator.enabled = false;
+      //  image_LoadingBar.enabled = false;
+      //  image_Center.enabled = false;
     }
 
     // Update is called once per frame

@@ -12,15 +12,19 @@ public class Health : MonoBehaviour
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
+    public Transform m_canvas_death;
 
     private void Update()
     {
-
+       // Debug.Log(Time.timeScale+"Health");
         if (health > numOfHearts)
             health = numOfHearts;
-        
-        if(health == 0)
-            SceneManager.LoadScene(0);
+
+        if (health <= 0)
+        {
+            m_canvas_death.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
 
         for (int i = 0; i < hearts.Length; i++)
         {
