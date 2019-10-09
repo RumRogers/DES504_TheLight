@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
     private GameObject m_currentPipe;
     private Transform m_top;
     private Transform m_bottom;
+    private PlayerAnimation m_playerAnimation;
 
     public bool IgnoreInput { get { return m_ignoreInput;  } set { m_ignoreInput = value; } }
     public bool Dead { get { return m_dead; } set { m_dead = value; } }
@@ -94,6 +95,7 @@ public class PlayerController : MonoBehaviour
     {
         transform.SetParent(null);
         m_characterController = GetComponent<CharacterController>();
+        m_playerAnimation = GetComponent<PlayerAnimation>();
         m_rotation = Quaternion.Euler(0, -90, 0);
         m_top = transform.Find("Head");
         m_bottom = transform.Find("Feet");
@@ -112,7 +114,8 @@ public class PlayerController : MonoBehaviour
         }
 
         ApplyRotation();
-        ApplyMovement();      
+        ApplyMovement();
+        NotifyAnimator();
     }
 
     private void GetInput()
@@ -132,8 +135,7 @@ public class PlayerController : MonoBehaviour
     private void ManageInput(ref InputRetrieved input)
     {
         m_movement = Vector3.zero; // Reset movement each frame
-
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if(Inventory.Instance.ContainsItem(Inventory.InventoryItems.Crowbar))
             {
@@ -178,7 +180,7 @@ public class PlayerController : MonoBehaviour
             {
                 m_canJump = false;
                 m_jumping = true;
-                m_crouching = false;
+                m_crouching = false;                
                 m_velocity.y += m_jumpForce;
             }
 
@@ -192,7 +194,7 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
-                        m_crouching = true;
+                        m_crouching = true;                        
                     }
                 }
             }
@@ -228,11 +230,11 @@ public class PlayerController : MonoBehaviour
 
                 if (input.x < 0)
                 {
-                    m_rotation = Quaternion.Euler(0, 90, 0);
+                    m_rotation = Quaternion.Euler(xRot, 90, zRot);
                 }
                 else
                 {
-                    m_rotation = Quaternion.Euler(0, -90, 0);
+                    m_rotation = Quaternion.Euler(xRot, -90, zRot);
                 }
             }
             else
@@ -289,7 +291,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.Rotate(9, 9, 9);
         }
-        else
+        else if(!m_crouching)
         {
             transform.rotation = m_rotation;            
         }
@@ -425,5 +427,14 @@ public class PlayerController : MonoBehaviour
         }
 
         m_currentItem = item;
+    }
+
+    private void NotifyAnimator()
+    {
+        m_playerAnimation.SetBool("isWalking", m_walking);
+        m_playerAnimation.SetBool("isJumping", m_jumping);
+        m_playerAnimation.SetBool("isCrouching", m_crouching);
+        m_playerAnimation.SetBool("isFalling", m_falling);
+        m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);
     }
 }
