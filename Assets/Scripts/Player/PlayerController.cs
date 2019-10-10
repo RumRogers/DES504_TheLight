@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     // State vars
     [Header("Player state")]
     [SerializeField] private bool m_ignoreInput = false;
+    [SerializeField] private bool m_moving = false;
     [SerializeField] private bool m_walking = false;
     [SerializeField] private bool m_jumping = false;
     [SerializeField] private bool m_falling = false;
@@ -44,7 +45,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_onLadder = false;
     [SerializeField] private bool m_climbing = false;
     [SerializeField] private bool m_sliding = false;
+    [SerializeField] private bool m_crawling = false;
     [SerializeField] private bool m_dead = false;
+
     private Vector3 m_timelineOffset;
 
     // Actual movement vars
@@ -111,6 +114,7 @@ public class PlayerController : MonoBehaviour
         if (!m_ignoreInput)
         {
             ManageInput(ref input);
+            
         }
 
         ApplyRotation();
@@ -205,14 +209,16 @@ public class PlayerController : MonoBehaviour
 
             if (input.x != 0)
             {
+                m_moving = true;
                 float speed = input.x * m_speed;
 
                 if (m_crouching)
                 {
                     speed *= m_crouchSpeedPercentage;
+                    m_crawling = true;
                 }
                 else if (input.dash)
-                {
+                {                    
                     m_walking = false;
                     m_running = true;
                     speed *= m_runningSpeedMultiplier;
@@ -221,6 +227,7 @@ public class PlayerController : MonoBehaviour
                 {
                     m_walking = true;
                     m_running = false;
+                    m_crawling = false;
                 }
 
                 m_movement.x = speed;
@@ -241,9 +248,12 @@ public class PlayerController : MonoBehaviour
             {
                 m_walking = false;
                 m_running = false;
+                m_crawling = false;
+                m_moving = false;
             }
         }
-        
+
+        //m_crawling = m_crouching && m_walking;
     }
 
     private void ApplyMovement()
@@ -291,7 +301,11 @@ public class PlayerController : MonoBehaviour
         {
             transform.Rotate(9, 9, 9);
         }
-        else if(!m_crouching)
+        else if (!m_moving && !m_falling && !m_crouching)
+        {
+            transform.rotation = Quaternion.identity;
+        }
+        else
         {
             transform.rotation = m_rotation;            
         }
@@ -327,7 +341,6 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(newPos.x, transform.position.y, newPos.z - .5f);
         m_rotation = Quaternion.Euler(0, 180f, 0);
         gameObject.SetActive(true);
-        
     }
 
     private void DetachFromLadder()
@@ -338,7 +351,6 @@ public class PlayerController : MonoBehaviour
         transform.position += new Vector3(0f, -.1f, 1f);
         m_rotation = Quaternion.Euler(0, 90f, 0);
         gameObject.SetActive(true);
-
     }
 
   
@@ -376,13 +388,17 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(pipeHotspot.x, transform.position.y, transform.position.z);
         gameObject.SetActive(true);
         IgnoreInput = true;
+        m_playerAnimation.UseTimeline(true);
         Callback callback = () =>
         {
             m_rotation = Quaternion.Euler(0, 90f, 0);
             IgnoreInput = false;
-            m_sliding = false;            
+            m_sliding = false;
+            m_playerAnimation.UseTimeline(false);
         };
         yield return StartCoroutine(m_timelineController.GrabPipe(transform, pipeEnd, pipeDir, callback));
+
+        //m_playerAnimation.SetTrigger("GrabPipe");
     }
 
     public void Die()
@@ -431,10 +447,16 @@ public class PlayerController : MonoBehaviour
 
     private void NotifyAnimator()
     {
+        m_playerAnimation.SetBool("isMoving", m_moving);
         m_playerAnimation.SetBool("isWalking", m_walking);
+        m_playerAnimation.SetBool("isRunning", m_running);
         m_playerAnimation.SetBool("isJumping", m_jumping);
-        m_playerAnimation.SetBool("isCrouching", m_crouching);
         m_playerAnimation.SetBool("isFalling", m_falling);
+        m_playerAnimation.SetBool("isCrouching", m_crouching);
+        m_playerAnimation.SetBool("isCrawling", m_crawling);
         m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);
+        //m_playerAnimation.SetBool("isStill", !m_moving && !m_falling && !m_crouching && m_characterController.isGrounded);
     }
+
+
 }

@@ -13,6 +13,7 @@ public class PlayerTimelineController : MonoBehaviour
 
     public PlayableDirector director;
     [SerializeField] private List<TimelineAsset> m_timelineAssets;
+    [SerializeField] private Animator m_Animator;
 
     public IEnumerator GrabPipe(Transform character, Transform pipeEnd, Pipe.PipeDirection pipeDirection, PlayerController.Callback callback)
     {
@@ -40,14 +41,19 @@ public class PlayerTimelineController : MonoBehaviour
         {
             PlayAnimation(character, m_timelineAssets[(int)TimelineIndices.LAND_LEFT]);
             rot = Quaternion.Euler(0, 90, 0);
+            yield return new WaitForSeconds(.5f);
         }
         else
         {
             PlayAnimation(character, m_timelineAssets[(int)TimelineIndices.LAND_RIGHT]);
             rot = Quaternion.Euler(0, -90, 0);
+            yield return new WaitForSeconds(.6f);
         }
 
-        yield return new WaitWhile(() => { return director.state == PlayState.Paused; });
+        //m_timelineAssets[(int)TimelineIndices.LAND_RIGHT].Get
+        //yield return new WaitForSeconds((float)m_timelineAssets[(int)TimelineIndices.LAND_RIGHT].duration);
+       
+        
 
         character.rotation = rot;
     }
@@ -66,7 +72,7 @@ public class PlayerTimelineController : MonoBehaviour
         yield return null;
     }
     private void PlayAnimation(Transform child, TimelineAsset timelineAsset, DirectorWrapMode wrapMode = DirectorWrapMode.None)
-    {
+    {        
         child.SetParent(null);
         transform.position = child.position;
         child.SetParent(transform);
