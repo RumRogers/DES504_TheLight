@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /* TODO: the player shouldn't know anything about specific pipes and ladders...
  * the pipes and ladders scripts should manage inputs in a particular trigger collider 
@@ -335,29 +336,49 @@ public class PlayerController : MonoBehaviour
 
     private void AttachToLadder()
     {
+        //m_playerAnimation.GetAnimator().runtimeAnimatorController = null;
+        m_playerAnimation.GetAnimator().enabled = false;
         m_climbing = true;
         Vector3 newPos = m_currentLadder.transform.position;
+        newPos.z = m_currentLadder.top.position.z;
         gameObject.SetActive(false);
-        transform.position = new Vector3(newPos.x, transform.position.y, newPos.z - .5f);
+        transform.position = new Vector3(newPos.x, transform.position.y, newPos.z);
         m_rotation = Quaternion.Euler(0, 180f, 0);
         gameObject.SetActive(true);
     }
 
     private void DetachFromLadder()
-    {       
+    {     
+        
+        if(m_currentLadder.transform == null)
+        {
+            int a = 0;
+        }
         gameObject.SetActive(false);
         m_climbing = false;
         m_onLadder = false;
-        transform.position += new Vector3(0f, -.1f, 1f);
+        Vector3 newPos = m_currentLadder.transform.position;
+        newPos.z = m_currentLadder.bottom.position.z;
+        //transform.position += new Vector3(0f, -.1f, 1f);
+        //transform.position = new Vector3(0f, -.1f, 1f);
+        transform.position = new Vector3(newPos.x, transform.position.y - .1f, newPos.z);
         m_rotation = Quaternion.Euler(0, 90f, 0);
         gameObject.SetActive(true);
+        m_playerAnimation.GetAnimator().enabled = true;
     }
 
   
     private bool IsRegularClimbing()
     {
-        return ((input.y < 0 && m_top.position.y >= m_currentLadder.bottom.position.y) ||
+        try
+        {
+            return ((input.y < 0 && m_top.position.y >= m_currentLadder.bottom.position.y) ||
                 (input.y > 0 && m_bottom.position.y <= m_currentLadder.top.position.y));
+        }
+        catch(NullReferenceException ex)
+        {
+            return false;
+        }
     }
 
     public void SetCurrentPipe(GameObject pipe)

@@ -45,4 +45,9 @@ public class PlayerAnimation : MonoBehaviour
             m_animator.applyRootMotion = true;
         }
     }
+
+    public Animator GetAnimator()
+    {
+        return m_animator;
+    }
 }
