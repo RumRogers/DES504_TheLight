@@ -110,6 +110,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    
+        print(m_characterController.isGrounded);
+        if(m_falling)
+        {
+            print("falling");
+        }
         GetInput();
 
         if (!m_ignoreInput)
@@ -267,8 +273,9 @@ public class PlayerController : MonoBehaviour
             {
                 m_velocity.y += (Physics.gravity.y * m_gravityOnJumping * Time.deltaTime);
             }
-            else
+            else if(m_velocity.y < -0.3f) // DO NOT TOUCH THIS!!!!!!            
             {
+                print(m_velocity.y);
                 m_velocity.y += (Physics.gravity.y * m_gravityOnFalling * Time.deltaTime);
                 m_jumping = false;
                 m_falling = true;
@@ -348,12 +355,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void DetachFromLadder()
-    {     
-        
-        if(m_currentLadder.transform == null)
-        {
-            int a = 0;
-        }
+    {   
         gameObject.SetActive(false);
         m_climbing = false;
         m_onLadder = false;
