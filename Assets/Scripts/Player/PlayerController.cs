@@ -423,8 +423,9 @@ public class PlayerController : MonoBehaviour
         transform.position = respawnPoint;
         transform.rotation = Quaternion.identity;
         gameObject.SetActive(true);
-        m_ignoreInput = false;
-        m_dead = false;
+        //m_ignoreInput = false;
+        //m_dead = false;
+        ResetState();
         gameObject.SetActive(true);
     }
 
@@ -458,5 +459,21 @@ public class PlayerController : MonoBehaviour
         //m_playerAnimation.SetBool("isStill", !m_moving && !m_falling && !m_crouching && m_characterController.isGrounded);
     }
 
+    private void ResetState() // TODO: use Resettable superclass instead
+    {
+        m_ignoreInput = false;
+        m_moving = false;
+        m_walking = false;
+        m_jumping = false;
+        m_falling = false;
+        m_crouching = false;
+        m_running = false;
+        m_canJump = true;
+        m_onLadder = false;
+        m_climbing = false;
+        m_sliding = false;
+        m_crawling = false;
+        m_dead = false;
+    }
 
 }
