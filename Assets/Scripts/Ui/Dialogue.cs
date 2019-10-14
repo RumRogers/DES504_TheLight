@@ -12,6 +12,9 @@ public class Dialogue : MonoBehaviour
     public Text[] text_dialogue_drainpipes;
     public Text[] text_dialogue_items;
 
+    private void Awake()
+    {
+    }
     // Start is called before the first frame update
     void Start()                                                                //hide all texts and images
     {
@@ -30,7 +33,18 @@ public class Dialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     /*   if (cloud_Dialogue_items.enabled == true)
+       //  cloud_Dialogue_drainpipes.transform.rotation = Quaternion.identity;
+       //  cloud_Dialogue_items.transform.rotation = Quaternion.identity;
+         for (int i = 0; i < text_dialogue_drainpipes.Length; i++)
+         {
+             text_dialogue_drainpipes[i].transform.rotation = Quaternion.identity; // Quaternion.eulerAngles(0f; 180f, 0);
+         }
+         for (int i = 0; i < text_dialogue_items.Length; i++)
+         {
+             text_dialogue_items[i].transform.rotation = Quaternion.identity;
+         }
+      
+        /*if (cloud_Dialogue_items.enabled == true)
         {
             StartCoroutine(waitSeconds_items());
             //cloud_Dialogue_items.enabled = false;
@@ -44,7 +58,7 @@ public class Dialogue : MonoBehaviour
 
     IEnumerator waitSeconds_items()                             //wait for 1 seconds, and dialogue will be disappeared
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0);
         cloud_Dialogue_items.enabled = false;
         for (int i = 0; i < text_dialogue_items.Length; i++)
         {
@@ -54,7 +68,7 @@ public class Dialogue : MonoBehaviour
     } 
     IEnumerator waitSeconds_drainpipes()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0);
         cloud_Dialogue_drainpipes.enabled = false;
         for (int i = 0; i < text_dialogue_drainpipes.Length; i++)
         {
@@ -65,7 +79,7 @@ public class Dialogue : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Resettable" && (other.transform.parent.name.CompareTo("Pipes") == 0))
+        if (other.tag == "Resettable" && (other.transform.parent.name.CompareTo("Pipes") == 0) && cloud_Dialogue_drainpipes.enabled == false)
         {
            
             cloud_Dialogue_drainpipes.enabled = true;
@@ -73,7 +87,7 @@ public class Dialogue : MonoBehaviour
             Debug.Log(n + "drainpipes");
             text_dialogue_drainpipes[n].enabled = true;
         }
-        if (other.tag == "Resettable" && (other.transform.parent.name.CompareTo("Collectibles") == 0))
+        if (other.tag == "Resettable" && (other.transform.parent.name.CompareTo("Collectibles") == 0) && cloud_Dialogue_items.enabled == false)
         {
   
             cloud_Dialogue_items.enabled = true;
@@ -84,9 +98,9 @@ public class Dialogue : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Resettable" && (other.transform.parent.name.CompareTo("Pipes") == 0))
+        if (other.tag == "Resettable" && (other.transform.parent.name.CompareTo("Pipes") == 0) )
             StartCoroutine(waitSeconds_drainpipes());
-        if (other.tag == "Resettable" && (other.transform.parent.name.CompareTo("Collectibles") == 0))
+        if (other.tag == "Resettable" && (other.transform.parent.name.CompareTo("Collectibles") == 0) )
             StartCoroutine(waitSeconds_items());
     }
 }
