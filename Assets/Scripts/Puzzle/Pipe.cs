@@ -29,6 +29,7 @@ public class Pipe : MonoBehaviour
             m_playerController = gameObject.GetComponent<PlayerController>();
         }
 
+        m_pipeJumpHotspotTransform.parent = m_pipeJumpHotspotTransform.parent.parent;
         m_pipeJumpHotspot = m_pipeJumpHotspotTransform.position;
     }
 

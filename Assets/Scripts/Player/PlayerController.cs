@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
         public Transform transform;
         public Transform top;
         public Transform bottom;
-        public bool lowerThanCharacter;
     };
     private CharacterController m_characterController;
 
@@ -47,6 +46,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_climbing = false;
     [SerializeField] private bool m_sliding = false;
     [SerializeField] private bool m_crawling = false;
+    [SerializeField] private bool m_swinging = false;
     [SerializeField] private bool m_dead = false;
 
     private Vector3 m_timelineOffset;
@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
     public bool IgnoreInput { get { return m_ignoreInput;  } set { m_ignoreInput = value; } }
     public bool Dead { get { return m_dead; } set { m_dead = value; } }
     public bool ChangingFloor { get { return m_climbing || m_sliding; } }
+    public bool Swinging { get { return m_swinging; } set { m_swinging = value; } }
     public Inventory.InventoryItems CurrentItem { get { return m_currentItem; } }
 
     private void Awake()
@@ -109,23 +110,20 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-    
-        print(m_characterController.isGrounded);
-        if(m_falling)
-        {
-            print("falling");
-        }
+    {      
         GetInput();
 
         if (!m_ignoreInput)
         {
-            ManageInput(ref input);
-            
+            ManageInput(ref input);    
         }
 
-        ApplyRotation();
-        ApplyMovement();
+        if(!m_swinging)
+        {
+            ApplyRotation();
+            ApplyMovement();
+        }
+        
         NotifyAnimator();
     }
 
@@ -275,7 +273,6 @@ public class PlayerController : MonoBehaviour
             }
             else if(m_velocity.y < -0.3f) // DO NOT TOUCH THIS!!!!!!            
             {
-                print(m_velocity.y);
                 m_velocity.y += (Physics.gravity.y * m_gravityOnFalling * Time.deltaTime);
                 m_jumping = false;
                 m_falling = true;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class PlayerAnimation : MonoBehaviour
 {
     private Animator m_animator;
@@ -10,7 +11,10 @@ public class PlayerAnimation : MonoBehaviour
     private void Awake()
     {
         m_animator = GetComponent<Animator>();
-        m_playerAnimatorController = m_animator.runtimeAnimatorController;
+        if(m_animator != null)
+        {
+            m_playerAnimatorController = m_animator.runtimeAnimatorController;
+        }
     }
 
     public void SetBool(string name, bool value)
