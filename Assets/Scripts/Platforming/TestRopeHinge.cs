@@ -9,15 +9,19 @@ public class TestRopeHinge : MonoBehaviour
     [SerializeField] private float m_forceMultiplier;
     [SerializeField] private Transform m_playerTransform;
     [SerializeField] private bool m_playerAttached = false;
-   
+    
     private Rigidbody m_playerRigidbody;
     private PlayerController m_playerController;
-
+    private Animator m_playerAnimator;
+    private BoxCollider m_triggerCollider;
+    
     private void Awake()
     {
         m_rigidbody = GetComponent<Rigidbody>();
         m_playerRigidbody = m_playerTransform.GetComponent<Rigidbody>();
         m_playerController = m_playerTransform.GetComponent<PlayerController>();
+        m_playerAnimator = m_playerTransform.GetComponent<Animator>();
+        m_triggerCollider = GetComponent<BoxCollider>();
     }
 
     private void FixedUpdate()
@@ -30,6 +34,10 @@ public class TestRopeHinge : MonoBehaviour
             {
                 m_playerAttached = false;
                 m_playerTransform.SetParent(null);
+                m_playerAnimator.enabled = true;
+                m_playerController.IgnoreInput = false;
+                m_playerController.Swinging = false;
+                StartCoroutine(DeactivateTriggerForSeconds(1f));
             }
             else if (x != 0)
             {
@@ -46,7 +54,15 @@ public class TestRopeHinge : MonoBehaviour
             m_playerAttached = true;
             m_playerController.IgnoreInput = true;
             m_playerController.Swinging = true;
+            m_playerAnimator.enabled = false;
             //m_rigidbody.
         }
+    }
+
+    private IEnumerator DeactivateTriggerForSeconds(float seconds)
+    {
+        m_triggerCollider.enabled = false;
+        yield return new WaitForSeconds(seconds);
+        m_triggerCollider.enabled = true;
     }
 }
