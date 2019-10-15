@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour
                 m_falling = true;
             }
 
-            if (!input.jump)
+            if (!input.jump || m_velocity.y <= 0)
             {
 
                 m_velocity.y += (Physics.gravity.y * m_additionalGravity * Time.deltaTime);
@@ -317,7 +317,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
+    {        
         if (other.CompareTag("Ladder"))
         {
             m_onLadder = true;
@@ -329,6 +329,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        return;
         if (other.CompareTag("Ladder"))
         {
             m_onLadder = false;
@@ -358,8 +359,6 @@ public class PlayerController : MonoBehaviour
         m_onLadder = false;
         Vector3 newPos = m_currentLadder.transform.position;
         newPos.z = m_currentLadder.bottom.position.z;
-        //transform.position += new Vector3(0f, -.1f, 1f);
-        //transform.position = new Vector3(0f, -.1f, 1f);
         transform.position = new Vector3(newPos.x, transform.position.y - .1f, newPos.z);
         m_rotation = Quaternion.Euler(0, 90f, 0);
         gameObject.SetActive(true);
@@ -378,12 +377,6 @@ public class PlayerController : MonoBehaviour
         {
             return false;
         }
-    }
-
-    public void SetCurrentPipe(GameObject pipe)
-    {
-        m_currentPipe = pipe;
-        print("Current pipe: " + pipe);
     }
 
     public IEnumerator GrabPipe(Vector3 pipeHotspot, Transform pipeEnd, Pipe.PipeDirection pipeDir)
