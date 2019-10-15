@@ -3,7 +3,12 @@ guid: 366f50b880d9780459eae58c884f556d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_backgroundFX: {fileID: 8300000, guid: f749dfa050c93414fa9627b2b3ba3815, type: 3}
+  - m_playerWalkFX: {instanceID: 0}
+  - m_playerJumpFX: {instanceID: 0}
+  - m_playerRunFX: {instanceID: 0}
+  - m_turnPipeFX: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

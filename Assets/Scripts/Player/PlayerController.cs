@@ -9,6 +9,8 @@ using System;
 */
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(AudioSource))]
+
 public class PlayerController : MonoBehaviour
 {
     public delegate void Callback();
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_crawling = false;
     [SerializeField] private bool m_swinging = false;
     [SerializeField] private bool m_dead = false;
+    private bool hasJustJumped = false;
 
     private Vector3 m_timelineOffset;
 
@@ -89,6 +92,7 @@ public class PlayerController : MonoBehaviour
     private Transform m_top;
     private Transform m_bottom;
     private PlayerAnimation m_playerAnimation;
+    private AudioSource m_audioSource;
 
     public bool IgnoreInput { get { return m_ignoreInput;  } set { m_ignoreInput = value; } }
     public bool Dead { get { return m_dead; } set { m_dead = value; } }
@@ -106,6 +110,7 @@ public class PlayerController : MonoBehaviour
         m_bottom = transform.Find("Feet");
         m_inventoryBindings[Inventory.InventoryItems.Crowbar] = m_armCrowbar;
         m_inventoryBindings[Inventory.InventoryItems.MonkeyWrench] = m_armWrench;
+        m_audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -125,6 +130,7 @@ public class PlayerController : MonoBehaviour
         }
         
         NotifyAnimator();
+        ManageSound();
     }
 
     private void GetInput()
@@ -143,6 +149,7 @@ public class PlayerController : MonoBehaviour
     // TODO: player should be able to start dashing only when grounded
     private void ManageInput(ref InputRetrieved input)
     {
+        hasJustJumped = false;
         m_movement = Vector3.zero; // Reset movement each frame
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -189,8 +196,9 @@ public class PlayerController : MonoBehaviour
             {
                 m_canJump = false;
                 m_jumping = true;
-                m_crouching = false;                
+                m_crouching = false;                  
                 m_velocity.y += m_jumpForce;
+                hasJustJumped = true;
             }
 
             if (input.y != 0 && m_characterController.isGrounded)
@@ -226,12 +234,13 @@ public class PlayerController : MonoBehaviour
                 {                    
                     m_walking = false;
                     m_running = true;
+                    
                     speed *= m_runningSpeedMultiplier;
                 }
                 else
                 {
                     m_walking = true;
-                    m_running = false;
+                    m_running = false;                    
                     m_crawling = false;
                 }
 
@@ -257,8 +266,6 @@ public class PlayerController : MonoBehaviour
                 m_moving = false;
             }
         }
-
-        //m_crawling = m_crouching && m_walking;
     }
 
     private void ApplyMovement()
@@ -327,9 +334,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
-        return;
         if (other.CompareTag("Ladder"))
         {
             m_onLadder = false;
@@ -337,7 +343,7 @@ public class PlayerController : MonoBehaviour
             m_currentLadder.top = null;
             m_currentLadder.bottom = null;
         }
-    }
+    }*/
 
     private void AttachToLadder()
     {
@@ -468,8 +474,28 @@ public class PlayerController : MonoBehaviour
         m_playerAnimation.SetBool("isFalling", m_falling);
         m_playerAnimation.SetBool("isCrouching", m_crouching);
         m_playerAnimation.SetBool("isCrawling", m_crawling);
-        m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);
-        //m_playerAnimation.SetBool("isStill", !m_moving && !m_falling && !m_crouching && m_characterController.isGrounded);
+        m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);        
+    }
+
+    private void ManageSound()
+    {
+        if(m_falling)
+        {
+            SoundManager.Instance.Stop(m_audioSource);
+        }
+        else if(hasJustJumped)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerJump, m_audioSource, false, .2f);
+        }
+        else if(!m_jumping && m_walking)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerWalk, m_audioSource, true);
+        }
+        else if(!m_jumping && m_running)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerRun, m_audioSource, true);
+        }
+        
     }
 
     private void ResetState() // TODO: use Resettable superclass instead

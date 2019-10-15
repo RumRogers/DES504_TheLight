@@ -4,59 +4,82 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    /*private static SoundManager m_instance;
-    public static SoundManager Instance
+    public enum SoundID
     {
-        get
-        {
-            if (m_instance == null)
-            {
-                m_instance = new SoundManager();
-            }
-            return m_instance;
-        }
-    }*/
+        BackgroundFX,
+        PlayerWalk,
+        PlayerRun,
+        PlayerJump,
+        Pipe_Rotate
+    }
 
+    public static SoundManager Instance { get; private set; }    
+    
     private AudioSource m_audioSource;
+    private Dictionary<SoundID, AudioClip> m_audioBindings = new Dictionary<SoundID, AudioClip>();
 
-    [SerializeField] private AudioClip m_walkFX;
-    [SerializeField] private AudioClip m_jumpFX;
-    [SerializeField] private AudioClip m_runFX;
+    [SerializeField] private AudioClip m_backgroundFX;
+    [SerializeField] private AudioClip m_playerWalkFX;
+    [SerializeField] private AudioClip m_playerJumpFX;
+    [SerializeField] private AudioClip m_playerRunFX;
     [SerializeField] private AudioClip m_turnPipeFX;
 
 
-    public void PlaySound(int id)
+    private void Awake()
     {
-        AudioClip clip = null;
-
-        switch(id)
+        if(Instance == null)
         {
-            case 0:
-                clip = m_walkFX;
-                break;
-            case 1:
-                clip = m_jumpFX;
-                break;
-            case 2:
-                clip = m_runFX;
-                break;
-            case 3:
-                clip = m_turnPipeFX;
-                break;
+           Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
         }
 
-        m_audioSource.clip = clip;
-        m_audioSource.Play();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        DontDestroyOnLoad(gameObject);
+        m_audioSource = GetComponent<AudioSource>();
+        m_audioBindings[SoundID.BackgroundFX] = m_backgroundFX;
+        m_audioBindings[SoundID.PlayerWalk] = m_playerWalkFX;
+        m_audioBindings[SoundID.PlayerJump] = m_playerJumpFX;
+        m_audioBindings[SoundID.PlayerRun] = m_playerRunFX;
+        m_audioBindings[SoundID.Pipe_Rotate] = m_turnPipeFX;
     }
 
-    // Update is called once per frame
-    void Update()
+    // Start is called before the first frame update
+    void Start()
+    {       
+        //PlaySound(SoundID.BackgroundFX, true, 1f, true);
+    }
+
+
+    public void PlaySound(SoundID soundID, AudioSource audioSource = null, bool oneshot = false, float volume = 1f, bool loop = false)
     {
-        
+        if(audioSource == null)
+        {
+            audioSource = m_audioSource;
+        }
+
+        audioSource.clip = m_audioBindings[soundID];
+        audioSource.loop = loop;
+
+        if (oneshot)
+        {            
+            if(!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(m_audioBindings[soundID], volume);
+            }
+            
+        }
+        else
+        {
+            audioSource.clip = m_audioBindings[soundID];
+            audioSource.Play();
+        }
+    }
+
+    public void Stop(AudioSource audioSource)
+    {
+        audioSource.Stop();
     }
 }
