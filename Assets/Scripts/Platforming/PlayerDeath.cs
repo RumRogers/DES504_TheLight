@@ -16,7 +16,7 @@ public class PlayerDeath : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.name.Equals("Player"))
+        if(other.name.Equals("Player") && !m_playerController.ChangingFloor)
         {
             m_playerController.Respawn(m_respawnPoint.position);
             m_stateManager.ResetAll();

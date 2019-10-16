@@ -366,13 +366,13 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.SetActive(false);
         ManagePlatformsColliders.Instance.DetectCollisions(true);
-        gameObject.SetActive(false);
+      //  gameObject.SetActive(false);
         transform.position = respawnPoint;
         transform.rotation = Quaternion.identity;
-        gameObject.SetActive(true);
+      //  gameObject.SetActive(true);
         m_ignoreInput = false;
         m_dead = false;
-        this.GetComponent<Health>().health--;
+        //this.GetComponent<Health>().health--;
         gameObject.SetActive(true);
     }
 }
