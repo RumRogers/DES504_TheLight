@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {      
+    {        
         GetInput();
 
         if (!m_ignoreInput)
@@ -334,7 +334,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Ladder"))
         {
@@ -343,7 +343,7 @@ public class PlayerController : MonoBehaviour
             m_currentLadder.top = null;
             m_currentLadder.bottom = null;
         }
-    }*/
+    }
 
     private void AttachToLadder()
     {
@@ -374,15 +374,8 @@ public class PlayerController : MonoBehaviour
   
     private bool IsRegularClimbing()
     {
-        try
-        {
-            return ((input.y < 0 && m_top.position.y >= m_currentLadder.bottom.position.y) ||
+        return ((input.y < 0 && m_top.position.y >= m_currentLadder.bottom.position.y) ||
                 (input.y > 0 && m_bottom.position.y <= m_currentLadder.top.position.y));
-        }
-        catch(NullReferenceException ex)
-        {
-            return false;
-        }
     }
 
     public IEnumerator GrabPipe(Vector3 pipeHotspot, Transform pipeEnd, Pipe.PipeDirection pipeDir)
@@ -489,11 +482,11 @@ public class PlayerController : MonoBehaviour
         }
         else if(!m_jumping && m_walking)
         {
-            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerWalk, m_audioSource, true);
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerWalk, m_audioSource, true, 2f);
         }
         else if(!m_jumping && m_running)
         {
-            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerRun, m_audioSource, true);
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerRun, m_audioSource, true, 2f);
         }
         
     }

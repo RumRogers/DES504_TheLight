@@ -31,6 +31,7 @@ public class TestRopeHinge : MonoBehaviour
     {
         if(m_playerAttached)
         {
+            //m_playerTransform.transform
             float x = Input.GetAxis("Horizontal");
 
             if(Input.GetButtonDown("Jump"))
