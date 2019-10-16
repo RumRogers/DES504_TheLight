@@ -50,7 +50,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_crawling = false;
     [SerializeField] private bool m_swinging = false;
     [SerializeField] private bool m_dead = false;
-    private bool hasJustJumped = false;
+    private bool m_hasJustJumped = false;
+    private bool m_hasJustLanded = false;
+    [SerializeField] private bool m_ignoreSounds = false;
 
     private Vector3 m_timelineOffset;
 
@@ -130,7 +132,11 @@ public class PlayerController : MonoBehaviour
         }
         
         NotifyAnimator();
-        ManageSound();
+
+        if(!m_ignoreSounds)
+        {
+            ManageSound();
+        }    
     }
 
     private void GetInput()
@@ -148,8 +154,7 @@ public class PlayerController : MonoBehaviour
 
     // TODO: player should be able to start dashing only when grounded
     private void ManageInput(ref InputRetrieved input)
-    {
-        hasJustJumped = false;
+    {        
         m_movement = Vector3.zero; // Reset movement each frame
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -175,7 +180,7 @@ public class PlayerController : MonoBehaviour
             if(((input.y < 0 && m_bottom.position.y >= m_currentLadder.bottom.position.y) ||
                 (input.y > 0 && m_top.position.y <= m_currentLadder.top.position.y)))
             {             
-                AttachToLadder(); 
+                StartCoroutine(AttachToLadder()); 
             }
         }
         if(m_climbing)
@@ -198,7 +203,7 @@ public class PlayerController : MonoBehaviour
                 m_jumping = true;
                 m_crouching = false;                  
                 m_velocity.y += m_jumpForce;
-                hasJustJumped = true;
+                m_hasJustJumped = true;
             }
 
             if (input.y != 0 && m_characterController.isGrounded)
@@ -274,31 +279,37 @@ public class PlayerController : MonoBehaviour
 
         if(!m_climbing)
         {
-            if (m_velocity.y > 0)
+            if (m_velocity.y > 0) // Going up!
             {
                 m_velocity.y += (Physics.gravity.y * m_gravityOnJumping * Time.deltaTime);
             }
-            else if(m_velocity.y < -0.3f) // DO NOT TOUCH THIS!!!!!!            
+            else if(m_velocity.y < -0.3f) // DO NOT TOUCH THIS!!!!!! No-falling threshold            
             {
                 m_velocity.y += (Physics.gravity.y * m_gravityOnFalling * Time.deltaTime);
                 m_jumping = false;
                 m_falling = true;
             }
 
-            if (!input.jump || m_velocity.y <= 0)
+            if (!input.jump || m_velocity.y <= 0) // not pressing space or simply falling
             {
 
                 m_velocity.y += (Physics.gravity.y * m_additionalGravity * Time.deltaTime);
             }
 
+            // avoid realistic gravity, just use a Mario-ish limiter 
             if (m_velocity.y < m_gravityLimiter)
             {
                 m_velocity.y = m_gravityLimiter;
             }
             m_characterController.Move(m_velocity);
 
+
             if (m_characterController.isGrounded)
             {
+                if(m_falling)
+                {
+                    m_hasJustLanded = true;
+                }
                 m_jumping = false;
                 m_falling = false;
                 m_velocity.y = 0;
@@ -326,7 +337,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {        
         if (other.CompareTag("Ladder"))
-        {
+        {            
             m_onLadder = true;
             m_currentLadder.transform = other.gameObject.transform;
             m_currentLadder.top = other.transform.GetChild(3).transform;
@@ -335,18 +346,23 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other)
-    {
+    {        
         if (other.CompareTag("Ladder"))
-        {
-            m_onLadder = false;
-            m_currentLadder.transform = null;
-            m_currentLadder.top = null;
-            m_currentLadder.bottom = null;
+        {            
+            if (m_currentLadder.transform != null)
+            {
+                m_onLadder = false;
+                m_currentLadder.transform = null;
+                m_currentLadder.top = null;
+                m_currentLadder.bottom = null;
+            }
         }
     }
 
-    private void AttachToLadder()
-    {
+    private IEnumerator AttachToLadder()
+    {        
+        m_crouching = false;
+        yield return new WaitForEndOfFrame();
         //m_playerAnimation.GetAnimator().runtimeAnimatorController = null;
         m_playerAnimation.GetAnimator().enabled = false;
         m_climbing = true;
@@ -359,7 +375,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void DetachFromLadder()
-    {   
+    {     
         gameObject.SetActive(false);
         m_climbing = false;
         m_onLadder = false;
@@ -374,8 +390,15 @@ public class PlayerController : MonoBehaviour
   
     private bool IsRegularClimbing()
     {
-        return ((input.y < 0 && m_top.position.y >= m_currentLadder.bottom.position.y) ||
+        try
+        {
+            return ((input.y < 0 && m_top.position.y >= m_currentLadder.bottom.position.y) ||
                 (input.y > 0 && m_bottom.position.y <= m_currentLadder.top.position.y));
+        }
+        catch(NullReferenceException ex)
+        {            
+            return false;
+        }
     }
 
     public IEnumerator GrabPipe(Vector3 pipeHotspot, Transform pipeEnd, Pipe.PipeDirection pipeDir)
@@ -409,8 +432,6 @@ public class PlayerController : MonoBehaviour
             m_playerAnimation.UseTimeline(false);
         };
         yield return StartCoroutine(m_timelineController.GrabPipe(transform, pipeEnd, pipeDir, callback));
-
-        //m_playerAnimation.SetTrigger("GrabPipe");
     }
 
     public void Die()
@@ -419,11 +440,6 @@ public class PlayerController : MonoBehaviour
         m_ignoreInput = true;
         ManagePlatformsColliders.Instance.DetectCollisions(false);
         m_movement = Vector3.zero;
-        //transform.rotation = Quaternion.Euler(180, 180, 45);
-        /*StartCoroutine(m_timelineController.Die(transform, () => 
-        {
-            //transform.rotation = Quaternion.Euler(0, 180, 180);            
-        }));*/
     }
 
     public void Respawn(Vector3 respawnPoint)
@@ -476,9 +492,16 @@ public class PlayerController : MonoBehaviour
         {
             SoundManager.Instance.Stop(m_audioSource);
         }
-        else if(hasJustJumped)
+        else if(m_hasJustJumped)
         {
+            m_hasJustJumped = false;
             SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerJump, m_audioSource, false, .2f);
+        }
+        else if(m_hasJustLanded)
+        {
+            m_hasJustLanded = false;
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerLand, m_audioSource, false);
+            StartCoroutine(IgnoreSoundForSeconds(.2f));
         }
         else if(!m_jumping && m_walking)
         {
@@ -506,6 +529,13 @@ public class PlayerController : MonoBehaviour
         m_sliding = false;
         m_crawling = false;
         m_dead = false;
+    }
+
+    private IEnumerator IgnoreSoundForSeconds(float seconds)
+    {
+        m_ignoreSounds = true;
+        yield return new WaitForSeconds(seconds);
+        m_ignoreSounds = false;
     }
 
 }

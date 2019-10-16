@@ -56,11 +56,7 @@ public class TimedPlatform : Resettable
 
     private IEnumerator CountdownToDestruction()
     {
-        while (TimeLeft > 0)
-        {
-            yield return new WaitForSeconds(1);
-            TimeLeft -= 1;
-        }
+        yield return new WaitForSeconds(TimeLeft);
 
         yield return StartCoroutine(Collapse());
     }

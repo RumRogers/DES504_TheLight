@@ -13,6 +13,8 @@ public class Inventory
     private int[] m_itemsCarried = new int[m_possibleItems];
     private static Inventory m_instance = null;
     private Dictionary<InventoryItems, string> m_itemNames = new Dictionary<InventoryItems, string>();
+    //public 
+
 
     public static Inventory Instance {
         get

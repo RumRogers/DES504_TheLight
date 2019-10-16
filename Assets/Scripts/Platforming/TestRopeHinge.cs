@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: add jump force to player when he leaves the platform
 public class TestRopeHinge : MonoBehaviour
 {
     private Rigidbody m_rigidbody;
@@ -60,7 +61,7 @@ public class TestRopeHinge : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             m_playerTransform.SetParent(transform);
-            m_playerTransform.SetPositionAndRotation(m_anchorPoint.position, m_anchorPoint.rotation);
+            m_playerTransform.SetPositionAndRotation(m_anchorPoint.position, m_anchorPoint.rotation);             
             m_playerAttached = true;
             m_playerController.IgnoreInput = true;
             m_playerController.Swinging = true;
