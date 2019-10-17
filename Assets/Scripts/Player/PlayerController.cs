@@ -375,4 +375,10 @@ public class PlayerController : MonoBehaviour
         //this.GetComponent<Health>().health--;
         gameObject.SetActive(true);
     }
+
+    public bool JudgeFalling()
+    {
+        bool falling = m_falling;
+        return falling;
+    }
 }
