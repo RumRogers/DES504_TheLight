@@ -25,24 +25,25 @@ public class LightedWindow : Resettable
     IEnumerator WaitPlayerSeconds()                           //give player 0.5f to avoid lighted window
     {
             yield return new WaitForSeconds(0.1f);
-            StartCoroutine(WaitForMove());
+        while (i != 5)
+        {
+            yield return StartCoroutine(WaitForMove());
+            i++;
+        }
+        var posori = transform.position;
+        posori.z = 0.8f;
+        transform.position = posori;
     }
 
     IEnumerator WaitForMove()                               //each 0.1f time to move 0.1f distance
     {
-        while (i != 5)
-        {
+        
             yield return new WaitForSeconds(0.1f);
-            i++;
             var pos = transform.position;
             pos.z -= 0.05f;
             transform.position = pos;
             if (judge == true)
                 m_playerController.Die();
-        }
-        var posori = transform.position;
-        posori.z = 0.8f;
-        transform.position = posori;
 
     }
 }

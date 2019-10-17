@@ -6,13 +6,15 @@ public class Inventory
 {
     public enum InventoryItems
     {
-        Crowbar, MonkeyWrench, Gold
+        Crowbar, MonkeyWrench, Gold, None
     }
 
-    private const int m_PossibleItems = 3;
-    private int[] m_itemsCarried = new int[m_PossibleItems];
+    private const int m_possibleItems = 3;
+    private int[] m_itemsCarried = new int[m_possibleItems];
     private static Inventory m_instance = null;
     private Dictionary<InventoryItems, string> m_itemNames = new Dictionary<InventoryItems, string>();
+    //public 
+
 
     public static Inventory Instance {
         get
@@ -37,11 +39,25 @@ public class Inventory
     
     public void PickUp(InventoryItems item)
     {
+        SoundManager.Instance.PlaySound(SoundManager.SoundID.ItemPickUp);
         m_itemsCarried[(int)item]++;
     }
 
     public string GetItemName(InventoryItems item)
     {
         return m_itemNames[item];
+    }
+
+    public bool ContainsItem(InventoryItems item)
+    {
+        return m_itemsCarried[(int)item] > 0;
+    }
+
+    public void Empty()
+    {
+        for(int i = 0; i < m_possibleItems; i++)
+        {
+            m_itemsCarried[i] = 0;
+        }
     }
 }
