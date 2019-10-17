@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
         PlayerRun,
         PlayerJump,
         PlayerLand,
+        ItemPickUp,
         Pipe_Rotate
     }
 
@@ -24,6 +25,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip m_playerJumpFX;
     [SerializeField] private AudioClip m_playerRunFX;
     [SerializeField] private AudioClip m_playerLandFX;
+    [SerializeField] private AudioClip m_itemPickUpFX;
     [SerializeField] private AudioClip m_turnPipeFX;
 
 
@@ -46,6 +48,7 @@ public class SoundManager : MonoBehaviour
         m_audioBindings[SoundID.PlayerJump] = m_playerJumpFX;
         m_audioBindings[SoundID.PlayerRun] = m_playerRunFX;
         m_audioBindings[SoundID.PlayerLand] = m_playerLandFX;
+        m_audioBindings[SoundID.ItemPickUp] = m_itemPickUpFX;
         m_audioBindings[SoundID.Pipe_Rotate] = m_turnPipeFX;
     }
 
@@ -62,8 +65,9 @@ public class SoundManager : MonoBehaviour
         {
             audioSource = m_audioSource;
         }
-
+        
         audioSource.clip = m_audioBindings[soundID];
+        audioSource.volume = volume;
         audioSource.loop = loop;
 
         if (oneshot)

@@ -353,8 +353,8 @@ public class PlayerController : MonoBehaviour
             {
                 m_onLadder = false;
                 m_currentLadder.transform = null;
-                m_currentLadder.top = null;
-                m_currentLadder.bottom = null;
+                //m_currentLadder.top = null;
+                //m_currentLadder.bottom = null;
             }
         }
     }
@@ -366,8 +366,8 @@ public class PlayerController : MonoBehaviour
         //m_playerAnimation.GetAnimator().runtimeAnimatorController = null;
         m_playerAnimation.GetAnimator().enabled = false;
         m_climbing = true;
-        Vector3 newPos = m_currentLadder.transform.position;
-        newPos.z = m_currentLadder.top.position.z;
+        Vector3 newPos = m_currentLadder.top.position;
+        //newPos.z = m_currentLadder.top.position.z;
         gameObject.SetActive(false);
         transform.position = new Vector3(newPos.x, transform.position.y, newPos.z);
         m_rotation = Quaternion.Euler(0, 180f, 0);
@@ -495,21 +495,21 @@ public class PlayerController : MonoBehaviour
         else if(m_hasJustJumped)
         {
             m_hasJustJumped = false;
-            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerJump, m_audioSource, false, .2f);
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerJump, m_audioSource, false, .5f);
         }
         else if(m_hasJustLanded)
         {
             m_hasJustLanded = false;
-            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerLand, m_audioSource, false);
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerLand, m_audioSource, false, .5f);
             StartCoroutine(IgnoreSoundForSeconds(.2f));
         }
         else if(!m_jumping && m_walking)
         {
-            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerWalk, m_audioSource, true, 2f);
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerWalk, m_audioSource, true, 1f);
         }
         else if(!m_jumping && m_running)
         {
-            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerRun, m_audioSource, true, 2f);
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerRun, m_audioSource, true, .5f);
         }
         
     }

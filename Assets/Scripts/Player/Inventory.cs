@@ -39,6 +39,7 @@ public class Inventory
     
     public void PickUp(InventoryItems item)
     {
+        SoundManager.Instance.PlaySound(SoundManager.SoundID.ItemPickUp);
         m_itemsCarried[(int)item]++;
     }
 
