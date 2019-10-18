@@ -19,13 +19,13 @@ public class LightedWindow : Resettable
 
     private void OnTriggerExit(Collider other)
     {
-        judge = false;
+            judge = false;
     }
 
     IEnumerator WaitPlayerSeconds()                           //give player 0.5f to avoid lighted window
     {
             yield return new WaitForSeconds(0.1f);
-        while (i != 5)
+        while (i <= 5)
         {
             yield return StartCoroutine(WaitForMove());
             i++;
