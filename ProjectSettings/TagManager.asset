@@ -9,6 +9,7 @@ TagManager:
   - Death
   - Item
   - Resettable
+  - HidingSpot
   layers:
   - Default
   - TransparentFX

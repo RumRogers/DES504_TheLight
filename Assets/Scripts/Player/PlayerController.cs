@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_crawling = false;
     [SerializeField] private bool m_swinging = false;
     [SerializeField] private bool m_dead = false;
+    [SerializeField] private bool m_hiding = false;
     private bool m_hasJustJumped = false;
     private bool m_hasJustLanded = false;
     [SerializeField] private bool m_ignoreSounds = false;
@@ -538,4 +539,40 @@ public class PlayerController : MonoBehaviour
         m_ignoreSounds = false;
     }
 
+    public IEnumerator HideTo(Vector3 position)
+    {
+        if(m_hiding || m_moving || m_crouching || m_falling || m_crawling)
+        {
+            yield break;
+        }
+
+        m_hiding = true;
+        IgnoreInput = true;
+
+        yield return new WaitForEndOfFrame();
+        gameObject.SetActive(false);
+        transform.position = position;
+        gameObject.SetActive(true);
+
+        
+    }
+
+    public IEnumerator LeaveHidingSpot(Vector3 position)
+    {
+        if (!m_hiding)
+        {
+            yield break;
+        }
+
+        m_hiding = false;
+
+        //IgnoreInput = true;
+
+        yield return new WaitForEndOfFrame();
+
+        gameObject.SetActive(false);
+        transform.position = position;
+        gameObject.SetActive(true);
+        IgnoreInput = false;
+    }
 }
