@@ -6,13 +6,15 @@ public class CCTVCamera : MonoBehaviour
 {
     [SerializeField] private bool m_debugMode = true;
     private Transform m_lens;
-    [SerializeField] private Transform m_target;
+    [SerializeField] protected GameObject m_alarmBalloon;
+    [SerializeField] protected Transform m_target;
     [SerializeField] private float m_distance = 10f;
     [SerializeField] protected float m_fovDegrees = 20;
     [SerializeField] protected bool m_alarm = false;    
     [SerializeField] private Vector3 axis;
     private Color m_nativeColor;
     private LineRenderer m_lineRenderer;
+    private bool m_witnessed = false;
 
     public Transform Target { get { return m_target; } set { m_target = value;  } }
     private Vector3 m_viewconeBaseCenter;
@@ -23,6 +25,7 @@ public class CCTVCamera : MonoBehaviour
     protected virtual void Awake()
     {
         m_lens = transform.Find("Lens");
+       
         Component[] components = GetComponentsInChildren(typeof(MeshRenderer), false);
         for(int i = 0; i < components.Length; i++)
         {
@@ -57,6 +60,11 @@ public class CCTVCamera : MonoBehaviour
         }
 
         m_alarm = IsTargetVisible();
+        m_alarmBalloon.SetActive(m_alarm);
+        if (m_alarm)
+        {
+            RaiseAlarm();
+        }       
     }
 
     private bool IsTargetVisible()
@@ -148,6 +156,19 @@ public class CCTVCamera : MonoBehaviour
 
             v = Quaternion.AngleAxis(i, axis) * b;
             m_lineRenderer.SetPosition(i + 1, m_lens.position + v * m_distance);
+        }
+    }
+
+    private void RaiseAlarm()
+    {
+        if(!m_witnessed)
+        {
+            m_witnessed = true;
+            // increase witness count
+        }
+        if(m_alarmBalloon != null)
+        {
+            m_alarmBalloon.SetActive(true);
         }
     }
 }

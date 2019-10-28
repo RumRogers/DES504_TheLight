@@ -10,6 +10,12 @@ public class NPCBasicBehavior : CCTVCamera
     [SerializeField] private Transform m_pathEnd;
     private Vector3 m_currentStart;
     private Vector3 m_currentGoal;
+    [SerializeField] GameObject m_platform;
+    private Vector3 m_leftBound;
+    private Vector3 m_rightBound;
+    private IEnumerator m_patrolCoroutine;
+    [SerializeField] private float m_chasingSpeed = 10;
+
 
     protected override void Awake()
     {
@@ -19,11 +25,31 @@ public class NPCBasicBehavior : CCTVCamera
         m_pathStart = transform.position;
         m_currentStart = m_pathStart;
         m_currentGoal = m_pathEnd.position;
+        ComputePlatformBounds();
+        m_alarmBalloon.transform.parent = null;
+        Billboard billboard = m_alarmBalloon.GetComponent<Billboard>();
+        billboard.SetTarget(transform);
     }
 
     void Start()
     {
-        StartCoroutine(Patrol());
+        m_patrolCoroutine = Patrol();
+        StartCoroutine(m_patrolCoroutine);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if(m_alarm)
+        {
+            Chase();
+        }
+        else if(m_patrolCoroutine == null)
+        {
+            m_currentStart = transform.position;
+            m_patrolCoroutine = Patrol();
+            StartCoroutine(m_patrolCoroutine);
+        }
     }
 
     IEnumerator Patrol()
@@ -43,8 +69,19 @@ public class NPCBasicBehavior : CCTVCamera
                 ChangeGoal();
                 tLerp = 0;
                 yield return new WaitForSeconds(m_breakDurationInSeconds);
-                transform.Rotate(0, 180, 0);
+                //transform.Rotate(0, 180, 0);
             }
+
+            //m_alarmBalloon.transform.parent = transform.parent;
+            if(transform.position.x > m_currentGoal.x)
+            {
+                transform.rotation = Quaternion.Euler(0, 90, 0);
+            }
+            else if (transform.position.x < m_currentGoal.x)
+            {
+                transform.rotation = Quaternion.Euler(0, 270, 0);
+            }
+            //m_alarmBalloon.transform.parent = transform;
         }
     }
 
@@ -59,6 +96,59 @@ public class NPCBasicBehavior : CCTVCamera
         {
             m_currentGoal = m_pathStart; 
             m_currentStart = m_pathEnd.position;
+        }
+    }
+
+    void ComputePlatformBounds()
+    {
+        m_leftBound = new Vector3();
+        m_rightBound = new Vector3();
+
+        if (m_platform != null)
+        {
+            BoxCollider collider = m_platform.GetComponent<BoxCollider>();
+
+            m_leftBound = collider.bounds.min;
+            m_rightBound = collider.bounds.max;
+        }
+
+        //print("Left bound: " + m_leftBound);
+        //print("Right bound: " + m_rightBound);
+    }
+
+    void Chase()
+    {
+        if(m_patrolCoroutine != null)
+        {
+            StopCoroutine(m_patrolCoroutine);
+            m_patrolCoroutine = null;
+        }
+
+        int dir = 1;
+
+        if (transform.position.x > m_target.position.x)
+        {
+            dir = -1;
+        }
+
+        Vector3 nextPos = transform.position + new Vector3(m_chasingSpeed * dir * Time.deltaTime, 0, 0);
+        if (dir == 1 && nextPos.x > m_rightBound.x)
+        {
+            nextPos.x = m_rightBound.x;
+        }
+        else if(dir == -1 && nextPos.x < m_leftBound.x)
+        {
+            nextPos.x = m_leftBound.x;
+        }
+        transform.position = nextPos;        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            print("GOTCHA!");
+            // lose
         }
     }
 }

@@ -10,6 +10,7 @@ TagManager:
   - Item
   - Resettable
   - HidingSpot
+  - AlarmBalloon
   layers:
   - Default
   - TransparentFX
