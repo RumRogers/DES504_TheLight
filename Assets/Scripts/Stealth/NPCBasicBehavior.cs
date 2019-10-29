@@ -147,8 +147,9 @@ public class NPCBasicBehavior : CCTVCamera
     {
         if(other.CompareTag("Player"))
         {
-            print("GOTCHA!");
+            //print("GOTCHA!");
             // lose
+            GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "Busted! You blow.");
         }
     }
 }

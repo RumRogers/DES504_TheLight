@@ -13,8 +13,6 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    public delegate void Callback();
-
     struct InputRetrieved
     {
         /* Since we're using GetAxisRaw, x and y integers are enough
@@ -36,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     // State vars
     [Header("Player state")]
+    [SerializeField] private int m_lives = 3; // witnesses left
     [SerializeField] private bool m_ignoreInput = false;
     [SerializeField] private bool m_moving = false;
     [SerializeField] private bool m_walking = false;
@@ -119,6 +118,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {        
+        if(GameManager.Instance.GamePaused)
+        {
+            return;
+        }
+
         GetInput();
 
         if (!m_ignoreInput)
@@ -302,8 +306,8 @@ public class PlayerController : MonoBehaviour
             {
                 m_velocity.y = m_gravityLimiter;
             }
-            m_characterController.Move(m_velocity);
 
+            m_characterController.Move(m_velocity);
 
             if (m_characterController.isGrounded)
             {
@@ -425,7 +429,7 @@ public class PlayerController : MonoBehaviour
         gameObject.SetActive(true);
         IgnoreInput = true;
         m_playerAnimation.UseTimeline(true);
-        Callback callback = () =>
+        GameManager.Callback callback = () =>
         {
             m_rotation = Quaternion.Euler(0, 90f, 0);
             IgnoreInput = false;
@@ -441,6 +445,7 @@ public class PlayerController : MonoBehaviour
         m_ignoreInput = true;
         ManagePlatformsColliders.Instance.DetectCollisions(false);
         m_movement = Vector3.zero;
+        GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "Your brains are all over the floor. Clean that mess.");
     }
 
     public void Respawn(Vector3 respawnPoint)
@@ -574,5 +579,18 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
         gameObject.SetActive(true);
         IgnoreInput = false;
+    }
+
+    public void TakeDamage(int damage = 1)
+    {
+        m_lives -= damage;
+
+        if (m_lives == 0)
+        {
+            GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "Too many witnesses! You have been identified.");
+        }
+
+        GameManager.Instance.UpdateWitnessesUI(m_lives);
+
     }
 }

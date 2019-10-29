@@ -12,6 +12,7 @@ public class WitnessLightWindow : MonoBehaviour
     [SerializeField] private float m_awakenDuration = 5f;
     [SerializeField] private bool m_isSleepwalker = false;
     private bool m_gotcha = false;
+    private PlayerController m_playerController;
 
     public bool m_debugWakeup = false;
     private void Awake()
@@ -21,6 +22,9 @@ public class WitnessLightWindow : MonoBehaviour
         m_balloon = transform.GetChild(2);
         m_collider = GetComponent<BoxCollider>();
         m_balloon.gameObject.SetActive(false);
+        m_playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+
     }
     // Start is called before the first frame update
     void Start()
@@ -77,6 +81,7 @@ public class WitnessLightWindow : MonoBehaviour
                 print("GOTCHA!");
                 m_gotcha = true;
                 // increase witnesses count
+                m_playerController.TakeDamage();
             }
         }
     }

@@ -11,6 +11,7 @@ TagManager:
   - Resettable
   - HidingSpot
   - AlarmBalloon
+  - UIScreen
   layers:
   - Default
   - TransparentFX

@@ -1,11 +1,12 @@
 ADD stunning from 1 floor fall
 ADD death from 2 floors fall (Respawn)
-ADD arrest sequence (MISSION FAILED)
-ADD witness limit sequence (MISSION FAILED)
-ADD timer after grabbing loot (MISSION FAILED)
-ADD level exit (MISSION COMPLETE)
+ADD arrest sequence (MISSION FAILED) - OK
+ADD witness limit sequence (MISSION FAILED) - OK
+ADD timer after grabbing loot (MISSION FAILED) -> high priority
+ADD level exit (MISSION COMPLETE) -> fast to do
 ADD cat behavior (crawling or witness is awaken)
 ADD safe + crowbar usage
 ADD alarm effect
 ADD pause
-ADD UI!!!!!
+ADD UI!!!!! - OK-ish
+ADD intermittent cameras (maybe!)

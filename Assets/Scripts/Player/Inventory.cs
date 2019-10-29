@@ -41,6 +41,10 @@ public class Inventory
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundID.ItemPickUp);
         m_itemsCarried[(int)item]++;
+        if(item == InventoryItems.Gold)
+        {
+            GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionComplete);
+        }
     }
 
     public string GetItemName(InventoryItems item)

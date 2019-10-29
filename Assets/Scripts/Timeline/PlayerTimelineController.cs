@@ -15,7 +15,7 @@ public class PlayerTimelineController : MonoBehaviour
     [SerializeField] private List<TimelineAsset> m_timelineAssets;
     [SerializeField] private Animator m_Animator;
 
-    public IEnumerator GrabPipe(Transform character, Transform pipeEnd, Pipe.PipeDirection pipeDirection, PlayerController.Callback callback)
+    public IEnumerator GrabPipe(Transform character, Transform pipeEnd, Pipe.PipeDirection pipeDirection, GameManager.Callback callback)
     {
         if (character.position.x > pipeEnd.parent.transform.position.x)
         {
@@ -58,7 +58,7 @@ public class PlayerTimelineController : MonoBehaviour
         character.rotation = rot;
     }
 
-    public IEnumerator Die(Transform child, PlayerController.Callback callback = null)
+    public IEnumerator Die(Transform child, GameManager.Callback callback = null)
     {
         PlayAnimation(child, m_timelineAssets[(int)TimelineIndices.DEATH_HEIGHT], DirectorWrapMode.None);
 

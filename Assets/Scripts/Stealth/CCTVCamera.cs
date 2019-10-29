@@ -15,6 +15,7 @@ public class CCTVCamera : MonoBehaviour
     private Color m_nativeColor;
     private LineRenderer m_lineRenderer;
     private bool m_witnessed = false;
+    private PlayerController m_playerController;
 
     public Transform Target { get { return m_target; } set { m_target = value;  } }
     private Vector3 m_viewconeBaseCenter;
@@ -24,6 +25,8 @@ public class CCTVCamera : MonoBehaviour
 
     protected virtual void Awake()
     {
+        m_playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
         m_lens = transform.Find("Lens");
        
         Component[] components = GetComponentsInChildren(typeof(MeshRenderer), false);
@@ -164,6 +167,7 @@ public class CCTVCamera : MonoBehaviour
         if(!m_witnessed)
         {
             m_witnessed = true;
+            m_playerController.TakeDamage();
             // increase witness count
         }
         if(m_alarmBalloon != null)
