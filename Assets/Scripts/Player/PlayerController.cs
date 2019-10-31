@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     // State vars
     [Header("Player state")]
+    [SerializeField] private bool m_isGrounded;
     [SerializeField] private int m_lives = 3; // witnesses left
     [SerializeField] private bool m_ignoreInput = false;
     [SerializeField] private bool m_moving = false;
@@ -117,13 +118,14 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        
-        if(GameManager.Instance.GamePaused)
+    {
+        m_isGrounded = m_characterController.isGrounded;
+        GetInput();
+
+        if (GameManager.Instance.GamePaused)
         {
             return;
         }
-
-        GetInput();
 
         if (!m_ignoreInput)
         {
@@ -146,6 +148,11 @@ public class PlayerController : MonoBehaviour
 
     private void GetInput()
     {
+        if(Input.GetButtonDown("Cancel"))
+        {
+            GameManager.Instance.SetPause(!GameManager.Instance.GamePaused, true);
+        }
+
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
         input.jump = Input.GetButton("Jump");
@@ -288,7 +295,8 @@ public class PlayerController : MonoBehaviour
             {
                 m_velocity.y += (Physics.gravity.y * m_gravityOnJumping * Time.deltaTime);
             }
-            else if(m_velocity.y < -0.3f) // DO NOT TOUCH THIS!!!!!! No-falling threshold            
+            //else if(m_velocity.y < -0.3f) // DO NOT TOUCH THIS!!!!!! No-falling threshold            
+            else
             {
                 m_velocity.y += (Physics.gravity.y * m_gravityOnFalling * Time.deltaTime);
                 m_jumping = false;
@@ -329,10 +337,10 @@ public class PlayerController : MonoBehaviour
         {
             transform.Rotate(9, 9, 9);
         }
-        else if (!m_moving && !m_falling && !m_crouching)
+        /*else if (!m_moving && !m_falling && !m_crouching)
         {
             transform.rotation = Quaternion.identity;
-        }
+        }*/
         else
         {
             transform.rotation = m_rotation;            

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory
-{
+{    
     public enum InventoryItems
     {
         Crowbar, MonkeyWrench, Gold, None
@@ -13,7 +13,6 @@ public class Inventory
     private int[] m_itemsCarried = new int[m_possibleItems];
     private static Inventory m_instance = null;
     private Dictionary<InventoryItems, string> m_itemNames = new Dictionary<InventoryItems, string>();
-    //public 
 
 
     public static Inventory Instance {
@@ -31,9 +30,9 @@ public class Inventory
 
     private Inventory()
     {
-        m_itemNames[InventoryItems.Crowbar] = "Crowbar";
-        m_itemNames[InventoryItems.MonkeyWrench] = "Monkey wrench";
-        m_itemNames[InventoryItems.Gold] = "Loot";
+        m_itemNames[InventoryItems.Crowbar] = "crowbar";
+        m_itemNames[InventoryItems.MonkeyWrench] = "monkey wrench";
+        m_itemNames[InventoryItems.Gold] = "bag of money";
     }
 
     
@@ -43,8 +42,9 @@ public class Inventory
         m_itemsCarried[(int)item]++;
         if(item == InventoryItems.Gold)
         {
-            GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionComplete);
-        }
+            //GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionComplete);
+            GameManager.Instance.StartTimer();
+        }        
     }
 
     public string GetItemName(InventoryItems item)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraFollowTarget : MonoBehaviour
 {
 
-    [SerializeField] private Transform m_target;
+    private Transform m_target;
     private Vector3 m_offset;
     [SerializeField] private bool m_smooth;
     [SerializeField] private float m_lerpSpeed = 1;
@@ -16,6 +16,7 @@ public class CameraFollowTarget : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        m_target = GameObject.FindGameObjectWithTag("Player").transform;
         m_offset = transform.position - m_target.position;
     }
 

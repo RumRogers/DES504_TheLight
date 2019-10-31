@@ -14,13 +14,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject m_missionFailedButtonSet;
     [SerializeField] private GameObject m_missionCompleteButtonSet;
     [SerializeField] private List<Transform> m_witnessImages;
-
+    private GameObject m_pauseScreen;
+    private LowerHUDMessage m_lowerHUDMessage;
+    private Timer m_timerScript;
 
     public bool GamePaused { get; private set; }
 
     public enum UIScreen
     {
-        MissionFailed, MissionComplete
+        MissionFailed, MissionComplete, Pause
     }
 
     public static GameManager Instance = null;
@@ -31,7 +33,12 @@ public class GameManager : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;            
-            GamePaused = false;            
+            GamePaused = false;
+            m_timerScript = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
+            //m_pauseScreen = GameObject.FindGameObjectsWithTag("UIScreen")[2];
+            m_pauseScreen = GameObject.Find("Pause");
+            m_pauseScreen.SetActive(false);
+            m_lowerHUDMessage = GameObject.Find("LowerHUD").GetComponent<LowerHUDMessage>();
         }
         else
         {
@@ -53,7 +60,7 @@ public class GameManager : MonoBehaviour
                 m_missionFailed.gameObject.SetActive(false);
                 m_missionComplete.DoFadeIn(message);
                 StartCoroutine(WaitAndCall(1, () => { m_missionCompleteButtonSet.SetActive(true); }));
-                break;
+                break;            
         }
     }
 
@@ -69,7 +76,7 @@ public class GameManager : MonoBehaviour
         SetPause(false);
     }
 
-    void SetPause(bool pause)
+    public void SetPause(bool pause, bool showPauseScreen = false)
     {
         if(pause)
         {
@@ -81,6 +88,7 @@ public class GameManager : MonoBehaviour
         }
 
         GamePaused = pause;
+        m_pauseScreen.SetActive(pause & showPauseScreen);
     }
 
     private IEnumerator WaitAndCall(float seconds, Callback callback)
@@ -92,5 +100,15 @@ public class GameManager : MonoBehaviour
     public void UpdateWitnessesUI(int playerHealth)
     {
         m_witnessImages[m_witnessImages.Count - playerHealth - 1].gameObject.SetActive(true);
+    }
+
+    public void StartTimer()
+    {
+        m_timerScript.IsRunning = true;
+    }
+
+    public void SetLowerHUDText(string message, float seconds = 0)
+    {
+        m_lowerHUDMessage.SetText(message, seconds);
     }
 }

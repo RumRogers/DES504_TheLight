@@ -21,7 +21,8 @@ public class TestRopeHinge : MonoBehaviour
     {
         m_anchorPoint = transform.Find("AnchorPoint");
         m_rigidbody = GetComponent<Rigidbody>();
-        m_playerTransform = GameObject.Find("Player").transform;
+        //m_playerTransform = GameObject.Find("Player").transform;
+        m_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         m_playerRigidbody = m_playerTransform.GetComponent<Rigidbody>();
         m_playerController = m_playerTransform.GetComponent<PlayerController>();
         m_playerAnimator = m_playerTransform.GetComponent<Animator>();

@@ -12,6 +12,7 @@ TagManager:
   - HidingSpot
   - AlarmBalloon
   - UIScreen
+  - Timer
   layers:
   - Default
   - TransparentFX
