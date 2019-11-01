@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,6 +40,12 @@ public class GameManager : MonoBehaviour
             m_pauseScreen = GameObject.Find("Pause");
             m_pauseScreen.SetActive(false);
             m_lowerHUDMessage = GameObject.Find("LowerHUD").GetComponent<LowerHUDMessage>();
+            /*SceneManager.sceneLoaded += (Scene s, LoadSceneMode lsm) => 
+            {
+                Debug.Log("crap: " + s.name);
+                Debug.Log(lsm);
+            };*/
+            
         }
         else
         {

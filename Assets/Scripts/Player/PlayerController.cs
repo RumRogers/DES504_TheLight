@@ -49,13 +49,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_sliding = false;
     [SerializeField] private bool m_crawling = false;
     [SerializeField] private bool m_swinging = false;
+    [SerializeField] private bool m_stunned = false;
     [SerializeField] private bool m_dead = false;
-    [SerializeField] private bool m_hiding = false;
-    private bool m_hasJustJumped = false;
-    private bool m_hasJustLanded = false;
+    [SerializeField] private bool m_hiding = false;    
     [SerializeField] private bool m_ignoreSounds = false;
 
+    private bool m_hasJustJumped = false;
+    private bool m_hasJustLanded = false;
     private Vector3 m_timelineOffset;
+    private float m_fallingStart;
 
     // Actual movement vars
     private Vector3 m_velocity = Vector3.zero; // needed for keeping track of gravity & custom physics
@@ -69,12 +71,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float m_crouchSpeedPercentage = .35f;
     [SerializeField] private float m_jumpForce = 3f;
     [SerializeField] private float m_climbSpeed = 7f;
+    [SerializeField] private float m_stunnedTime = 3f;
 
     [Header("Gravity")]
     [SerializeField] [Range(.1f, 5f)] private float m_gravityOnJumping = .25f;
     [SerializeField] [Range(.1f, 5f)] private float m_gravityOnFalling = 1f;
     [SerializeField] [Range(0f, 1f)] private float m_additionalGravity = 0.05f;
     [SerializeField] [Range(-5f, -.1f)] private float m_gravityLimiter = -.8f;
+    [SerializeField] private float m_stunningFallThreshold = 5;
+    [SerializeField] private float m_deathFallThreshold = 10;
 
     [Header("Animations")]
     [SerializeField] private PlayerTimelineController m_timelineController;
@@ -100,7 +105,12 @@ public class PlayerController : MonoBehaviour
     public bool IgnoreInput { get { return m_ignoreInput;  } set { m_ignoreInput = value; } }
     public bool Dead { get { return m_dead; } set { m_dead = value; } }
     public bool ChangingFloor { get { return m_climbing || m_sliding; } }
-    public bool Swinging { get { return m_swinging; } set { m_swinging = value; } }
+    public bool Swinging { get { return m_swinging; } set
+        {
+            m_swinging = value;
+            m_fallingStart = transform.position.y;
+        } }
+
     public Inventory.InventoryItems CurrentItem { get { return m_currentItem; } }
 
     private void Awake()
@@ -127,12 +137,12 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!m_ignoreInput)
+        if (!m_ignoreInput && !m_stunned)
         {
             ManageInput(ref input);    
         }
 
-        if(!m_swinging)
+        if(!m_swinging && !m_stunned)
         {
             ApplyRotation();
             ApplyMovement();
@@ -295,9 +305,13 @@ public class PlayerController : MonoBehaviour
             {
                 m_velocity.y += (Physics.gravity.y * m_gravityOnJumping * Time.deltaTime);
             }
-            //else if(m_velocity.y < -0.3f) // DO NOT TOUCH THIS!!!!!! No-falling threshold            
-            else if(m_velocity.y < 0)
+            else if(m_velocity.y < -0.3f) // DO NOT TOUCH THIS!!!!!! No-falling threshold            
+            //else if(m_velocity.y < 0)
             {
+                if(m_fallingStart == 0)
+                {
+                    m_fallingStart = transform.position.y;
+                }
                 m_velocity.y += (Physics.gravity.y * m_gravityOnFalling * Time.deltaTime);
                 m_jumping = false;
                 m_falling = true;
@@ -322,6 +336,18 @@ public class PlayerController : MonoBehaviour
                 if(m_falling)
                 {
                     m_hasJustLanded = true;
+                    print("just landed!");
+                    float fellFor = m_fallingStart - transform.position.y;
+                    if (fellFor >= m_deathFallThreshold)
+                    {
+                        GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "You fell to your death. Whoops.");
+                    }
+                    else if(fellFor >= m_stunningFallThreshold)
+                    {
+                        StartCoroutine(GetStunned());
+                    }
+                    print("You fell for " + fellFor + " meters.");
+                    m_fallingStart = 0;
                 }
                 m_jumping = false;
                 m_falling = false;
@@ -497,7 +523,15 @@ public class PlayerController : MonoBehaviour
         m_playerAnimation.SetBool("isFalling", m_falling);
         m_playerAnimation.SetBool("isCrouching", m_crouching);
         m_playerAnimation.SetBool("isCrawling", m_crawling);
-        m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);        
+        /*if (m_hasJustLanded)
+        {
+            m_playerAnimation.SetBool("hasJustLanded", m_hasJustLanded);
+        }
+        else
+        {
+            m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);
+        }*/
+        m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);
     }
 
     private void ManageSound()
@@ -589,6 +623,12 @@ public class PlayerController : MonoBehaviour
         IgnoreInput = false;
     }
 
+    private IEnumerator GetStunned()
+    {
+        m_stunned = true;
+        yield return new WaitForSeconds(m_stunnedTime);
+        m_stunned = false;
+    }
     public void TakeDamage(int damage = 1)
     {
         m_lives -= damage;
@@ -599,6 +639,5 @@ public class PlayerController : MonoBehaviour
         }
 
         GameManager.Instance.UpdateWitnessesUI(m_lives);
-
     }
 }
