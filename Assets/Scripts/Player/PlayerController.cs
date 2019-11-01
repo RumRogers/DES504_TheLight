@@ -296,7 +296,7 @@ public class PlayerController : MonoBehaviour
                 m_velocity.y += (Physics.gravity.y * m_gravityOnJumping * Time.deltaTime);
             }
             //else if(m_velocity.y < -0.3f) // DO NOT TOUCH THIS!!!!!! No-falling threshold            
-            else
+            else if(m_velocity.y < 0)
             {
                 m_velocity.y += (Physics.gravity.y * m_gravityOnFalling * Time.deltaTime);
                 m_jumping = false;
