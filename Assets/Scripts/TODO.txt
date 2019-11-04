@@ -10,3 +10,13 @@ ADD alarm effect - later
 ADD pause - OK
 ADD UI!!!!! - OK-ish
 ADD intermittent cameras - YES
+
+
+ART:
+Cat Idle Anim
+Police Robot (No anim required)
+Textures!!!
+Character Stunned Anim
+Character Crouch Anim
+Character Pipe Anim
+Character grabbing flowerpot (No anim required)
