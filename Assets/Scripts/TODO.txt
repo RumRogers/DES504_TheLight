@@ -4,11 +4,12 @@ ADD arrest sequence (MISSION FAILED) - OK
 ADD witness limit sequence (MISSION FAILED) - OK
 ADD timer after grabbing loot (MISSION FAILED) -> OK
 ADD level exit (MISSION COMPLETE) -> OK
-ADD cat behavior (crawling or witness is awaken)
+ADD cat behavior (crawling or witness is awaken) -> OK
 ADD safe + crowbar usage 
 ADD alarm effect - later
 ADD pause - OK
 ADD UI!!!!! - OK-ish
+ADD CHANGE RESPAWN POINT after grabbing money -> OK
 ADD intermittent cameras - YES
 
 

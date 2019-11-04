@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     private LowerHUDMessage m_lowerHUDMessage;
     private Timer m_timerScript;
 
+
+    private PlayerController m_playerController;
     public bool GamePaused { get; private set; }
 
     public enum UIScreen
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
             Instance = this;            
             GamePaused = false;
             m_timerScript = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
-            //m_pauseScreen = GameObject.FindGameObjectsWithTag("UIScreen")[2];
+            m_playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             m_pauseScreen = GameObject.Find("Pause");
             m_pauseScreen.SetActive(false);
             m_lowerHUDMessage = GameObject.Find("LowerHUD").GetComponent<LowerHUDMessage>();
@@ -118,4 +120,8 @@ public class GameManager : MonoBehaviour
         m_lowerHUDMessage.SetText(message, seconds);
     }
 
+    public void UpdatePlayerRespawnPoint(Vector3 respawnPoint)
+    {
+        m_playerController.RespawnPoint = respawnPoint;
+    }
 }

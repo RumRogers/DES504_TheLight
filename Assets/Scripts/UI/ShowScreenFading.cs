@@ -24,8 +24,7 @@ public class ShowScreenFading : MonoBehaviour
         m_background = transform.GetChild(0).GetComponent<Image>();
         m_text = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         m_originalBGColor = m_background.color;
-        m_originalTextColor = m_text.color;
-        print(m_originalBGColor);
+        m_originalTextColor = m_text.color;        
         m_goalBGColor = new Color32(m_originalBGColor.r, m_originalBGColor.g, m_originalBGColor.b, 255);
         m_goalTextColor = new Color32(m_originalTextColor.r, m_originalTextColor.g, m_originalTextColor.b, 255);
     }

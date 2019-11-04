@@ -35,6 +35,8 @@ public class Collectible : Resettable
             {
                 case Inventory.InventoryItems.Gold:
                     GameManager.Instance.SetLowerHUDText(m_msgTimerStarting, 2.5f);
+                    GameManager.Instance.StartTimer();                    
+                    GameManager.Instance.UpdatePlayerRespawnPoint(transform.position);
                     break;
                 default:
                     GameManager.Instance.SetLowerHUDText(m_msgPrefix + " " + Inventory.Instance.GetItemName(m_itemID) + ". Use it wisely.", 2.5f);

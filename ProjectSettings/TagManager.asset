@@ -13,6 +13,7 @@ TagManager:
   - AlarmBalloon
   - UIScreen
   - Timer
+  - Cat
   layers:
   - Default
   - TransparentFX

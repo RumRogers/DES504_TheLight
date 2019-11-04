@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
-    [SerializeField] private CameraFollowTarget m_cameraFollowTarget;
-    [SerializeField] private Transform m_respawnPoint;
+    [SerializeField] private CameraFollowTarget m_cameraFollowTarget;    
     private PlayerController m_playerController;
     private StateManager m_stateManager;
 
@@ -19,7 +18,7 @@ public class PlayerDeath : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            m_playerController.Respawn(m_respawnPoint.position);           
+            m_playerController.Respawn();           
             Inventory.Instance.Empty();
             m_stateManager.ResetAll();
         }

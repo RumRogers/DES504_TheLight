@@ -87,8 +87,9 @@ public class PlayerController : MonoBehaviour
     [Header("Animations")]
     [SerializeField] private PlayerTimelineController m_timelineController;
 
-    [Header("Misc")]
-    [SerializeField] private Transform m_respawnPoint;
+    //[Header("Misc")]
+    //[SerializeField] private Vector3 m_respawnPoint;
+    private Vector3 m_respawnPoint;
 
     [Header("Items Carried")]
     [SerializeField] private Inventory.InventoryItems m_currentItem = Inventory.InventoryItems.None;
@@ -113,12 +114,15 @@ public class PlayerController : MonoBehaviour
             m_swinging = value;
             m_fallingStart = transform.position.y;
         } }
+    public bool Crouching { get { return m_crouching; } }
+    public Vector3 RespawnPoint { get { return m_respawnPoint; } set { m_respawnPoint.x = value.x; m_respawnPoint.y = value.y + 1f; } }
 
     public Inventory.InventoryItems CurrentItem { get { return m_currentItem; } }
 
     private void Awake()
     {
         transform.SetParent(null);
+        m_respawnPoint = transform.position;
         m_characterController = GetComponent<CharacterController>();
         m_playerAnimation = GetComponent<PlayerAnimation>();
         m_rotation = Quaternion.Euler(0, -90, 0);
@@ -494,13 +498,13 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "Your brains are all over the floor. Clean that mess.");
     }
 
-    public void Respawn(Vector3 respawnPoint)
+    public void Respawn()
     {
         gameObject.SetActive(false);
         SetCurrentItem(Inventory.InventoryItems.None);
         ManagePlatformsColliders.Instance.DetectCollisions(true);
         gameObject.SetActive(false);
-        transform.position = respawnPoint;
+        transform.position = m_respawnPoint;
         transform.rotation = Quaternion.identity;
         gameObject.SetActive(true);
         //m_ignoreInput = false;

@@ -12,6 +12,7 @@ public class WitnessLightWindow : MonoBehaviour
     [SerializeField] private float m_awakenDuration = 5f;
     [SerializeField] private bool m_isSleepwalker = false;
     private bool m_gotcha = false;
+    private bool m_isPeeking = false;
     private PlayerController m_playerController;
 
     public bool m_debugWakeup = false;
@@ -48,7 +49,8 @@ public class WitnessLightWindow : MonoBehaviour
     {
         m_witnessBody.gameObject.SetActive(peeking);
         m_light.gameObject.SetActive(peeking);
-        m_collider.enabled = peeking;
+        //m_collider.enabled = peeking;
+        m_isPeeking = peeking;
     }
 
     private IEnumerator SleepWalk()
@@ -71,9 +73,9 @@ public class WitnessLightWindow : MonoBehaviour
         m_balloon.gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (m_isPeeking && other.CompareTag("Player"))
         {
             m_balloon.gameObject.SetActive(true);
             if (!m_gotcha)
@@ -84,5 +86,18 @@ public class WitnessLightWindow : MonoBehaviour
                 m_playerController.TakeDamage();
             }
         }
+        else if(!m_isPeeking && other.CompareTag("Cat"))
+        {
+            StartCoroutine(WakeUpOnce());
+        }
+
     }
+
+    /*private void OnTriggerStay(Collider other)
+    {
+        if (!m_isPeeking && other.CompareTag("Cat"))
+        {
+            StartCoroutine(WakeUpOnce());
+        }
+    }*/
 }
