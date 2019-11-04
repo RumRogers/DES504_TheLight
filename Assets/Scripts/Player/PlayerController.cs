@@ -219,7 +219,6 @@ public class PlayerController : MonoBehaviour
                 m_movement.y = input.y * m_climbSpeed;
             }       
         }
-
         else
         {
             if (input.jump && m_characterController.isGrounded && m_canJump)
@@ -339,7 +338,7 @@ public class PlayerController : MonoBehaviour
                 if(m_falling)
                 {
                     m_hasJustLanded = true;
-                    print("just landed!");
+                    //print("just landed!");
                     float fellFor = m_fallingStart - transform.position.y;
                     if(!m_invulnerableToHeight)
                     {
@@ -353,12 +352,17 @@ public class PlayerController : MonoBehaviour
                         }
                     }
                     
-                    print("You fell for " + fellFor + " meters.");
+                    //print("You fell for " + fellFor + " meters.");
                     m_fallingStart = 0;
                 }
                 m_jumping = false;
                 m_falling = false;
                 m_velocity.y = 0;
+            }
+
+            if(m_sliding)
+            {
+                m_fallingStart = transform.position.y;
             }
         }
         
@@ -424,10 +428,11 @@ public class PlayerController : MonoBehaviour
     {     
         gameObject.SetActive(false);
         m_climbing = false;
-        m_onLadder = false;
+        m_onLadder = false;        
         Vector3 newPos = m_currentLadder.transform.position;
         newPos.z = m_currentLadder.bottom.position.z;
         transform.position = new Vector3(newPos.x, transform.position.y - .1f, newPos.z);
+        m_fallingStart = transform.position.y;
         m_rotation = Quaternion.Euler(0, 90f, 0);
         gameObject.SetActive(true);
         m_playerAnimation.GetAnimator().enabled = true;
@@ -471,7 +476,7 @@ public class PlayerController : MonoBehaviour
         IgnoreInput = true;
         m_playerAnimation.UseTimeline(true);
         GameManager.Callback callback = () =>
-        {
+        {            
             m_rotation = Quaternion.Euler(0, 90f, 0);
             IgnoreInput = false;
             m_sliding = false;

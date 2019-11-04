@@ -10203,25 +10203,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1950790178054817360}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1913739230 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 2c476b7a513fa0b4ea18357c76bc8eea,
-    type: 3}
-  m_PrefabInstance: {fileID: 33068675}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1913739231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1913739230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050b13dabbc67a64c8a3b9a3b112b2fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_speed: 0
 --- !u!1001 &1919150335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12202,7 +12183,7 @@ PrefabInstance:
     - target: {fileID: 395274966980441242, guid: a2fe116059e162e4095a3e626d26c858,
         type: 3}
       propertyPath: m_invulnerableToHeight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 395274966980441236, guid: a2fe116059e162e4095a3e626d26c858,
         type: 3}
@@ -12271,7 +12252,8 @@ PrefabInstance:
       propertyPath: m_PlaneDistance
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1463145114, guid: a2fe116059e162e4095a3e626d26c858, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a2fe116059e162e4095a3e626d26c858, type: 3}
 --- !u!1001 &461297523802493781
 PrefabInstance:
