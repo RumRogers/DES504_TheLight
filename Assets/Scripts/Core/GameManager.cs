@@ -40,11 +40,10 @@ public class GameManager : MonoBehaviour
             m_pauseScreen = GameObject.Find("Pause");
             m_pauseScreen.SetActive(false);
             m_lowerHUDMessage = GameObject.Find("LowerHUD").GetComponent<LowerHUDMessage>();
-            /*SceneManager.sceneLoaded += (Scene s, LoadSceneMode lsm) => 
+            SceneManager.sceneLoaded += (Scene s, LoadSceneMode lsm) => 
             {
-                Debug.Log("crap: " + s.name);
-                Debug.Log(lsm);
-            };*/
+                Inventory.Instance.Empty();
+            };
             
         }
         else
@@ -118,4 +117,5 @@ public class GameManager : MonoBehaviour
     {
         m_lowerHUDMessage.SetText(message, seconds);
     }
+
 }

@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     };
     private CharacterController m_characterController;
 
+    [Header("Cheats")]
+    [SerializeField] private bool m_invulnerableToHeight = false;
+
     // State vars
     [Header("Player state")]
     [SerializeField] private bool m_isGrounded;
@@ -338,14 +341,18 @@ public class PlayerController : MonoBehaviour
                     m_hasJustLanded = true;
                     print("just landed!");
                     float fellFor = m_fallingStart - transform.position.y;
-                    if (fellFor >= m_deathFallThreshold)
+                    if(!m_invulnerableToHeight)
                     {
-                        GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "You fell to your death. Whoops.");
+                        if (fellFor >= m_deathFallThreshold)
+                        {
+                            GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "You fell to your death. Whoops.");
+                        }
+                        else if (fellFor >= m_stunningFallThreshold)
+                        {
+                            StartCoroutine(GetStunned());
+                        }
                     }
-                    else if(fellFor >= m_stunningFallThreshold)
-                    {
-                        StartCoroutine(GetStunned());
-                    }
+                    
                     print("You fell for " + fellFor + " meters.");
                     m_fallingStart = 0;
                 }

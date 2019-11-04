@@ -3,7 +3,7 @@ ADD death from 2 floors fall (Respawn) - OK
 ADD arrest sequence (MISSION FAILED) - OK
 ADD witness limit sequence (MISSION FAILED) - OK
 ADD timer after grabbing loot (MISSION FAILED) -> OK
-ADD level exit (MISSION COMPLETE) -> fast to do
+ADD level exit (MISSION COMPLETE) -> OK
 ADD cat behavior (crawling or witness is awaken)
 ADD safe + crowbar usage 
 ADD alarm effect - later
