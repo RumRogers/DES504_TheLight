@@ -11,9 +11,9 @@ ADD pause - OK
 ADD UI!!!!! - OK-ish
 ADD CHANGE RESPAWN POINT after grabbing money -> OK
 ADD intermittent cameras -> OK
-
 Animator: add swinging state + fix animator disabled OK
 Models: add ladder OK
+CAT Animator (Add idle state + clip)
 
 
 
@@ -24,4 +24,4 @@ Textures!!!
 Character Stunned Anim
 Character Crouch Anim
 Character Pipe Anim
-Character grabbing flowerpot (No anim required)
+Character grabbing flowerpot (No anim required) -> OK

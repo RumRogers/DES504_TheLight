@@ -16,8 +16,8 @@ public class CatBehavior : MonoBehaviour
 
     private Transform m_platform;
     private Vector3 m_currentDestination;
-
     private Collider m_catCollider;
+    private Animator m_animatorController;
 
     private bool m_isMeowing = false;
 
@@ -41,6 +41,7 @@ public class CatBehavior : MonoBehaviour
             }
         }
 
+        m_animatorController = GetComponent<Animator>();
         m_playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         m_catCollider = GetComponent<Collider>();
         m_catCollider.enabled = false;
@@ -102,7 +103,9 @@ public class CatBehavior : MonoBehaviour
         while(true)
         {
             SetRandomDestinationPoint();
+            m_animatorController.SetBool("isWalking", true);
             yield return StartCoroutine(ReachDestination());
+            m_animatorController.SetBool("isWalking", false);
             yield return new WaitForSeconds(Random.Range(1f, 5f));
         }        
     }
@@ -126,6 +129,7 @@ public class CatBehavior : MonoBehaviour
 
     private IEnumerator Meow()
     {
+        m_animatorController.SetBool("isWalking", false);
         print("Meow!");
         m_isMeowing = true;
         //StopCoroutine(RandomWalk());
