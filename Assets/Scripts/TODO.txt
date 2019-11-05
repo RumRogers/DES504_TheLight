@@ -5,10 +5,10 @@ ADD witness limit sequence (MISSION FAILED) - OK
 ADD timer after grabbing loot (MISSION FAILED) -> OK
 ADD level exit (MISSION COMPLETE) -> OK
 ADD cat behavior (crawling or witness is awaken) -> OK
-ADD safe + crowbar usage 
-ADD alarm effect - later
+ADD safe + crowbar usage -> LATER
+ADD alarm effect - later 
 ADD pause - OK
-ADD UI!!!!! - OK-ish
+ADD CURRENT ITEM UI!!!!!
 ADD CHANGE RESPAWN POINT after grabbing money -> OK
 ADD intermittent cameras -> OK
 Animator: add swinging state + fix animator disabled OK
@@ -16,10 +16,9 @@ Models: add ladder OK
 CAT Animator (Add idle state + clip) -> OK
 
 ART:
-Cat Idle Anim
-Police Robot (No anim required)
+Cat Idle Anim -> OK
 Textures!!!
 Character Stunned Anim
-Character Crouch Anim
+Character Crouch Anim -> OK
 Character Pipe Anim
 Character grabbing flowerpot (No anim required) -> OK

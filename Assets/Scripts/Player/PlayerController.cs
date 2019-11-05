@@ -267,7 +267,7 @@ public class PlayerController : MonoBehaviour
                     //m_crawling = true;
                     speed = 0;
                 }
-                else if (input.dash)                
+                else if (!input.dash)                
                 {                    
                     m_walking = false;
                     m_running = true;
@@ -342,24 +342,14 @@ public class PlayerController : MonoBehaviour
                 m_velocity.y = m_gravityLimiter;
             }
 
-            m_characterController.Move(m_velocity);
-            /*if (!m_swinging)
-            {
-                
-                //m_characterController.Move(m_velocity);
-            }
-            else
-            {
-                Physics.gravity = Vector3.zero;
-            }*/
-            
+            m_characterController.Move(m_velocity);            
 
             if (m_characterController.isGrounded)
             {
                 if(m_falling)
                 {
                     m_hasJustLanded = true;
-                    print("just landed!");
+                    //print("just landed!");
                     float fellFor = m_fallingStart - transform.position.y;
                     if(!m_invulnerableToHeight)
                     {
@@ -509,8 +499,9 @@ public class PlayerController : MonoBehaviour
         transform.position = m_respawnPoint;
         transform.rotation = Quaternion.identity;
         gameObject.SetActive(true);        
-        ResetState();
+        ResetState();        
         gameObject.SetActive(true);
+        
     }
 
     private void SetCurrentItem(Inventory.InventoryItems item)
@@ -593,6 +584,7 @@ public class PlayerController : MonoBehaviour
         m_sliding = false;
         m_crawling = false;
         m_dead = false;
+        ResetHasJustLanded();
     }
 
     private IEnumerator IgnoreSoundForSeconds(float seconds)
@@ -681,7 +673,7 @@ public class PlayerController : MonoBehaviour
 
     public void ResetHasJustLanded()
     {
-        print("resetHasJustLanded");
+        //print("resetHasJustLanded");
         m_hasJustLanded = false;
         m_playerAnimation.GetAnimator().SetBool("hasJustLanded", false);
     }
