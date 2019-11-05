@@ -23,7 +23,7 @@ public class Pipe : MonoBehaviour
     private void Awake()
     {
 
-        GameObject gameObject = GameObject.Find("Player");
+        GameObject gameObject = GameObject.FindGameObjectWithTag("Player");
         if(gameObject != null)
         {
             m_playerController = gameObject.GetComponent<PlayerController>();
