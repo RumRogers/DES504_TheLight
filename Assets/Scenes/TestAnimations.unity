@@ -120,12 +120,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &533023439 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 395274966980441236, guid: a2fe116059e162e4095a3e626d26c858,
-    type: 3}
-  m_PrefabInstance: {fileID: 1555939298}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &573577841
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573577841}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 14.37, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -321,6 +315,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 395274966980441232, guid: a2fe116059e162e4095a3e626d26c858,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 395274966980441242, guid: a2fe116059e162e4095a3e626d26c858,
+        type: 3}
+      propertyPath: m_crap
+      value: 
+      objectReference: {fileID: 7400000, guid: 510bebc7eccc3de408bf590e46dbde05, type: 2}
+    - target: {fileID: 395274966980441242, guid: a2fe116059e162e4095a3e626d26c858,
+        type: 3}
+      propertyPath: m_gravityOnFalling
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 395274966980441236, guid: a2fe116059e162e4095a3e626d26c858,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -381,26 +390,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 395274966980441242, guid: a2fe116059e162e4095a3e626d26c858,
-        type: 3}
-      propertyPath: m_crap
-      value: 
-      objectReference: {fileID: 7400000, guid: 510bebc7eccc3de408bf590e46dbde05, type: 2}
-    - target: {fileID: 395274966980441242, guid: a2fe116059e162e4095a3e626d26c858,
-        type: 3}
-      propertyPath: m_gravityOnFalling
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 395274965432858324, guid: a2fe116059e162e4095a3e626d26c858,
-        type: 3}
-      propertyPath: m_Name
-      value: RightEyebrow
-      objectReference: {fileID: 0}
-    - target: {fileID: 395274966362553713, guid: a2fe116059e162e4095a3e626d26c858,
-        type: 3}
-      propertyPath: m_Name
-      value: LeftEyebrow
-      objectReference: {fileID: 0}
     - target: {fileID: 1103257635, guid: a2fe116059e162e4095a3e626d26c858, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.3
@@ -424,6 +413,16 @@ PrefabInstance:
     - target: {fileID: 960161142, guid: a2fe116059e162e4095a3e626d26c858, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395274965432858324, guid: a2fe116059e162e4095a3e626d26c858,
+        type: 3}
+      propertyPath: m_Name
+      value: RightEyebrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 395274966362553713, guid: a2fe116059e162e4095a3e626d26c858,
+        type: 3}
+      propertyPath: m_Name
+      value: LeftEyebrow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2fe116059e162e4095a3e626d26c858, type: 3}
@@ -523,6 +522,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fbf5956efdfcd4d9a311aabe0fd322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_target: {fileID: 533023439}
   m_smooth: 0
   m_lerpSpeed: 1

@@ -88,8 +88,9 @@ public class PlayerController : MonoBehaviour
     [Header("Animations")]
     [SerializeField] private PlayerTimelineController m_timelineController;
 
-    //[Header("Misc")]
-    //[SerializeField] private Vector3 m_respawnPoint;
+    [Header("Misc")]
+    [SerializeField] private Transform m_starsSpawningPoint;
+    [SerializeField] private GameObject m_starsCirclePrefab;
     private Vector3 m_respawnPoint;
 
     [Header("Items Carried")]
@@ -555,8 +556,8 @@ public class PlayerController : MonoBehaviour
         else if(m_hasJustLanded)
         {
             //m_hasJustLanded = false;
-            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerLand, m_audioSource, false, .5f);
-            StartCoroutine(IgnoreSoundForSeconds(.2f));
+            //SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerLand, m_audioSource, false, .5f);
+            //StartCoroutine(IgnoreSoundForSeconds(.2f));
         }
         else if(!m_jumping && m_walking)
         {
@@ -633,8 +634,13 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator GetStunned()
     {
+        m_moving = false;
+        m_walking = false;
+        m_running = false;
         m_stunned = true;
+        GameObject stars = Instantiate(m_starsCirclePrefab, m_starsSpawningPoint);        
         yield return new WaitForSeconds(m_stunnedTime);
+        Destroy(stars);
         m_stunned = false;
     }
     public void TakeDamage(int damage = 1)
