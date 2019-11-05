@@ -39,11 +39,14 @@ public class TestRopeHinge : MonoBehaviour
             if(Input.GetButtonDown("Jump"))
             {
                 m_playerAttached = false;
-                m_playerTransform.SetPositionAndRotation(m_playerTransform.position, Quaternion.identity);
+                StartCoroutine(m_playerController.StopSwinging());
+                //m_playerController.StopSwinging();
+                /*m_playerTransform.SetPositionAndRotation(m_playerTransform.position, Quaternion.identity);
                 m_playerTransform.SetParent(null);
+                print("Reactivating player animator...");
                 m_playerAnimator.enabled = true;
                 m_playerController.IgnoreInput = false;
-                m_playerController.Swinging = false;
+                m_playerController.Swinging = false;*/
                 StartCoroutine(DeactivateTriggerForSeconds(1f));
             }
             else if (x != 0)
@@ -61,13 +64,9 @@ public class TestRopeHinge : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            m_playerTransform.SetParent(transform);
-            m_playerTransform.SetPositionAndRotation(m_anchorPoint.position, m_anchorPoint.rotation);             
+            m_playerTransform.SetParent(transform);           
             m_playerAttached = true;
-            m_playerController.IgnoreInput = true;
-            m_playerController.Swinging = true;
-            m_playerAnimator.enabled = false;
-            //m_rigidbody.
+            StartCoroutine(m_playerController.DoSwing(m_anchorPoint.position));
         }
     }
 

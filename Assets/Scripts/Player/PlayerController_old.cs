@@ -11,7 +11,7 @@ using System;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(AudioSource))]
 
-public class PlayerController : MonoBehaviour
+public class PlayerController_old : MonoBehaviour
 {
     struct InputRetrieved
     {
@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Cheats")]
     [SerializeField] private bool m_invulnerableToHeight = false;
-    [SerializeField] private bool m_noGravity = false;
 
     // State vars
     [Header("Player state")]
@@ -150,11 +149,11 @@ public class PlayerController : MonoBehaviour
             ManageInput(ref input);    
         }
 
-        if(!m_stunned && !m_swinging)
+        if(!m_swinging && !m_stunned)
         {
             ApplyRotation();
             ApplyMovement();
-        }        
+        }
         
         NotifyAnimator();
 
@@ -306,7 +305,7 @@ public class PlayerController : MonoBehaviour
     {
         m_characterController.Move(m_movement * Time.deltaTime);
 
-        if(!m_climbing && !m_swinging)
+        if(!m_climbing)
         {
             if (m_velocity.y > 0) // Going up!
             {
@@ -337,16 +336,6 @@ public class PlayerController : MonoBehaviour
             }
 
             m_characterController.Move(m_velocity);
-            /*if (!m_swinging)
-            {
-                
-                //m_characterController.Move(m_velocity);
-            }
-            else
-            {
-                Physics.gravity = Vector3.zero;
-            }*/
-            
 
             if (m_characterController.isGrounded)
             {
@@ -418,6 +407,8 @@ public class PlayerController : MonoBehaviour
             {
                 m_onLadder = false;
                 m_currentLadder.transform = null;
+                //m_currentLadder.top = null;
+                //m_currentLadder.bottom = null;
             }
         }
     }
@@ -466,7 +457,20 @@ public class PlayerController : MonoBehaviour
     }
 
     public IEnumerator GrabPipe(Vector3 pipeHotspot, Transform pipeEnd, Pipe.PipeDirection pipeDir)
-    {       
+    {
+        //Vector3 initialPos = transform.position;
+        //float tLerp = 0;
+
+        //transform.LookAt(pipeHotspot);
+
+        /*while (transform.position != pipeHotspot)
+        {
+            print((transform.position - pipeHotspot).magnitude);
+            tLerp += Time.deltaTime;
+            transform.position = Vector3.Lerp(initialPos, pipeHotspot, tLerp);
+            yield return new WaitForEndOfFrame();            
+        }*/
+
         m_velocity = Vector3.zero;
         m_movement = Vector3.zero;
         m_sliding = true;
@@ -502,7 +506,9 @@ public class PlayerController : MonoBehaviour
         gameObject.SetActive(false);
         transform.position = m_respawnPoint;
         transform.rotation = Quaternion.identity;
-        gameObject.SetActive(true);        
+        gameObject.SetActive(true);
+        //m_ignoreInput = false;
+        //m_dead = false;
         ResetState();
         gameObject.SetActive(true);
     }
@@ -533,15 +539,15 @@ public class PlayerController : MonoBehaviour
         m_playerAnimation.SetBool("isFalling", m_falling);
         m_playerAnimation.SetBool("isCrouching", m_crouching);
         m_playerAnimation.SetBool("isCrawling", m_crawling);
-        m_playerAnimation.SetBool("isSwinging", m_swinging);
-        if (m_hasJustLanded)
+        /*if (m_hasJustLanded)
         {
             m_playerAnimation.SetBool("hasJustLanded", m_hasJustLanded);
         }
         else
         {
             m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);
-        }        
+        }*/
+        m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);
     }
 
     private void ManageSound()
@@ -649,29 +655,5 @@ public class PlayerController : MonoBehaviour
         }
 
         GameManager.Instance.UpdateWitnessesUI(m_lives);
-    }
-
-    public IEnumerator DoSwing(Vector3 anchorPoint)
-    {
-        m_ignoreInput = true;
-        m_swinging = true;
-        gameObject.SetActive(false);
-        transform.position = anchorPoint;
-        gameObject.SetActive(true);
-        m_playerAnimation.SetBool("isSwinging", true);
-        yield return new WaitForSeconds(Time.deltaTime);
-        m_playerAnimation.GetAnimator().enabled = false;        
-    }
-
-    public IEnumerator StopSwinging()
-    {        
-        transform.SetParent(null);
-        transform.rotation = Quaternion.identity;
-        print("Reactivating player animator...");
-        m_ignoreInput = false;
-        m_swinging = false;
-        yield return new WaitForSeconds(Time.deltaTime);
-        m_playerAnimation.GetAnimator().enabled = true;
-
     }
 }

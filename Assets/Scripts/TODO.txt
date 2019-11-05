@@ -10,7 +10,11 @@ ADD alarm effect - later
 ADD pause - OK
 ADD UI!!!!! - OK-ish
 ADD CHANGE RESPAWN POINT after grabbing money -> OK
-ADD intermittent cameras - YES
+ADD intermittent cameras -> OK
+
+Animator: add swinging state + fix animator disabled OK
+Models: add ladder OK
+
 
 
 ART:
