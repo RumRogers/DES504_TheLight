@@ -4605,6 +4605,26 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: -4.83
       objectReference: {fileID: 0}
+    - target: {fileID: 5006512734947915713, guid: 71f93548f15bfee418356d058c76570e,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006512734947915713, guid: 71f93548f15bfee418356d058c76570e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006512734947915713, guid: 71f93548f15bfee418356d058c76570e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.007
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006512734947915713, guid: 71f93548f15bfee418356d058c76570e,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 1249542717, guid: 71f93548f15bfee418356d058c76570e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.56
