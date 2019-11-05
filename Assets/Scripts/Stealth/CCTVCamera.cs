@@ -6,16 +6,17 @@ public class CCTVCamera : MonoBehaviour
 {
     [SerializeField] private bool m_debugMode = true;
     private Transform m_lens;
-    [SerializeField] protected GameObject m_alarmBalloon;
-    [SerializeField] protected Transform m_target;
+    [SerializeField] protected GameObject m_alarmBalloon;    
     [SerializeField] private float m_distance = 10f;
     [SerializeField] protected float m_fovDegrees = 20;
-    [SerializeField] protected bool m_alarm = false;    
-    [SerializeField] private Vector3 axis;
+    [SerializeField] protected bool m_alarm = false;
+    protected Transform m_target;
+    private Vector3 axis;
     private Color m_nativeColor;
     private LineRenderer m_lineRenderer;
     private bool m_witnessed = false;
     private PlayerController m_playerController;
+    [SerializeField] protected bool m_isRecording = true;
 
     public Transform Target { get { return m_target; } set { m_target = value;  } }
     private Vector3 m_viewconeBaseCenter;
@@ -47,6 +48,7 @@ public class CCTVCamera : MonoBehaviour
             m_lineRenderer.positionCount = 720;
             //m_lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         }
+        DrawCone();
     }
 
     // Update is called once per frame
@@ -58,9 +60,14 @@ public class CCTVCamera : MonoBehaviour
             DrawDebuggingGraphics();
         }
 
-        if(m_lineRenderer != null)
+        if(m_lineRenderer != null && m_isRecording)
         {
+            m_lineRenderer.enabled = true;
             DrawCone();
+        }
+        else
+        {
+            m_lineRenderer.enabled = false;
         }
 
         m_alarm = IsTargetVisible();
@@ -73,6 +80,11 @@ public class CCTVCamera : MonoBehaviour
 
     private bool IsTargetVisible()
     {
+        if(!m_isRecording)
+        {
+            return false;
+        }
+
         Vector3 offset = m_target.position - m_lens.position;
         float angle = Vector3.Angle(m_lens.forward, offset);
         if (angle <= m_fovDegrees / 2 && Vector3.Magnitude(offset) <= m_distance) 
@@ -142,7 +154,7 @@ public class CCTVCamera : MonoBehaviour
     }
 
     private void DrawCone()
-    {
+    {        
         Vector3 a = Quaternion.Euler(0, m_fovDegrees / 2, 0) * m_lens.forward;
         Vector3 b = Quaternion.Euler(0, -m_fovDegrees / 2, 0) * m_lens.forward;
         Vector3 c = Quaternion.Euler(0, 0, m_fovDegrees / 2) * m_lens.forward;
