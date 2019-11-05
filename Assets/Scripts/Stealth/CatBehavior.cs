@@ -58,7 +58,7 @@ public class CatBehavior : MonoBehaviour
     {        
         if(!m_isMeowing && Vector3.Distance(transform.position, m_playerController.transform.position) < m_alarmDistanceThreshold)
         {
-            if(!m_playerController.Crouching && IsFacingPlayer())
+            if(!m_playerController.Crouching && !m_playerController.Climbing && IsFacingPlayer())
             {
                 StopAllCoroutines();
                 StartCoroutine(Meow());

@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_ignoreSounds = false;
 
     private bool m_hasJustJumped = false;
-    private bool m_hasJustLanded = false;
+    [SerializeField] private bool m_hasJustLanded = false;
     private Vector3 m_timelineOffset;
     private float m_fallingStart;
 
@@ -116,6 +116,8 @@ public class PlayerController : MonoBehaviour
             m_fallingStart = transform.position.y;
         } }
     public bool Crouching { get { return m_crouching; } }
+    public bool Climbing { get { return m_climbing; } }
+        
     public Vector3 RespawnPoint { get { return m_respawnPoint; } set { m_respawnPoint.x = value.x; m_respawnPoint.y = value.y + 1f; } }
 
     public Inventory.InventoryItems CurrentItem { get { return m_currentItem; } }
@@ -145,7 +147,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!m_ignoreInput && !m_stunned)
+        if (!m_ignoreInput && !m_stunned && !m_hasJustLanded)
         {
             ManageInput(ref input);    
         }
@@ -261,10 +263,11 @@ public class PlayerController : MonoBehaviour
 
                 if (m_crouching)
                 {
-                    speed *= m_crouchSpeedPercentage;
-                    m_crawling = true;
+                    //speed *= m_crouchSpeedPercentage;
+                    //m_crawling = true;
+                    speed = 0;
                 }
-                else if (input.dash)
+                else if (input.dash)                
                 {                    
                     m_walking = false;
                     m_running = true;
@@ -304,8 +307,11 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyMovement()
     {
-        m_characterController.Move(m_movement * Time.deltaTime);
-
+        if (!m_hasJustLanded)
+        {
+            m_characterController.Move(m_movement * Time.deltaTime);
+        }
+        
         if(!m_climbing && !m_swinging)
         {
             if (m_velocity.y > 0) // Going up!
@@ -353,7 +359,7 @@ public class PlayerController : MonoBehaviour
                 if(m_falling)
                 {
                     m_hasJustLanded = true;
-                    //print("just landed!");
+                    print("just landed!");
                     float fellFor = m_fallingStart - transform.position.y;
                     if(!m_invulnerableToHeight)
                     {
@@ -557,7 +563,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(m_hasJustLanded)
         {
-            m_hasJustLanded = false;
+            //m_hasJustLanded = false;
             SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerLand, m_audioSource, false, .5f);
             StartCoroutine(IgnoreSoundForSeconds(.2f));
         }
@@ -666,12 +672,17 @@ public class PlayerController : MonoBehaviour
     public IEnumerator StopSwinging()
     {        
         transform.SetParent(null);
-        transform.rotation = Quaternion.identity;
-        print("Reactivating player animator...");
+        transform.rotation = Quaternion.identity;        
         m_ignoreInput = false;
         m_swinging = false;
         yield return new WaitForSeconds(Time.deltaTime);
         m_playerAnimation.GetAnimator().enabled = true;
+    }
 
+    public void ResetHasJustLanded()
+    {
+        print("resetHasJustLanded");
+        m_hasJustLanded = false;
+        m_playerAnimation.GetAnimator().SetBool("hasJustLanded", false);
     }
 }

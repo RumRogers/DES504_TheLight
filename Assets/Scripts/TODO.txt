@@ -13,9 +13,7 @@ ADD CHANGE RESPAWN POINT after grabbing money -> OK
 ADD intermittent cameras -> OK
 Animator: add swinging state + fix animator disabled OK
 Models: add ladder OK
-CAT Animator (Add idle state + clip)
-
-
+CAT Animator (Add idle state + clip) -> OK
 
 ART:
 Cat Idle Anim
