@@ -16,6 +16,8 @@ CAT Animator (Add idle state + clip) -> OK
 Character FIDDLING Anim -> OK
 ADD CURRENT ITEM UI!!!!!
 
+Pollute on hasJustLanded variable
+
 ART:
 Cat Idle Anim -> OK
 Textures!!!

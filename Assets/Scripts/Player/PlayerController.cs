@@ -141,6 +141,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Patch();
         m_isGrounded = m_characterController.isGrounded;
         GetInput();
 
@@ -351,7 +352,8 @@ public class PlayerController : MonoBehaviour
                 if(m_falling)
                 {
                     m_hasJustLanded = true;
-                    //print("just landed!");
+                    StartCoroutine(Utils.WaitAndExecute(.5f, ResetHasJustLanded));
+                    print("just landed!");
                     float fellFor = m_fallingStart - transform.position.y;
                     if(!m_invulnerableToHeight)
                     {
@@ -680,7 +682,7 @@ public class PlayerController : MonoBehaviour
 
     public void ResetHasJustLanded()
     {
-        //print("resetHasJustLanded");
+        print("resetHasJustLanded");
         m_hasJustLanded = false;
         m_playerAnimation.GetAnimator().SetBool("hasJustLanded", false);
     }
@@ -688,5 +690,16 @@ public class PlayerController : MonoBehaviour
     public void SetFiddling(int val)
     {
         m_playerAnimation.GetAnimator().SetBool("isFiddling", val != 0);
+    }
+
+    private void Patch()
+    {        
+        Animator animator = m_playerAnimation.GetAnimator();
+        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        if(clipInfo[0].clip.name.CompareTo("BurglarJump") == 0 && m_isGrounded && m_canJump)
+        {
+            animator.SetBool("forceLanding", true);
+            StartCoroutine(Utils.WaitAndExecute(1f, () => { animator.SetBool("forceLanding", false); }));
+        }
     }
 }

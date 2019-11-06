@@ -8,4 +8,15 @@ public class Utils : MonoBehaviour
     {        
         return new Color(c.r, c.g, c.b, alpha);
     }
+
+    public static IEnumerator WaitAndExecute(float seconds, GameManager.Callback callback)
+    {
+        if(callback == null)
+        {
+            yield break;
+        }
+
+        yield return new WaitForSeconds(seconds);
+        callback();
+    }
 }
