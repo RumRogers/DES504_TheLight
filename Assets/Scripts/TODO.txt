@@ -15,8 +15,10 @@ Models: add ladder OK
 CAT Animator (Add idle state + clip) -> OK
 Character FIDDLING Anim -> OK
 ADD CURRENT ITEM UI!!!!!
-
-Pollute on hasJustLanded variable
+Fix UI completely
+Add level transitions
+Add global timer
+Add Cop Animator + Clips (when ready)
 
 ART:
 Cat Idle Anim -> OK

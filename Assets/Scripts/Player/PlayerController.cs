@@ -696,7 +696,7 @@ public class PlayerController : MonoBehaviour
     {        
         Animator animator = m_playerAnimation.GetAnimator();
         AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
-        if(clipInfo[0].clip.name.CompareTo("BurglarJump") == 0 && m_isGrounded && m_canJump)
+        if(clipInfo.Length > 0 && clipInfo[0].clip.name.CompareTo("BurglarJump") == 0 && m_isGrounded && m_canJump)
         {
             animator.SetBool("forceLanding", true);
             StartCoroutine(Utils.WaitAndExecute(1f, () => { animator.SetBool("forceLanding", false); }));
