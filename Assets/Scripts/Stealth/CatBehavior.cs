@@ -9,6 +9,7 @@ public class CatBehavior : MonoBehaviour
     [SerializeField] private float m_speed;
     [SerializeField] private float m_meowingSeconds;
     [SerializeField] private float m_alarmDistanceThreshold;
+    [SerializeField] private GameObject m_noiseParticles;
 
     // Where the cat can walk to
     private Vector3 m_leftBound;
@@ -45,6 +46,7 @@ public class CatBehavior : MonoBehaviour
         m_playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         m_catCollider = GetComponent<Collider>();
         m_catCollider.enabled = false;
+        m_noiseParticles.SetActive(false);
     }
 
     void Start()
@@ -129,6 +131,7 @@ public class CatBehavior : MonoBehaviour
 
     private IEnumerator Meow()
     {
+        m_noiseParticles.SetActive(true);
         m_animatorController.SetBool("isWalking", false);
         print("Meow!");
         m_isMeowing = true;
@@ -140,6 +143,7 @@ public class CatBehavior : MonoBehaviour
         yield return new WaitForSeconds(m_meowingSeconds);
         m_isMeowing = false;
         m_catCollider.enabled = false;
+        m_noiseParticles.SetActive(false);
         StartCoroutine(RandomWalk());
     }
 
