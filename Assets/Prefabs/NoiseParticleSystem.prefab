@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 493217708766066121}
+  - component: {fileID: 6420029449717026889}
   - component: {fileID: 493217708766066120}
   - component: {fileID: 493217708766066119}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: NoiseParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,6 +33,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6420029449717026889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493217708766066118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17662027898340a4a857043c186ee816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &493217708766066120
 ParticleSystem:
   m_ObjectHideFlags: 0

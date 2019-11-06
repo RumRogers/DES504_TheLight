@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
-    Transform m_target = null;
+    protected Transform m_target = null;
     Vector3 m_offset;
 
     public void SetTarget(Transform target)
