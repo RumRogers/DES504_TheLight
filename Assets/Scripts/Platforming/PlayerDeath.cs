@@ -18,9 +18,10 @@ public class PlayerDeath : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            m_playerController.Respawn();           
-            Inventory.Instance.Empty();
-            m_stateManager.ResetAll();
+            //m_playerController.Respawn();           
+            //Inventory.Instance.Empty();
+            //m_stateManager.ResetAll();
+            GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "You fell to your death. Whoops.");
         }
     }
 }
