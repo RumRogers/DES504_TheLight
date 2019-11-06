@@ -76,6 +76,7 @@ public class Pipe : MonoBehaviour
                     case Inventory.InventoryItems.MonkeyWrench:
                         m_rotating = true;
                         m_direction = m_direction == PipeDirection.Left ? PipeDirection.Right : PipeDirection.Left;
+                        m_playerController.SetFiddling(1);
                         break;
                 }
                 

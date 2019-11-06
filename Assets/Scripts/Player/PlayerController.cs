@@ -55,7 +55,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_swinging = false;
     [SerializeField] private bool m_stunned = false;
     [SerializeField] private bool m_dead = false;
-    [SerializeField] private bool m_hiding = false;    
+    [SerializeField] private bool m_hiding = false;
+    [SerializeField] private bool m_fiddling = false;
     [SerializeField] private bool m_ignoreSounds = false;
 
     private bool m_hasJustJumped = false;
@@ -682,5 +683,10 @@ public class PlayerController : MonoBehaviour
         //print("resetHasJustLanded");
         m_hasJustLanded = false;
         m_playerAnimation.GetAnimator().SetBool("hasJustLanded", false);
+    }
+
+    public void SetFiddling(int val)
+    {
+        m_playerAnimation.GetAnimator().SetBool("isFiddling", val != 0);
     }
 }

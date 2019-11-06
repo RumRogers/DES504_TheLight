@@ -2633,7 +2633,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638820793}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.42, y: 185.81, z: 55.85}
+  m_LocalPosition: {x: -20.42, y: 184.08, z: 55.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 532418189}
@@ -10637,7 +10637,7 @@ PrefabInstance:
     - target: {fileID: 197758809703836332, guid: 1c069f7ba279bd14ea732cfae6e03745,
         type: 3}
       propertyPath: m_invulnerableToHeight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 848706212, guid: 1c069f7ba279bd14ea732cfae6e03745, type: 3}
       propertyPath: m_TagString
@@ -11765,6 +11765,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8821970829437859422, guid: 6dbadfcd110edc048ae89b0276c228cb,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.18431373
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2198635752936721552, guid: 6dbadfcd110edc048ae89b0276c228cb, type: 3}

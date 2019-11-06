@@ -8,12 +8,13 @@ ADD cat behavior (crawling or witness is awaken) -> OK
 ADD safe + crowbar usage -> LATER
 ADD alarm effect - later 
 ADD pause - OK
-ADD CURRENT ITEM UI!!!!!
 ADD CHANGE RESPAWN POINT after grabbing money -> OK
 ADD intermittent cameras -> OK
 Animator: add swinging state + fix animator disabled OK
 Models: add ladder OK
 CAT Animator (Add idle state + clip) -> OK
+Character FIDDLING Anim -> OK
+ADD CURRENT ITEM UI!!!!!
 
 ART:
 Cat Idle Anim -> OK
@@ -22,3 +23,7 @@ Character Stunned Anim
 Character Crouch Anim -> OK
 Character Pipe Anim
 Character grabbing flowerpot (No anim required) -> OK
+
+FIXES:
+Character spotted position (actual position not enough)
+Strange behaviors with ladders
