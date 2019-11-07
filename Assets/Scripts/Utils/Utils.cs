@@ -20,11 +20,13 @@ public class Utils : MonoBehaviour
         callback();
     }
 
-    public static IEnumerator WaitUntil(GameManager.Predicate predicate)
+    public static IEnumerator WaitUntilAndExecute(GameManager.Predicate predicate, GameManager.Callback callback)
     {
         while(!predicate())
         {
             yield return new WaitForSeconds(.5f);
         }
+
+        callback();
     }
 }
