@@ -44,6 +44,11 @@ public class Inventory
 
     public string GetItemName(InventoryItems item)
     {
+        if(item == InventoryItems.None)
+        {
+            return "none";
+        }
+
         return m_itemNames[item];
     }
 

@@ -39,6 +39,7 @@ public class Collectible : Resettable
                     GameManager.Instance.UpdatePlayerRespawnPoint(transform.position);
                     break;
                 default:
+                    GameManager.Instance.UIAddToInventory(m_itemID);                    
                     GameManager.Instance.SetLowerHUDText(m_msgPrefix + " " + Inventory.Instance.GetItemName(m_itemID) + ". Use it wisely.", 2.5f);
                     break;
             }

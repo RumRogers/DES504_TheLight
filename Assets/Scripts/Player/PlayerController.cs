@@ -191,21 +191,21 @@ public class PlayerController : MonoBehaviour
     private void ManageInput(ref InputRetrieved input)
     {        
         m_movement = Vector3.zero; // Reset movement each frame
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if(Inventory.Instance.ContainsItem(Inventory.InventoryItems.Crowbar))
             {
                 SetCurrentItem(Inventory.InventoryItems.Crowbar);
             }
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        else if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (Inventory.Instance.ContainsItem(Inventory.InventoryItems.MonkeyWrench))
             {
                 SetCurrentItem(Inventory.InventoryItems.MonkeyWrench);
             }
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha0))
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
         {
             SetCurrentItem(Inventory.InventoryItems.None);
         }
@@ -510,6 +510,7 @@ public class PlayerController : MonoBehaviour
 
     private void SetCurrentItem(Inventory.InventoryItems item)
     {
+        GameManager.Instance.UISetActiveInventoryItem(item);
         foreach(var x in m_inventoryBindings)
         {
             if(x.Key == item)
