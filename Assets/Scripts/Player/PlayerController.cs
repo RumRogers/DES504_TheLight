@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
     private bool m_hasJustJumped = false;
     [SerializeField] private bool m_hasJustLanded = false;
     private Vector3 m_timelineOffset;
-    private float m_fallingStart;
+    private float m_fallingStart;  
 
     // Actual movement vars
     private Vector3 m_velocity = Vector3.zero; // needed for keeping track of gravity & custom physics
@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
         m_bottom = transform.Find("Feet");
         m_inventoryBindings[Inventory.InventoryItems.Crowbar] = m_armCrowbar;
         m_inventoryBindings[Inventory.InventoryItems.MonkeyWrench] = m_armWrench;
-        m_audioSource = GetComponent<AudioSource>();
+        m_audioSource = GetComponent<AudioSource>();        
     }
 
     // Update is called once per frame
@@ -234,10 +234,10 @@ public class PlayerController : MonoBehaviour
             if (input.jump && m_characterController.isGrounded && m_canJump)
             {
                 m_canJump = false;
-                m_jumping = true;
-                m_crouching = false;                  
+                m_jumping = true;                
                 m_velocity.y += m_jumpForce;
                 m_hasJustJumped = true;
+                //SetCharacterColliderToState(0);
             }
 
             if (input.y != 0 && m_characterController.isGrounded)
@@ -250,13 +250,15 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
-                        m_crouching = true;                        
+                        m_crouching = true;
+                        //SetCharacterColliderToState(1);
                     }
                 }
             }
             else if (input.y == 0)
             {
                 m_crouching = false;
+                //SetCharacterColliderToState(0);
             }
 
             if (input.x != 0)
