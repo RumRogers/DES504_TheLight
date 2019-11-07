@@ -901,7 +901,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1016508886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 844ec1bac52b0a3478fcdd9c5de2349f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5eb28af87cef1804aba030e96f182bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1138988296
@@ -1203,7 +1203,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1016508888}
-        m_MethodName: QuitGame
+        m_MethodName: toMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
