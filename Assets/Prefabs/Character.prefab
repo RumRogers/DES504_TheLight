@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &771928527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 771928528}
+  m_Layer: 8
+  m_Name: CameraTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &771928528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771928527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.941, z: 0.073}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8291349313599924782}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &848706212
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +41,7 @@ GameObject:
   - component: {fileID: 848706213}
   m_Layer: 8
   m_Name: StarsSpawningPoint
-  m_TagString: StarsSpawningPoint
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1391,6 +1421,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 848706213}
+  - {fileID: 771928528}
   m_Father: {fileID: 7477519436931533110}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -87.74849, y: -83.52573, z: 173.52072}
@@ -1946,7 +1977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7437870654ae24da076575aecfad0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_invulnerableToHeight: 0
+  m_invulnerableToHeight: 1
   m_noGravity: 0
   m_isGrounded: 0
   m_lives: 3
@@ -1966,9 +1997,10 @@ MonoBehaviour:
   m_stunned: 0
   m_dead: 0
   m_hiding: 0
+  m_fiddling: 0
   m_ignoreSounds: 0
   m_hasJustLanded: 0
-  m_speed: 3
+  m_speed: 4
   m_runningSpeedMultiplier: 2.5
   m_crouchSpeedPercentage: 0.35
   m_jumpForce: 0.6

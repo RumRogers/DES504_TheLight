@@ -29,7 +29,8 @@ Character Pipe Anim
 Character grabbing flowerpot (No anim required) -> OK
 
 FIXES:
-Character spotted position (actual position not enough)
+Change Character collider while he's crouching
+Character spotted position (actual position not enough) -> OK
 Add cops models + animations + animator
 Add all sounds
 Add GLOBAL 5 mins TIMER

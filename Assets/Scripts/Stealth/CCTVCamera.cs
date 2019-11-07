@@ -26,8 +26,9 @@ public class CCTVCamera : MonoBehaviour
 
     protected virtual void Awake()
     {
-        m_target = GameObject.FindGameObjectWithTag("Player").transform;
-        m_playerController = m_target.GetComponent<PlayerController>();
+        //m_target = GameObject.FindGameObjectWithTag("Player").transform;
+        m_target = GameObject.Find("CameraTarget").transform;
+        m_playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         m_lens = transform.Find("Lens");
        

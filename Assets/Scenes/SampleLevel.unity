@@ -10441,25 +10441,6 @@ PrefabInstance:
       propertyPath: m_armWrench
       value: 
       objectReference: {fileID: 127427073}
-    - target: {fileID: 197758809703836332, guid: 1c069f7ba279bd14ea732cfae6e03745,
-        type: 3}
-      propertyPath: m_invulnerableToHeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 197758809703836332, guid: 1c069f7ba279bd14ea732cfae6e03745,
-        type: 3}
-      propertyPath: m_speed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 197758809703836332, guid: 1c069f7ba279bd14ea732cfae6e03745,
-        type: 3}
-      propertyPath: m_jumpForce
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 848706212, guid: 1c069f7ba279bd14ea732cfae6e03745, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c069f7ba279bd14ea732cfae6e03745, type: 3}
 --- !u!1001 &395274965003390114
