@@ -58,7 +58,8 @@ public class GameManager : MonoBehaviour
     {
         GamePaused = false;
 
-        if(SceneManager.GetActiveScene().buildIndex != 0)
+        int currSceneIdx = SceneManager.GetActiveScene().buildIndex;
+        if (currSceneIdx != 0 && currSceneIdx != 3)
         {
             GameObject missionFailedScreen = GameObject.Find("MissionFailed");
             GameObject missionCompleteScreen = GameObject.Find("MissionComplete");
@@ -130,6 +131,12 @@ public class GameManager : MonoBehaviour
     public void Retry()
     {        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);        
+        SetPause(false);
+    }
+
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SetPause(false);
     }
 

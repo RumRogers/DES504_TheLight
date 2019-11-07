@@ -8659,6 +8659,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ladder (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 115574f175eb5514f9c26670e37c23f9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 115574f175eb5514f9c26670e37c23f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -36.15
