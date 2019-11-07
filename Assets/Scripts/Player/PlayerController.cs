@@ -353,7 +353,7 @@ public class PlayerController : MonoBehaviour
                 {
                     m_hasJustLanded = true;
                     StartCoroutine(Utils.WaitAndExecute(.5f, ResetHasJustLanded));
-                    print("just landed!");
+                    //print("just landed!");
                     float fellFor = m_fallingStart - transform.position.y;
                     if(!m_invulnerableToHeight)
                     {
@@ -683,7 +683,7 @@ public class PlayerController : MonoBehaviour
 
     public void ResetHasJustLanded()
     {
-        print("resetHasJustLanded");
+        //print("resetHasJustLanded");
         m_hasJustLanded = false;
         m_playerAnimation.GetAnimator().SetBool("hasJustLanded", false);
     }

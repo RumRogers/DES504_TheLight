@@ -39,7 +39,7 @@ public class TimedPlatform : Resettable
     }
 
     void OnTriggerEnter(Collider collider)
-    {
+    {        
         m_contact = true;
 
         if (Style == TimingStyle.STRICT_COUNTDOWN && !m_aboutToCollapse)
