@@ -15,6 +15,7 @@ public class NPCBasicBehavior : CCTVCamera
     private Vector3 m_rightBound;
     private IEnumerator m_patrolCoroutine;
     [SerializeField] private float m_chasingSpeed = 10;
+    private Animator m_copAnimator;
 
 
     protected override void Awake()
@@ -29,6 +30,7 @@ public class NPCBasicBehavior : CCTVCamera
         m_alarmBalloon.transform.parent = null;
         Billboard billboard = m_alarmBalloon.GetComponent<Billboard>();
         billboard.SetTarget(transform);
+        m_copAnimator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     void Start()
@@ -41,11 +43,11 @@ public class NPCBasicBehavior : CCTVCamera
     {
         base.Update();
         if(m_alarm)
-        {
+        {            
             Chase();
         }
         else if(m_patrolCoroutine == null)
-        {
+        {            
             m_currentStart = transform.position;
             m_patrolCoroutine = Patrol();
             StartCoroutine(m_patrolCoroutine);
@@ -55,9 +57,12 @@ public class NPCBasicBehavior : CCTVCamera
     IEnumerator Patrol()
     {
         float tLerp = 0;
+        m_copAnimator.SetBool("isIdle", false);
+        m_copAnimator.SetBool("isChasing", false);
+        m_copAnimator.SetBool("isWalking", true);
+
         while (true)
-        {      
-            
+        { 
             if (transform.position != m_currentGoal)
             {
                 tLerp += m_speed * Time.deltaTime;
@@ -68,7 +73,14 @@ public class NPCBasicBehavior : CCTVCamera
             {
                 ChangeGoal();
                 tLerp = 0;
+                m_copAnimator.SetBool("isIdle", true);
+                m_copAnimator.SetBool("isChasing", false);
+                m_copAnimator.SetBool("isWalking", false);
                 yield return new WaitForSeconds(m_breakDurationInSeconds);
+
+                m_copAnimator.SetBool("isIdle", false);
+                m_copAnimator.SetBool("isChasing", false);
+                m_copAnimator.SetBool("isWalking", true);
                 //transform.Rotate(0, 180, 0);
             }
 
@@ -118,7 +130,11 @@ public class NPCBasicBehavior : CCTVCamera
 
     void Chase()
     {
-        if(m_patrolCoroutine != null)
+        m_copAnimator.SetBool("isIdle", false);
+        m_copAnimator.SetBool("isChasing", true);
+        m_copAnimator.SetBool("isWalking", false);
+
+        if (m_patrolCoroutine != null)
         {
             StopCoroutine(m_patrolCoroutine);
             m_patrolCoroutine = null;
