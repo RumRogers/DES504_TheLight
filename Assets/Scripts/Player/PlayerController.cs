@@ -601,7 +601,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator HideTo(Vector3 position)
     {
-        if(m_hiding || m_moving || m_crouching || m_falling || m_crawling)
+        if(m_hiding || m_moving || m_crouching || m_falling || m_crawling || m_stunned)
         {
             yield break;
         }
