@@ -19,4 +19,12 @@ public class Utils : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         callback();
     }
+
+    public static IEnumerator WaitUntil(GameManager.Predicate predicate)
+    {
+        while(!predicate())
+        {
+            yield return new WaitForSeconds(.5f);
+        }
+    }
 }

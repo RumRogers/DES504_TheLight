@@ -9,13 +9,14 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public delegate void Callback();
+    public delegate bool Predicate();
 
     [Header("Game UI")]
     [SerializeField] private ShowScreenFading m_missionFailed;
     [SerializeField] private ShowScreenFading m_missionComplete;
     [SerializeField] private GameObject m_missionFailedButtonSet;
     [SerializeField] private GameObject m_missionCompleteButtonSet;
-    [SerializeField] private List<Transform> m_witnessImages;
+    [SerializeField] private List<GameObject> m_witnessImages;
     private GameObject m_pauseScreen;
     private LowerHUDMessage m_lowerHUDMessage;
     private Timer m_timerScript;
@@ -56,24 +57,50 @@ public class GameManager : MonoBehaviour
     private void Initialize()
     {
         GamePaused = false;
-        m_timerScript = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
-        m_playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        m_pauseScreen = GameObject.Find("Pause");
-        m_pauseScreen.SetActive(false);
-        m_lowerHUDMessage = GameObject.Find("LowerHUD").GetComponent<LowerHUDMessage>();
-        m_crowbarInventoryImage = GameObject.Find("InventoryCrowbar").GetComponent<Image>();
-        m_nothingInventoryImage = GameObject.Find("InventoryNothing").GetComponent<Image>();
-        m_monkeyWrenchInventoryImage = GameObject.Find("InventoryMonkeyWrench").GetComponent<Image>();
-        m_panelInventory = GameObject.Find("InventoryPanel").GetComponent<RectTransform>();
-        m_textInventory = GameObject.Find("InventoryText").GetComponent<TextMeshProUGUI>();
 
-        if(SceneManager.GetActiveScene().buildIndex != 0) // not the main menu
+        if(SceneManager.GetActiveScene().buildIndex != 0)
         {
-            m_crowbarInventoryImage.color = new Color(255, 255, 255, 0);
-            m_monkeyWrenchInventoryImage.color = new Color(255, 255, 255, 0);
-        }
+            GameObject missionFailedScreen = GameObject.Find("MissionFailed");
+            GameObject missionCompleteScreen = GameObject.Find("MissionComplete");
+            m_missionFailed = missionFailedScreen.GetComponent<ShowScreenFading>();
+            m_missionComplete = missionCompleteScreen.GetComponent<ShowScreenFading>();
+            m_missionFailedButtonSet = missionFailedScreen.transform.GetChild(2).gameObject;
+            m_missionCompleteButtonSet = missionCompleteScreen.transform.GetChild(2).gameObject;
 
-        Inventory.Instance.Empty();      
+            Transform witnessesGameObject = GameObject.Find("Witnesses").transform;
+            m_witnessImages = new List<GameObject>();
+
+            /*for(int i = 0; i < transform.childCount; i++)
+             {
+                 m_witnessImages.Add(transform.GetChild(i).gameObject);
+             }*/
+
+            foreach (Transform childTransform in witnessesGameObject)
+            {
+                m_witnessImages.Add(childTransform.gameObject);
+            }
+
+            m_timerScript = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
+            m_playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            m_pauseScreen = GameObject.Find("Pause");
+            m_pauseScreen.transform.localPosition = new Vector3(0, -10000, m_pauseScreen.transform.position.z);
+            //m_pauseScreen.SetActive(false);
+            m_lowerHUDMessage = GameObject.Find("LowerHUD").GetComponent<LowerHUDMessage>();
+            m_crowbarInventoryImage = GameObject.Find("InventoryCrowbar").GetComponent<Image>();
+            m_nothingInventoryImage = GameObject.Find("InventoryNothing").GetComponent<Image>();
+            m_monkeyWrenchInventoryImage = GameObject.Find("InventoryMonkeyWrench").GetComponent<Image>();
+            m_panelInventory = GameObject.Find("InventoryPanel").GetComponent<RectTransform>();
+            m_textInventory = GameObject.Find("InventoryText").GetComponent<TextMeshProUGUI>();
+
+            if (SceneManager.GetActiveScene().buildIndex != 0) // not the main menu
+            {
+                m_crowbarInventoryImage.color = new Color(255, 255, 255, 0);
+                m_monkeyWrenchInventoryImage.color = new Color(255, 255, 255, 0);
+            }
+
+            Inventory.Instance.Empty();
+        }
+         
     }
 
     public void ShowScreen(UIScreen screen, string message = "")
@@ -119,6 +146,7 @@ public class GameManager : MonoBehaviour
 
         GamePaused = pause;
         m_pauseScreen.SetActive(pause & showPauseScreen);
+        m_pauseScreen.transform.localPosition = new Vector3(0, -10000 * (pause ? 0 : 1), m_pauseScreen.transform.position.z);
     }
 
     private IEnumerator WaitAndCall(float seconds, Callback callback)
