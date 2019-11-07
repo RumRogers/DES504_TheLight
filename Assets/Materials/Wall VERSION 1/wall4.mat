@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Wall4
+  m_Name: wall4
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP
   m_LightmapFlags: 4
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: f1047069bf1508f4f812922e6f3d348b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2add1204d5460164e828ab561ef59ac3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -40,11 +40,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: af06143711c536449975c05061d2a0cf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 83cafcea291685b47a9bc321836095f2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 900f459f79317b54e9c7385731dbaf7c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3c51581e621bd4b43a73c52be9005ce1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -73,5 +73,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.20754719, g: 0.089088656, b: 0.089088656, a: 0.6431373}
+    - _Color: {r: 0.11320752, g: 0.10199357, b: 0.10199357, a: 0.65882355}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
