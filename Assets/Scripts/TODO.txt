@@ -33,3 +33,11 @@ Change Character collider while he's crouching
 Character spotted position (actual position not enough) -> OK
 Add all sounds
 Add GLOBAL 5 mins TIMER
+
+
+
+
+FIX JUMP FEEL AND GRAVITY
+
+
+

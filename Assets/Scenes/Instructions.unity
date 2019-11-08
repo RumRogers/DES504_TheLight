@@ -371,9 +371,11 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: You're a burglar and your goal is to steal the swag bag, located somewhere
+  m_text: "You're a burglar and your goal is to steal the swag bag, located somewhere
     in the level, and to reach the exit before the time ends! jump your way through,
-    avoid cops and cctv cameras, die a thousand deaths! good luck and enjoy!
+    avoid cops and cctv cameras, die a thousand deaths! good luck and enjoy! \n\nP.S.:
+    because of a bug, witnesses are not displayed. you have a limit of 3 witnesses
+    per level!!!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ffcdabf4864441d48a9633b65f9cc6d2, type: 2}
   m_sharedMaterial: {fileID: -787817835956543670, guid: ffcdabf4864441d48a9633b65f9cc6d2,
@@ -443,12 +445,12 @@ MonoBehaviour:
   m_margin: {x: -2.9909058, y: 0, z: -1.0968018, w: 6.6845093}
   m_textInfo:
     textComponent: {fileID: 238214871}
-    characterCount: 228
+    characterCount: 328
     spriteCount: 0
-    spaceCount: 42
-    wordCount: 43
+    spaceCount: 62
+    wordCount: 62
     linkCount: 0
-    lineCount: 5
+    lineCount: 8
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
