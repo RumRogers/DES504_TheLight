@@ -152,13 +152,12 @@ RectTransform:
   m_Children:
   - {fileID: 1615454369}
   - {fileID: 653586182}
-  - {fileID: 603757107}
   m_Father: {fileID: 2076536952}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -14.27, y: 28.79}
+  m_AnchoredPosition: {x: -16.07, y: 29.07}
   m_SizeDelta: {x: 8, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &833875
@@ -2523,13 +2522,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Tips:
 
-    Use wrench to change the direction of drainpipes.
+    Press     to take the monkey wrench.
 
-    Press     to take items.
+    Press 1 to make it your active item.
 
-    Press 2 to take out wrench.
-
-    Press 0 totake back wrench'
+    Press 2 to pocket the wrench again.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7136561d33cea74f93128d9d43db64e, type: 2}
   m_sharedMaterial: {fileID: -205693473834718636, guid: c7136561d33cea74f93128d9d43db64e,
@@ -2599,12 +2596,12 @@ MonoBehaviour:
   m_margin: {x: -1.8471365, y: -0.8335533, z: -1.7982979, w: 1.0713253}
   m_textInfo:
     textComponent: {fileID: 139048225}
-    characterCount: 135
+    characterCount: 115
     spriteCount: 0
-    spaceCount: 27
-    wordCount: 24
+    spaceCount: 25
+    wordCount: 22
     linkCount: 0
-    lineCount: 6
+    lineCount: 4
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -5947,8 +5944,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Tips:
 
-    If cops see you, you will add one witness. And if they catch you, you will lose
-    your game.'
+    A cop counts as a witness if he detects you. Don''t get caught!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7136561d33cea74f93128d9d43db64e, type: 2}
   m_sharedMaterial: {fileID: -205693473834718636, guid: c7136561d33cea74f93128d9d43db64e,
@@ -6018,12 +6014,12 @@ MonoBehaviour:
   m_margin: {x: -1.8471365, y: -0.8335533, z: -1.7982979, w: 2.0791683}
   m_textInfo:
     textComponent: {fileID: 364191185}
-    characterCount: 96
+    characterCount: 68
     spriteCount: 0
-    spaceCount: 19
-    wordCount: 20
+    spaceCount: 13
+    wordCount: 14
     linkCount: 0
-    lineCount: 4
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -6858,7 +6854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.39, y: -0.26}
+  m_AnchoredPosition: {x: -2.4, y: 0.96}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &417971167
@@ -8461,9 +8457,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Tips:
 
-    Press     to use drainpipes.
+    While holding the wrench, press E to turn the end of the drainpipe and change
+    the direction of your landing.
 
-    When you take out wrench, press     to change the direction of pipes.'
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7136561d33cea74f93128d9d43db64e, type: 2}
   m_sharedMaterial: {fileID: -205693473834718636, guid: c7136561d33cea74f93128d9d43db64e,
@@ -8533,10 +8530,10 @@ MonoBehaviour:
   m_margin: {x: -1.8471365, y: -0.8335533, z: -1.7982979, w: 2.0791683}
   m_textInfo:
     textComponent: {fileID: 565847625}
-    characterCount: 104
+    characterCount: 115
     spriteCount: 0
-    spaceCount: 24
-    wordCount: 17
+    spaceCount: 21
+    wordCount: 21
     linkCount: 0
     lineCount: 4
     pageCount: 1
@@ -9022,7 +9019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &586010805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9291,165 +9288,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4761cb91815f3594fbf673c87c188032, type: 3}
---- !u!1 &603757106
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 603757107}
-  - component: {fileID: 603757109}
-  - component: {fileID: 603757108}
-  m_Layer: 5
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &603757107
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603757106}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 833874}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.4699988}
-  m_SizeDelta: {x: 4, y: 4}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &603757108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603757106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "Tips:\n     while cat is near you. Or it will meow to arouse other residents'
-    attention."
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c7136561d33cea74f93128d9d43db64e, type: 2}
-  m_sharedMaterial: {fileID: -205693473834718636, guid: c7136561d33cea74f93128d9d43db64e,
-    type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_outlineColor:
-    serializedVersion: 2
-    rgba: 4278190080
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_textAlignment: 257
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
-  m_linkedTextComponent: {fileID: 0}
-  m_isLinkedTextComponent: 0
-  m_isTextTruncated: 0
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_ignoreRectMaskCulling: 0
-  m_ignoreCulling: 1
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_VertexBufferAutoSizeReduction: 1
-  m_firstVisibleCharacter: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: -1.8471365, y: -0.8335533, z: -1.7982979, w: 2.0791683}
-  m_textInfo:
-    textComponent: {fileID: 603757108}
-    characterCount: 87
-    spriteCount: 0
-    spaceCount: 19
-    wordCount: 15
-    linkCount: 0
-    lineCount: 3
-    pageCount: 1
-    materialCount: 1
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_spriteAnimator: {fileID: 0}
-  m_hasFontAssetChanged: 0
-  m_subTextObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &603757109
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603757106}
-  m_CullTransparentMesh: 0
 --- !u!1001 &603899859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10257,7 +10095,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645750598}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 42.1, y: 16.4, z: 0}
+  m_LocalPosition: {x: -26.2, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 752615748}
@@ -10492,8 +10330,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "Tips:\n     while cat is near you. Or it will meow to arouse other residents'
-    attention."
+  m_text: 'Tips:
+
+    Press     to crouch and avoid scaring the cat. If you startle it, it will meow
+    to arouse residents'' attention.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7136561d33cea74f93128d9d43db64e, type: 2}
   m_sharedMaterial: {fileID: -205693473834718636, guid: c7136561d33cea74f93128d9d43db64e,
@@ -10563,12 +10403,12 @@ MonoBehaviour:
   m_margin: {x: -1.8471365, y: -0.8335533, z: -1.7982979, w: 2.0791683}
   m_textInfo:
     textComponent: {fileID: 653586183}
-    characterCount: 87
+    characterCount: 116
     spriteCount: 0
-    spaceCount: 19
-    wordCount: 15
+    spaceCount: 23
+    wordCount: 20
     linkCount: 0
-    lineCount: 3
+    lineCount: 4
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -11784,11 +11624,6 @@ PrefabInstance:
       propertyPath: m_forceMultiplier
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5006512734947915713, guid: 71f93548f15bfee418356d058c76570e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.16
-      objectReference: {fileID: 0}
     - target: {fileID: 1109325216497367386, guid: 71f93548f15bfee418356d058c76570e,
         type: 3}
       propertyPath: m_Size.y
@@ -11808,6 +11643,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.x
       value: 0.17284775
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006512734947915713, guid: 71f93548f15bfee418356d058c76570e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71f93548f15bfee418356d058c76570e, type: 3}
@@ -14138,7 +13978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &914102121
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14625,7 +14465,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Tips:
 
-    Intermittent camera.'
+    You can sneak by a camera undetected while it is not recording'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7136561d33cea74f93128d9d43db64e, type: 2}
   m_sharedMaterial: {fileID: -205693473834718636, guid: c7136561d33cea74f93128d9d43db64e,
@@ -14695,12 +14535,12 @@ MonoBehaviour:
   m_margin: {x: -1.8471365, y: -0.8335533, z: -1.7982979, w: 2.0791683}
   m_textInfo:
     textComponent: {fileID: 945155864}
-    characterCount: 26
+    characterCount: 68
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 12
+    wordCount: 13
     linkCount: 0
-    lineCount: 2
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -14922,7 +14762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &958390887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15661,7 +15501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c56b9df7cee41024aaf65cae7565754f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c56b9df7cee41024aaf65cae7565754f, type: 3}
       propertyPath: m_TagString
@@ -17473,7 +17313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1171202606
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17816,7 +17656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1233819577
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18327,11 +18167,6 @@ PrefabInstance:
       propertyPath: m_forceMultiplier
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5006512734947915713, guid: 71f93548f15bfee418356d058c76570e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.16
-      objectReference: {fileID: 0}
     - target: {fileID: 1109325216497367386, guid: 71f93548f15bfee418356d058c76570e,
         type: 3}
       propertyPath: m_Size.y
@@ -18351,6 +18186,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.x
       value: 0.15543938
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006512734947915713, guid: 71f93548f15bfee418356d058c76570e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71f93548f15bfee418356d058c76570e, type: 3}
@@ -18457,16 +18297,6 @@ PrefabInstance:
       propertyPath: m_forceMultiplier
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5006512734947915713, guid: 71f93548f15bfee418356d058c76570e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 1109325217095572279, guid: 71f93548f15bfee418356d058c76570e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1109325216497367386, guid: 71f93548f15bfee418356d058c76570e,
         type: 3}
       propertyPath: m_Size.y
@@ -18486,6 +18316,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.x
       value: 0.14577198
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006512734947915713, guid: 71f93548f15bfee418356d058c76570e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109325217095572279, guid: 71f93548f15bfee418356d058c76570e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1109325217095572265, guid: 71f93548f15bfee418356d058c76570e,
         type: 3}
@@ -22816,7 +22656,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Tips:
 
-    Hiding place can help you avoid cops'' chasing. Press      to hide.'
+    Press W to hide inside gaps and lose cops. Press S to stop hiding.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7136561d33cea74f93128d9d43db64e, type: 2}
   m_sharedMaterial: {fileID: -205693473834718636, guid: c7136561d33cea74f93128d9d43db64e,
@@ -22888,8 +22728,8 @@ MonoBehaviour:
     textComponent: {fileID: 1573199620}
     characterCount: 72
     spriteCount: 0
-    spaceCount: 16
-    wordCount: 12
+    spaceCount: 14
+    wordCount: 15
     linkCount: 0
     lineCount: 3
     pageCount: 1
@@ -23478,6 +23318,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 974849206, guid: 127f6754bee50496f8b73c0cf5152316, type: 3}
+      propertyPath: m_distance
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 974849206, guid: 127f6754bee50496f8b73c0cf5152316, type: 3}
+      propertyPath: m_fovDegrees
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 974849206, guid: 127f6754bee50496f8b73c0cf5152316, type: 3}
+      propertyPath: m_recordingTimeInSeconds
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 974849206, guid: 127f6754bee50496f8b73c0cf5152316, type: 3}
+      propertyPath: m_idleTimeInSeconds
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2969263000260268111, guid: 127f6754bee50496f8b73c0cf5152316,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -23517,22 +23373,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.0011
-      objectReference: {fileID: 0}
-    - target: {fileID: 974849206, guid: 127f6754bee50496f8b73c0cf5152316, type: 3}
-      propertyPath: m_distance
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 974849206, guid: 127f6754bee50496f8b73c0cf5152316, type: 3}
-      propertyPath: m_fovDegrees
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 974849206, guid: 127f6754bee50496f8b73c0cf5152316, type: 3}
-      propertyPath: m_recordingTimeInSeconds
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 974849206, guid: 127f6754bee50496f8b73c0cf5152316, type: 3}
-      propertyPath: m_idleTimeInSeconds
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127f6754bee50496f8b73c0cf5152316, type: 3}
@@ -24175,7 +24015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.42, y: 0.04}
+  m_AnchoredPosition: {x: -2.37, y: 0.07}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1615454370
@@ -26554,7 +26394,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -5.61, y: 36.82}
+  m_AnchoredPosition: {x: -9.3, y: 37.19}
   m_SizeDelta: {x: 8, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1753394376
@@ -29963,7 +29803,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Tips:
 
-    Rotate camera.'
+    You can sneak underneat a rotating camera'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7136561d33cea74f93128d9d43db64e, type: 2}
   m_sharedMaterial: {fileID: -205693473834718636, guid: c7136561d33cea74f93128d9d43db64e,
@@ -30033,12 +29873,12 @@ MonoBehaviour:
   m_margin: {x: -1.8471365, y: -0.8335533, z: -1.7982979, w: 2.0791683}
   m_textInfo:
     textComponent: {fileID: 2068462918}
-    characterCount: 20
+    characterCount: 47
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 7
+    wordCount: 8
     linkCount: 0
-    lineCount: 2
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -30951,7 +30791,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 31.22, y: 13.51}
+  m_AnchoredPosition: {x: 25.24, y: 11.37}
   m_SizeDelta: {x: 8, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2111068425
