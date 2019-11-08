@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     private Image m_monkeyWrenchInventoryImage;
     private RectTransform m_panelInventory;
     private TextMeshProUGUI m_textInventory;
+    private float m_globalTimeLeftInSeconds;
+    private bool initialized = false;
 
     private PlayerController m_playerController;
     public bool GamePaused { get; private set; }
@@ -56,11 +58,13 @@ public class GameManager : MonoBehaviour
 
     private void Initialize()
     {
-        GamePaused = false;
+        initialized = false;
+        GamePaused = false;        
 
         int currSceneIdx = SceneManager.GetActiveScene().buildIndex;
-        if (currSceneIdx != 0 && currSceneIdx != 3)
+        if (currSceneIdx != 0 && currSceneIdx != 1 && currSceneIdx != 4)
         {
+            m_globalTimeLeftInSeconds = 300;
             GameObject missionFailedScreen = GameObject.Find("MissionFailed");
             GameObject missionCompleteScreen = GameObject.Find("MissionComplete");
             m_missionFailed = missionFailedScreen.GetComponent<ShowScreenFading>();
@@ -92,18 +96,23 @@ public class GameManager : MonoBehaviour
             m_monkeyWrenchInventoryImage = GameObject.Find("InventoryMonkeyWrench").GetComponent<Image>();
             m_panelInventory = GameObject.Find("InventoryPanel").GetComponent<RectTransform>();
             m_textInventory = GameObject.Find("InventoryText").GetComponent<TextMeshProUGUI>();
+            m_crowbarInventoryImage.color = new Color(255, 255, 255, 0);
+            m_monkeyWrenchInventoryImage.color = new Color(255, 255, 255, 0);
 
-            if (SceneManager.GetActiveScene().buildIndex != 0) // not the main menu
-            {
-                m_crowbarInventoryImage.color = new Color(255, 255, 255, 0);
-                m_monkeyWrenchInventoryImage.color = new Color(255, 255, 255, 0);
-            }
-
-            Inventory.Instance.Empty();
+            Inventory.Instance.Empty();            
+            initialized = true;
         }
          
     }
 
+    private void Update()
+    {
+        m_globalTimeLeftInSeconds -= Time.deltaTime;
+        if(m_globalTimeLeftInSeconds <= 0)
+        {
+            SceneManager.LoadScene(4);
+        }
+    }
     public void ShowScreen(UIScreen screen, string message = "")
     {
         SetPause(true);
@@ -217,5 +226,14 @@ public class GameManager : MonoBehaviour
     public void UpdatePlayerRespawnPoint(Vector3 respawnPoint)
     {
         m_playerController.RespawnPoint = respawnPoint;
+    }
+
+    public IEnumerator StartGlobalTimer()
+    {
+        while(m_globalTimeLeftInSeconds > 0)
+        {
+            yield return new WaitForSeconds(1);
+            m_globalTimeLeftInSeconds--;
+        }
     }
 }

@@ -12,4 +12,9 @@ public class EndingMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void StartDemo()
+    {
+        SceneManager.LoadScene(2);
+    }
 }
