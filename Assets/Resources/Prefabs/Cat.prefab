@@ -827,7 +827,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8368722655750445499, guid: 2c476b7a513fa0b4ea18357c76bc8eea, type: 3}
+  - {fileID: 2100000, guid: 901d15334ffe35443bfe625f79e88d34, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1370,17 +1370,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 493217708766066121, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 493217708766066121, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 493217708766066121, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
-        type: 3}
       propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 493217708766066119, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
+        type: 3}
+      propertyPath: m_MaxParticleSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 493217708766066119, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
+        type: 3}
+      propertyPath: m_RenderAlignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 493217708766066119, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
+        type: 3}
+      propertyPath: m_AllowRoll
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 493217708766066120, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
@@ -1405,23 +1410,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 493217708766066120, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
         type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.18431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 493217708766066120, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
+        type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 493217708766066119, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
-        type: 3}
-      propertyPath: m_MaxParticleSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 493217708766066119, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
-        type: 3}
-      propertyPath: m_RenderAlignment
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 493217708766066119, guid: 10c6d3b6d4d5f4223b790d0c0afeb838,
-        type: 3}
-      propertyPath: m_AllowRoll
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10c6d3b6d4d5f4223b790d0c0afeb838, type: 3}

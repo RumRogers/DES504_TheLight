@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ShowScreenFading m_missionComplete;
     [SerializeField] private GameObject m_missionFailedButtonSet;
     [SerializeField] private GameObject m_missionCompleteButtonSet;
-    [SerializeField] private List<GameObject> m_witnessImages;
+    //[SerializeField] private List<GameObject> m_witnessImages;
+    [SerializeField] private List<Image> m_witnessImages;
     private GameObject m_pauseScreen;
     private LowerHUDMessage m_lowerHUDMessage;
     private Timer m_timerScript;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI m_textInventory;
     private float m_globalTimeLeftInSeconds;
     private bool initialized = false;
+    [SerializeField] private Sprite m_activeWitness;
 
     private PlayerController m_playerController;
     public bool GamePaused { get; private set; }
@@ -72,8 +74,10 @@ public class GameManager : MonoBehaviour
             m_missionFailedButtonSet = missionFailedScreen.transform.GetChild(2).gameObject;
             m_missionCompleteButtonSet = missionCompleteScreen.transform.GetChild(2).gameObject;
 
-            Transform witnessesGameObject = GameObject.Find("Witnesses").transform;
-            m_witnessImages = new List<GameObject>();
+            Transform witnessesGameObject = GameObject.Find("WitnessesUI").transform;
+            m_witnessImages = new List<Image>();
+
+            m_activeWitness = Resources.Load<Sprite>("Sprites/people_blue");
 
             /*for(int i = 0; i < transform.childCount; i++)
              {
@@ -82,7 +86,7 @@ public class GameManager : MonoBehaviour
 
             foreach (Transform childTransform in witnessesGameObject)
             {
-                m_witnessImages.Add(childTransform.gameObject);
+                m_witnessImages.Add(childTransform.GetComponent<Image>());
             }
 
             m_timerScript = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
@@ -173,7 +177,8 @@ public class GameManager : MonoBehaviour
 
     public void UpdateWitnessesUI(int playerHealth)
     {
-        m_witnessImages[m_witnessImages.Count - playerHealth - 1].gameObject.SetActive(true);
+        //m_witnessImages[m_witnessImages.Count - playerHealth - 1].gameObject.SetActive(true);
+        m_witnessImages[m_witnessImages.Count - playerHealth - 1].overrideSprite = m_activeWitness;
     }
 
     public void StartTimer()
