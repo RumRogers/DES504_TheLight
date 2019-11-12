@@ -23,21 +23,32 @@ Add Cop Animator + Clips (when ready)
 ART:
 Cat Idle Anim -> OK
 Textures!!!
-Character Stunned Anim
 Character Crouch Anim -> OK
 Character Pipe Anim
 Character grabbing flowerpot (No anim required) -> OK
 
 FIXES:
-Change Character collider while he's crouching
+Change Character collider while he's crouching -> OK
 Character spotted position (actual position not enough) -> OK
-Add all sounds
+
 Add GLOBAL 5 mins TIMER
+
+
+
 
 
 
 
 FIX JUMP FEEL AND GRAVITY
 
+Add new idle animation
+Add stunned animation
+Add all sounds
+Add pipe animations (use normal jump for jumping/landing)
+Crowbar usage (ADD A FUCKING SAFE)
+Add checkpoint after grabbing loot IMPORTANT!!!!!!!!!!
+Add crawling anim
+
+Add inventory mask for tutorial
 
 

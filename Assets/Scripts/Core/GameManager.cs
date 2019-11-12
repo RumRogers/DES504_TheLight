@@ -12,12 +12,12 @@ public class GameManager : MonoBehaviour
     public delegate bool Predicate();
 
     [Header("Game UI")]
-    [SerializeField] private ShowScreenFading m_missionFailed;
-    [SerializeField] private ShowScreenFading m_missionComplete;
-    [SerializeField] private GameObject m_missionFailedButtonSet;
-    [SerializeField] private GameObject m_missionCompleteButtonSet;
+    private ShowScreenFading m_missionFailed;
+    private ShowScreenFading m_missionComplete;
+    private GameObject m_missionFailedButtonSet;
+    private GameObject m_missionCompleteButtonSet;
     //[SerializeField] private List<GameObject> m_witnessImages;
-    [SerializeField] private List<Image> m_witnessImages;
+    private List<Image> m_witnessImages;
     private GameObject m_pauseScreen;
     private LowerHUDMessage m_lowerHUDMessage;
     private Timer m_timerScript;
@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI m_textInventory;
     private float m_globalTimeLeftInSeconds;
     private bool initialized = false;
-    [SerializeField] private Sprite m_activeWitness;
+    private Sprite m_inactiveWitness;
+    private Sprite m_activeWitness;
 
     private PlayerController m_playerController;
     public bool GamePaused { get; private set; }
@@ -77,16 +78,14 @@ public class GameManager : MonoBehaviour
             Transform witnessesGameObject = GameObject.Find("WitnessesUI").transform;
             m_witnessImages = new List<Image>();
 
-            m_activeWitness = Resources.Load<Sprite>("Sprites/people_blue");
-
-            /*for(int i = 0; i < transform.childCount; i++)
-             {
-                 m_witnessImages.Add(transform.GetChild(i).gameObject);
-             }*/
+            m_activeWitness = Resources.Load<Sprite>(ResourceBindings.ActiveWitness);
+            m_inactiveWitness = Resources.Load<Sprite>(ResourceBindings.InactiveWitness);
 
             foreach (Transform childTransform in witnessesGameObject)
             {
-                m_witnessImages.Add(childTransform.GetComponent<Image>());
+                Image im = childTransform.GetComponent<Image>();
+                im.overrideSprite = m_inactiveWitness;
+                m_witnessImages.Add(im);
             }
 
             m_timerScript = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
