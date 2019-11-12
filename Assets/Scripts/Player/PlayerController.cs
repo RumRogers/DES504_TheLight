@@ -354,7 +354,7 @@ public class PlayerController : MonoBehaviour
                 if(m_falling)
                 {
                     m_hasJustLanded = true;
-                    StartCoroutine(Utils.WaitAndExecute(.5f, ResetHasJustLanded));
+                    StartCoroutine(Utils.WaitAndExecute(.01f, ResetHasJustLanded));
                     //print("just landed!");
                     float fellFor = m_fallingStart - transform.position.y;
                     if(!m_invulnerableToHeight)
@@ -545,7 +545,8 @@ public class PlayerController : MonoBehaviour
         else
         {
             m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);
-        }        
+        }
+        m_playerAnimation.SetBool("isStunned", m_stunned);
     }
 
     private void ManageSound()
