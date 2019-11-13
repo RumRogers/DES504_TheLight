@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     private bool initialized = false;
     private Sprite m_inactiveWitness;
     private Sprite m_activeWitness;
+    private bool m_lootCollected = false;
 
     private PlayerController m_playerController;
     public bool GamePaused { get; private set; }
