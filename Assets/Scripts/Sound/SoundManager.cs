@@ -28,7 +28,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip m_itemPickUpFX;
     [SerializeField] private AudioClip m_turnPipeFX;
 
-
     private void Awake()
     {
         if(Instance == null)
@@ -61,6 +60,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySound(SoundID soundID, AudioSource audioSource = null, bool oneshot = false, float volume = 1f, bool loop = false)
     {
+        return;
         if(audioSource == null)
         {
             audioSource = m_audioSource;

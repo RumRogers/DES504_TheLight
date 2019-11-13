@@ -15,7 +15,7 @@ public class CCTVCamera : MonoBehaviour
     private Color m_nativeColor;
     private LineRenderer m_lineRenderer;
     private bool m_witnessed = false;
-    private PlayerController m_playerController;
+    protected PlayerController m_playerController;
     [SerializeField] protected bool m_isRecording = true;
 
     public Transform Target { get { return m_target; } set { m_target = value;  } }

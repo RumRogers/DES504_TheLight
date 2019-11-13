@@ -371,9 +371,11 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: You're a burglar and your goal is to steal the swag bag, located somewhere
+  m_text: 'You''re a burglar and your goal is to steal the swag bag, located somewhere
     in the level, and to reach the exit before the time ends! Jump your way through,
-    avoid cops and CCTV cameras, die a thousand deaths! Good luck and enjoy!
+    avoid cops and CCTV cameras, die a thousand deaths!
+
+    Good luck and enjoy!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3073c7cc38be24e44a0db0d4814ab348, type: 2}
   m_sharedMaterial: {fileID: 1905935478413010993, guid: 3073c7cc38be24e44a0db0d4814ab348,
