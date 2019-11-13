@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [Header("Game UI")]
     private ShowScreenFading m_missionFailed;
     private ShowScreenFading m_missionComplete;
+    private ShowScreenFading m_inventoryTutorialOverlay;
     private GameObject m_missionFailedButtonSet;
     private GameObject m_missionCompleteButtonSet;
     //[SerializeField] private List<GameObject> m_witnessImages;
@@ -102,10 +103,14 @@ public class GameManager : MonoBehaviour
             m_crowbarInventoryImage.color = new Color(255, 255, 255, 0);
             m_monkeyWrenchInventoryImage.color = new Color(255, 255, 255, 0);
 
+            if(currSceneIdx == 3)
+            {
+                m_inventoryTutorialOverlay = GameObject.Find("InventoryMask").GetComponent<ShowScreenFading>();
+            }
+
             Inventory.Instance.Empty();            
             initialized = true;
-        }
-         
+        }         
     }
 
     private void Update()
@@ -197,6 +202,10 @@ public class GameManager : MonoBehaviour
         {
             case Inventory.InventoryItems.MonkeyWrench:
                 m_monkeyWrenchInventoryImage.color = c;
+                if(SceneManager.GetActiveScene().buildIndex == 3)
+                {
+                    m_inventoryTutorialOverlay.DoFadeIn();
+                }
                 break;
             case Inventory.InventoryItems.Crowbar:
                 m_crowbarInventoryImage.color = c;

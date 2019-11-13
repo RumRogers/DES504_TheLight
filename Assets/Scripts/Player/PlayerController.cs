@@ -34,7 +34,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Cheats")]
     [SerializeField] private bool m_invulnerableToHeight = false;
-    [SerializeField] private bool m_noGravity = false;
+    [SerializeField] private bool m_invulnerableToCops = false;
+    [SerializeField] private bool m_invulnerableToWitnesses = false;
 
     // State vars
     [Header("Player state")]
@@ -176,7 +177,7 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.SetPause(!GameManager.Instance.GamePaused, true);
         }
 
-        input.x = Input.GetAxisRaw("Horizontal");
+        input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
         input.jump = Input.GetButton("Jump");
         input.dash = Input.GetButton("Dash");
