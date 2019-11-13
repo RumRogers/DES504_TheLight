@@ -6,7 +6,7 @@ using TMPro;
 public class LowerHUDMessage : MonoBehaviour
 {
     private TextMeshProUGUI m_text;
-   
+
     private void Awake()
     {
         m_text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -15,8 +15,6 @@ public class LowerHUDMessage : MonoBehaviour
     
     public void SetText(string text, float seconds = 0)
     {
-        StopAllCoroutines();
-
         m_text.text = text;
 
         if (seconds > 0)

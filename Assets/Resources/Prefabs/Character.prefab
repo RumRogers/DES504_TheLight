@@ -1978,8 +1978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_invulnerableToHeight: 1
-  m_invulnerableToCops: 1
-  m_invulnerableToWitnesses: 1
+  m_noGravity: 0
   m_isGrounded: 0
   m_lives: 3
   m_ignoreInput: 0

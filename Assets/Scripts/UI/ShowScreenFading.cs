@@ -7,7 +7,7 @@ using TMPro;
 
 public class ShowScreenFading : MonoBehaviour
 {
-    private Image[] m_backgrounds;
+    private Image m_background;
     private TextMeshProUGUI m_text;
     private Color32 m_originalBGColor;
     private Color32 m_originalTextColor;
@@ -17,23 +17,14 @@ public class ShowScreenFading : MonoBehaviour
     [SerializeField] float m_fadingSpeed;
     private float m_currAlpha;
     private DateTime m_lastTime;
-    [SerializeField] int m_howManyImages = 1;
-
 
     private void Awake()
     {
-        m_backgrounds = new Image[m_howManyImages];
         m_doFadeIn = false;
-        for(int i = 0; i < m_howManyImages; i++)
-        {
-            m_backgrounds[i] = transform.GetChild(i).GetComponent<Image>();
-        }
-        
-        m_text = transform.GetChild(m_howManyImages).GetComponent<TextMeshProUGUI>();
-        m_originalBGColor = m_backgrounds[0].color;
+        m_background = transform.GetChild(0).GetComponent<Image>();
+        m_text = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        m_originalBGColor = m_background.color;
         m_originalTextColor = m_text.color;        
-
-
         m_goalBGColor = new Color32(m_originalBGColor.r, m_originalBGColor.g, m_originalBGColor.b, 255);
         m_goalTextColor = new Color32(m_originalTextColor.r, m_originalTextColor.g, m_originalTextColor.b, 255);
     }
@@ -43,27 +34,20 @@ public class ShowScreenFading : MonoBehaviour
     {
         if(m_doFadeIn)
         {            
-            m_currAlpha = Mathf.Min(m_currAlpha + m_fadingSpeed * Time.unscaledDeltaTime, 1);            
+            m_currAlpha = Mathf.Min(m_currAlpha + m_fadingSpeed * Time.unscaledDeltaTime, 1);
+            m_background.color = Color32.Lerp(m_originalBGColor, m_goalBGColor, m_currAlpha);
             m_text.color = Color32.Lerp(m_originalTextColor, m_goalTextColor, m_currAlpha);
-
-            for(int i = 0; i < m_howManyImages; i++)
-            {
-                m_backgrounds[i].color = Color32.Lerp(m_originalBGColor, m_goalBGColor, m_currAlpha);
-            }            
         }
     }
 
     public void Reset()
     {
         m_doFadeIn = false;
-        for(int i = 0; i < m_howManyImages; i++)
-        {
-            m_backgrounds[i].color = m_originalBGColor;
-        }        
+        m_background.color = m_originalBGColor;
         m_text.color = m_originalTextColor;
     }
 
-    public void DoFadeIn(string message = "")
+    public void DoFadeIn(string message)
     {
         if(message.CompareTo("") != 0)
         {

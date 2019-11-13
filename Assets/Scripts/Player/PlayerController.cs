@@ -34,8 +34,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Cheats")]
     [SerializeField] private bool m_invulnerableToHeight = false;
-    [SerializeField] private bool m_invulnerableToCops = false;
-    [SerializeField] private bool m_invulnerableToWitnesses = false;
+    [SerializeField] private bool m_noGravity = false;
 
     // State vars
     [Header("Player state")]
@@ -59,7 +58,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_hiding = false;
     [SerializeField] private bool m_fiddling = false;
     [SerializeField] private bool m_ignoreSounds = false;
-    private bool m_busted = false;
 
     private bool m_hasJustJumped = false;
     [SerializeField] private bool m_hasJustLanded = false;
@@ -121,10 +119,7 @@ public class PlayerController : MonoBehaviour
         } }
     public bool Crouching { get { return m_crouching; } }
     public bool Climbing { get { return m_climbing; } }
-    public bool InvulnerableToCops { get { return m_invulnerableToCops; } }
-    public bool InvulnerableToWitnesses { get { return m_invulnerableToWitnesses; } }
-
-
+        
     public Vector3 RespawnPoint { get { return m_respawnPoint; } set { m_respawnPoint.x = value.x; m_respawnPoint.y = value.y + 1f; } }
 
     public Inventory.InventoryItems CurrentItem { get { return m_currentItem; } }
@@ -150,7 +145,7 @@ public class PlayerController : MonoBehaviour
         m_isGrounded = m_characterController.isGrounded;
         GetInput();
 
-        if (GameManager.Instance.GamePaused || m_busted)
+        if (GameManager.Instance.GamePaused)
         {
             return;
         }
@@ -181,7 +176,7 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.SetPause(!GameManager.Instance.GamePaused, true);
         }
 
-        input.x = Input.GetAxis("Horizontal");
+        input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
         input.jump = Input.GetButton("Jump");
         input.dash = Input.GetButton("Dash");
@@ -659,7 +654,7 @@ public class PlayerController : MonoBehaviour
     {
         m_lives -= damage;
 
-        if (m_lives == 0 && !m_invulnerableToWitnesses)
+        if (m_lives == 0)
         {
             GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "Too many witnesses! You have been identified.");
         }
@@ -700,14 +695,6 @@ public class PlayerController : MonoBehaviour
     {
         m_playerAnimation.GetAnimator().SetBool("isFiddling", val != 0);
     }
-
-    public void Bust()
-    {
-        m_playerAnimation.GetAnimator().SetTrigger("busted");
-        m_busted = true;
-        StartCoroutine(Utils.WaitAndExecute(1f, () => { GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "Busted!"); }));
-    }
-
 
     private void Patch()
     {        

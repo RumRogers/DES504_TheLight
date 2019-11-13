@@ -17,6 +17,7 @@ public class NPCBasicBehavior : CCTVCamera
     [SerializeField] private float m_chasingSpeed = 10;
     private Animator m_copAnimator;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -29,7 +30,7 @@ public class NPCBasicBehavior : CCTVCamera
         m_alarmBalloon.transform.parent = null;
         Billboard billboard = m_alarmBalloon.GetComponent<Billboard>();
         billboard.SetTarget(transform);
-        m_copAnimator = transform.GetChild(0).GetComponent<Animator>();        
+        m_copAnimator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     void Start()
@@ -163,11 +164,8 @@ public class NPCBasicBehavior : CCTVCamera
         if(other.CompareTag("Player"))
         {
             //print("GOTCHA!");
-            // lose   
-            if(!m_playerController.InvulnerableToCops)
-            {
-                m_playerController.Bust();                
-            }            
+            // lose
+            GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "Busted! You blow.");
         }
     }
 }
