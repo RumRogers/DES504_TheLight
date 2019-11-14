@@ -5,10 +5,12 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - m_backgroundFX: {fileID: 8300000, guid: f749dfa050c93414fa9627b2b3ba3815, type: 3}
-  - m_playerWalkFX: {instanceID: 0}
-  - m_playerJumpFX: {instanceID: 0}
-  - m_playerRunFX: {instanceID: 0}
-  - m_turnPipeFX: {instanceID: 0}
+  - m_playerWalkFX: {fileID: 8300000, guid: dd1b21ec24a86eb4b8d0e928fd53b75f, type: 3}
+  - m_playerJumpFX: {fileID: 8300000, guid: 3886ece26ba8cc847b254775ee84e3b9, type: 3}
+  - m_playerRunFX: {fileID: 8300000, guid: c0893a1ed6fdd0c4693ea3da182c980a, type: 3}
+  - m_playerLandFX: {fileID: 8300000, guid: 51dd87509eca05946a5c0c7f538f8ed0, type: 3}
+  - m_itemPickUpFX: {fileID: 8300000, guid: 83575fc446e3a4aa3a58a6d8bf7063f7, type: 3}
+  - m_turnPipeFX: {fileID: 8300000, guid: 222471b4d045fbc43900b88c3563c444, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

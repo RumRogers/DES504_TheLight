@@ -561,8 +561,13 @@ public class PlayerController : MonoBehaviour
         m_playerAnimation.SetBool("isStunned", m_stunned);
     }
 
-    private void ManageSound()
+    private void ManageSound(int idx = -1)
     {
+        if(idx == 1)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerRun, m_audioSource, true, .5f);
+        }
+
         if(m_falling)
         {
             SoundManager.Instance.Stop(m_audioSource);
@@ -584,7 +589,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(!m_jumping && m_running)
         {
-            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerRun, m_audioSource, true, .5f);
+            //SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerRun, m_audioSource, true, .5f);
         }
         
     }

@@ -59,8 +59,7 @@ public class SoundManager : MonoBehaviour
 
 
     public void PlaySound(SoundID soundID, AudioSource audioSource = null, bool oneshot = false, float volume = 1f, bool loop = false)
-    {
-        return;
+    {        
         if(audioSource == null)
         {
             audioSource = m_audioSource;
