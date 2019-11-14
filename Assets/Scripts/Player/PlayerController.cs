@@ -273,9 +273,9 @@ public class PlayerController : MonoBehaviour
 
                 if (m_crouching)
                 {
-                    //speed *= m_crouchSpeedPercentage;
-                    //m_crawling = true;
-                    speed = 0;
+                    speed *= m_crouchSpeedPercentage;
+                    m_crawling = true;
+                    //speed = 0;
                 }
                 else if (!input.dash)                
                 {                    
