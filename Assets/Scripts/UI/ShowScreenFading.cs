@@ -9,9 +9,8 @@ public class ShowScreenFading : MonoBehaviour
 {
     private Image[] m_backgrounds;
     private TextMeshProUGUI m_text;
-    private Color32 m_originalBGColor;
-    private Color32 m_originalTextColor;
-    private Color32 m_goalBGColor;
+    private Color32[] m_originalBGColor;
+    private Color32 m_originalTextColor;    
     private Color32 m_goalTextColor;
     private bool m_doFadeIn = false;
     [SerializeField] float m_fadingSpeed;
@@ -23,19 +22,16 @@ public class ShowScreenFading : MonoBehaviour
     private void Awake()
     {
         m_backgrounds = new Image[m_howManyImages];
+        m_originalBGColor = new Color32[m_howManyImages];
         m_doFadeIn = false;
         for(int i = 0; i < m_howManyImages; i++)
         {
             m_backgrounds[i] = transform.GetChild(i).GetComponent<Image>();
+            m_originalBGColor[i] = m_backgrounds[i].color;
         }
         
-        m_text = transform.GetChild(m_howManyImages).GetComponent<TextMeshProUGUI>();
-        m_originalBGColor = m_backgrounds[0].color;
+        m_text = transform.GetChild(m_howManyImages).GetComponent<TextMeshProUGUI>();        
         m_originalTextColor = m_text.color;        
-
-
-        m_goalBGColor = new Color32(m_originalBGColor.r, m_originalBGColor.g, m_originalBGColor.b, 255);
-        m_goalTextColor = new Color32(m_originalTextColor.r, m_originalTextColor.g, m_originalTextColor.b, 255);
     }
 
     // Update is called once per frame
@@ -48,7 +44,9 @@ public class ShowScreenFading : MonoBehaviour
 
             for(int i = 0; i < m_howManyImages; i++)
             {
-                m_backgrounds[i].color = Color32.Lerp(m_originalBGColor, m_goalBGColor, m_currAlpha);
+                Color c = m_originalBGColor[i];
+                c.a = 255;
+                m_backgrounds[i].color = Color32.Lerp(m_originalBGColor[i], c, m_currAlpha);
             }            
         }
     }
@@ -58,7 +56,7 @@ public class ShowScreenFading : MonoBehaviour
         m_doFadeIn = false;
         for(int i = 0; i < m_howManyImages; i++)
         {
-            m_backgrounds[i].color = m_originalBGColor;
+            m_backgrounds[i].color = m_originalBGColor[i];
         }        
         m_text.color = m_originalTextColor;
     }

@@ -205,6 +205,7 @@ public class GameManager : MonoBehaviour
                 m_monkeyWrenchInventoryImage.color = c;
                 if(SceneManager.GetActiveScene().buildIndex == 3)
                 {
+                    SetPause(true);
                     m_inventoryTutorialOverlay.DoFadeIn();
                 }
                 break;
