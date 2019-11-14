@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     private Sprite m_inactiveWitness;
     private Sprite m_activeWitness;
     private bool m_lootCollected = false;
+    private bool m_inventoryOverlayShown = false;
 
     private PlayerController m_playerController;
     public bool GamePaused { get; private set; }
@@ -116,6 +117,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Return) && m_inventoryOverlayShown)
+        {
+            
+            SetPause(false);
+            m_inventoryOverlayShown = false;
+            m_inventoryTutorialOverlay.gameObject.SetActive(false);
+        }
+
         m_globalTimeLeftInSeconds -= Time.deltaTime;
         if(m_globalTimeLeftInSeconds <= 0)
         {
@@ -205,6 +214,7 @@ public class GameManager : MonoBehaviour
                 m_monkeyWrenchInventoryImage.color = c;
                 if(SceneManager.GetActiveScene().buildIndex == 3)
                 {
+                    m_inventoryOverlayShown = true;
                     SetPause(true);
                     m_inventoryTutorialOverlay.DoFadeIn();
                 }
