@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_dead = false;
     [SerializeField] private bool m_hiding = false;
     [SerializeField] private bool m_fiddling = false;
-    [SerializeField] private bool m_ignoreSounds = false;
+    [SerializeField] private bool m_ignoreSounds = false;    
     private bool m_busted = false;
 
     private bool m_hasJustJumped = false;
@@ -366,7 +366,14 @@ public class PlayerController : MonoBehaviour
                     {
                         if (fellFor >= m_deathFallThreshold)
                         {
-                            GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "You fell to your death. Whoops.");
+                            if(!GameManager.Instance.LootCollected)
+                            {
+                                GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "You fell to your death. Whoops.");
+                            }
+                            else
+                            {
+                                Respawn();
+                            }                            
                         }
                         else if (fellFor >= m_stunningFallThreshold)
                         {
@@ -505,7 +512,7 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.SetActive(false);
         SetCurrentItem(Inventory.InventoryItems.None);
-        ManagePlatformsColliders.Instance.DetectCollisions(true);
+        //ManagePlatformsColliders.Instance.DetectCollisions(true);
         gameObject.SetActive(false);
         transform.position = m_respawnPoint;
         transform.rotation = Quaternion.identity;

@@ -8,7 +8,7 @@ using TMPro;
 public class ShowScreenFading : MonoBehaviour
 {
 
-    [SerializeField] int m_targetAlpha = 255; 
+    [SerializeField] byte m_targetAlpha = 255; 
     private Image[] m_backgrounds;
     private TextMeshProUGUI m_text;
     private Color32[] m_originalBGColor;
@@ -34,7 +34,7 @@ public class ShowScreenFading : MonoBehaviour
         
         m_text = transform.GetChild(m_howManyImages).GetComponent<TextMeshProUGUI>();        
         m_originalTextColor = m_text.color;
-        m_goalTextColor = new Color32(m_originalTextColor.r, m_originalTextColor.g, m_originalTextColor.b, 255);
+        m_goalTextColor = new Color32(m_originalTextColor.r, m_originalTextColor.g, m_originalTextColor.b, m_targetAlpha);
     }
 
     // Update is called once per frame
@@ -48,7 +48,7 @@ public class ShowScreenFading : MonoBehaviour
             for(int i = 0; i < m_howManyImages; i++)
             {
                 Color c = m_originalBGColor[i];
-                c.a = 255;
+                c.a = m_targetAlpha;
                 m_backgrounds[i].color = Color32.Lerp(m_originalBGColor[i], c, m_currAlpha);
             }            
         }

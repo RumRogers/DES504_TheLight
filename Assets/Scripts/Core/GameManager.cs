@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour
     private bool initialized = false;
     private Sprite m_inactiveWitness;
     private Sprite m_activeWitness;
-    private bool m_lootCollected = false;
     private bool m_inventoryOverlayShown = false;
+    public bool LootCollected { get; private set; }
 
     private PlayerController m_playerController;
     public bool GamePaused { get; private set; }
@@ -65,7 +65,8 @@ public class GameManager : MonoBehaviour
     private void Initialize()
     {
         initialized = false;
-        GamePaused = false;        
+        GamePaused = false;
+        LootCollected = false;
 
         int currSceneIdx = SceneManager.GetActiveScene().buildIndex;
         if (currSceneIdx != 0 && currSceneIdx != 1 && currSceneIdx != 4)
@@ -197,6 +198,7 @@ public class GameManager : MonoBehaviour
 
     public void StartTimer()
     {
+        LootCollected = true;
         m_timerScript.IsRunning = true;
     }
 

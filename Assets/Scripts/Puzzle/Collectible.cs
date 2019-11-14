@@ -33,7 +33,7 @@ public class Collectible : Resettable
 
             switch(m_itemID)
             {
-                case Inventory.InventoryItems.Gold:
+                case Inventory.InventoryItems.Gold:                    
                     GameManager.Instance.SetLowerHUDText(m_msgTimerStarting, 2.5f);
                     GameManager.Instance.StartTimer();                    
                     GameManager.Instance.UpdatePlayerRespawnPoint(transform.position);
