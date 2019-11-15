@@ -368,6 +368,7 @@ public class PlayerController : MonoBehaviour
                         {
                             if(!GameManager.Instance.LootCollected)
                             {
+                                PlayInstantly(SoundManager.SoundID.PlayerDeath);
                                 GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "You fell to your death. Whoops.");
                             }
                             else
@@ -561,12 +562,9 @@ public class PlayerController : MonoBehaviour
         m_playerAnimation.SetBool("isStunned", m_stunned);
     }
 
-    private void ManageSound(int idx = -1)
+    private void ManageSound()
     {
-        if(idx == 1)
-        {
-            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerRun, m_audioSource, true, .5f);
-        }
+        
 
         if(m_falling)
         {
@@ -577,23 +575,18 @@ public class PlayerController : MonoBehaviour
             m_hasJustJumped = false;
             SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerJump, m_audioSource, false, .5f);
         }
-        else if(m_hasJustLanded)
+        /*else if(m_hasJustLanded)
         {
-            //m_hasJustLanded = false;
-            //SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerLand, m_audioSource, false, .5f);
-            //StartCoroutine(IgnoreSoundForSeconds(.2f));
-        }
-        else if(!m_jumping && m_walking)
-        {
-            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerWalk, m_audioSource, true, 1f);
-        }
-        else if(!m_jumping && m_running)
-        {
-            //SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerRun, m_audioSource, true, .5f);
-        }
-        
+            m_hasJustLanded = false;
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerLand, m_audioSource, false, .5f);
+            StartCoroutine(IgnoreSoundForSeconds(.2f));
+        }*/
     }
 
+    public void PlayInstantly(SoundManager.SoundID soundID)
+    {
+        SoundManager.Instance.PlaySound(soundID, m_audioSource, false, 1f);
+    }
     private void ResetState() // TODO: use Resettable superclass instead
     {
         m_ignoreInput = false;
@@ -662,6 +655,7 @@ public class PlayerController : MonoBehaviour
         m_walking = false;
         m_running = false;
         m_stunned = true;
+        PlayInstantly(SoundManager.SoundID.PlayerHurt);
         GameObject stars = Instantiate(m_starsCirclePrefab, m_starsSpawningPoint);        
         yield return new WaitForSeconds(m_stunnedTime);
         Destroy(stars);

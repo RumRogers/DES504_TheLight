@@ -7,11 +7,14 @@ public class SoundManager : MonoBehaviour
     public enum SoundID
     {
         BackgroundFX,
-        PlayerWalk,
+        PlayerStep,
         PlayerRun,
         PlayerJump,
+        PlayerHurt,
+        PlayerDeath,
         PlayerLand,
         ItemPickUp,
+        Cat_Meowing,
         Pipe_Rotate
     }
 
@@ -21,13 +24,15 @@ public class SoundManager : MonoBehaviour
     private Dictionary<SoundID, AudioClip> m_audioBindings = new Dictionary<SoundID, AudioClip>();
 
     [SerializeField] private AudioClip m_backgroundFX;
-    [SerializeField] private AudioClip m_playerWalkFX;
+    [SerializeField] private AudioClip m_playerStepFX;
     [SerializeField] private AudioClip m_playerJumpFX;
     [SerializeField] private AudioClip m_playerRunFX;
     [SerializeField] private AudioClip m_playerLandFX;
+    [SerializeField] private AudioClip m_playerHurtFX;
+    [SerializeField] private AudioClip m_playerDeathFX;
     [SerializeField] private AudioClip m_itemPickUpFX;
     [SerializeField] private AudioClip m_turnPipeFX;
-
+    [SerializeField] private AudioClip m_catMeowingFX;
     private void Awake()
     {
         if(Instance == null)
@@ -43,12 +48,15 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         m_audioSource = GetComponent<AudioSource>();
         m_audioBindings[SoundID.BackgroundFX] = m_backgroundFX;
-        m_audioBindings[SoundID.PlayerWalk] = m_playerWalkFX;
+        m_audioBindings[SoundID.PlayerStep] = m_playerStepFX;
         m_audioBindings[SoundID.PlayerJump] = m_playerJumpFX;
         m_audioBindings[SoundID.PlayerRun] = m_playerRunFX;
         m_audioBindings[SoundID.PlayerLand] = m_playerLandFX;
+        m_audioBindings[SoundID.PlayerHurt] = m_playerHurtFX;
+        m_audioBindings[SoundID.PlayerDeath] = m_playerDeathFX;
         m_audioBindings[SoundID.ItemPickUp] = m_itemPickUpFX;
         m_audioBindings[SoundID.Pipe_Rotate] = m_turnPipeFX;
+        m_audioBindings[SoundID.Cat_Meowing] = m_catMeowingFX;
     }
 
     // Start is called before the first frame update

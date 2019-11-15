@@ -135,6 +135,7 @@ public class CatBehavior : MonoBehaviour
         m_animatorController.SetBool("isWalking", false);
         print("Meow!");
         m_isMeowing = true;
+        SoundManager.Instance.PlaySound(SoundManager.SoundID.Cat_Meowing);
         //StopCoroutine(RandomWalk());
         //StopCoroutine(ReachDestination());
         

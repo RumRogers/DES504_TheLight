@@ -569,7 +569,7 @@ public class PlayerController_old : MonoBehaviour
         }
         else if(!m_jumping && m_walking)
         {
-            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerWalk, m_audioSource, true, 1f);
+            SoundManager.Instance.PlaySound(SoundManager.SoundID.PlayerStep, m_audioSource, true, 1f);
         }
         else if(!m_jumping && m_running)
         {
