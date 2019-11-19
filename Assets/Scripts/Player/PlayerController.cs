@@ -449,6 +449,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator AttachToLadder()
     {
+        m_playerAnimation.GetAnimator().applyRootMotion = false;
         m_climbStart = true;
         m_jumping = false;
         m_falling = false;
@@ -510,7 +511,7 @@ public class PlayerController : MonoBehaviour
             m_rotation = Quaternion.Euler(0, 90f, 0);
             IgnoreInput = false;
             m_sliding = false;
-            m_playerAnimation.UseTimeline(false);
+            m_playerAnimation.UseTimeline(false);            
         };
         yield return StartCoroutine(m_timelineController.GrabPipe(transform, pipeEnd, pipeDir, callback));
     }
@@ -693,6 +694,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator DoSwing(Vector3 anchorPoint)
     {
+        m_playerAnimation.GetAnimator().applyRootMotion = false;
         m_ignoreInput = true;
         m_swinging = true;
         gameObject.SetActive(false);
