@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_ignoreSounds = false;    
     private bool m_busted = false;
     private bool m_climbingIdle = false;
-    private bool m_climbStart = false;
+    private float m_climbStart = 0f;
 
     private bool m_hasJustJumped = false;
     [SerializeField] private bool m_hasJustLanded = false;
@@ -235,10 +235,10 @@ public class PlayerController : MonoBehaviour
             else if(input.y == 0)
             {
                 m_climbingIdle = true;
-                m_climbStart = false;
+                m_climbStart = 0f;
             }
             else
-            {
+            {                
                 m_climbingIdle = false;
                 m_movement.y = input.y * m_climbSpeed;
             }       
@@ -450,7 +450,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator AttachToLadder()
     {
         m_playerAnimation.GetAnimator().applyRootMotion = false;
-        m_climbStart = true;
+        m_climbStart = .2f;        
         m_jumping = false;
         m_falling = false;
         m_crouching = false;
@@ -469,7 +469,7 @@ public class PlayerController : MonoBehaviour
     private void DetachFromLadder()
     {     
         gameObject.SetActive(false);
-        m_climbStart = false;
+        m_climbStart = 0f;
         m_climbing = false;
         m_climbingIdle = false;
         m_onLadder = false;        
@@ -577,8 +577,13 @@ public class PlayerController : MonoBehaviour
         {
             m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);
         }
-        m_playerAnimation.SetBool("isStunned", m_stunned);
-        m_playerAnimation.SetBool("climbStart", m_climbStart);
+        m_playerAnimation.SetBool("isStunned", m_stunned); 
+        
+        if(m_climbStart >= 0)
+        {
+            m_playerAnimation.GetAnimator().SetFloat("climbStart", m_climbStart);
+            m_climbStart -= Time.deltaTime;
+        }
     }
 
     private void ManageSound()

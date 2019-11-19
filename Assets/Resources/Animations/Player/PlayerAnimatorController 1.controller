@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Climb
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2413626278631472380}
@@ -21,7 +21,8 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e5cc78d9a916c204e92eccee4440a19e, type: 2}
+  m_Motion: {fileID: 1827226128182048838, guid: 79d7850652005eb4081e7fd424e2f168,
+    type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -163,9 +164,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: isClimbing
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: isClimbingIdle
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8913394945424221562}
   m_Solo: 0
@@ -269,9 +267,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
+  - m_ConditionMode: 3
     m_ConditionEvent: climbStart
-    m_EventTreshold: 0
+    m_EventTreshold: 0.1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6938761151885969220}
   m_Solo: 0
@@ -748,8 +746,8 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: climbStart
-    m_Type: 4
-    m_DefaultFloat: 0
+    m_Type: 1
+    m_DefaultFloat: 0.1
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
@@ -1239,7 +1237,7 @@ AnimatorStateMachine:
     m_Position: {x: -3730, y: -150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8913394945424221562}
-    m_Position: {x: -2370, y: -1200, z: 0}
+    m_Position: {x: -2370, y: -1170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1768472861106543326}
     m_Position: {x: -2550, y: -990, z: 0}
@@ -1260,7 +1258,7 @@ AnimatorStateMachine:
     m_Position: {x: -2370, y: -1280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6938761151885969220}
-    m_Position: {x: -2370, y: -1140, z: 0}
+    m_Position: {x: -2370, y: -1080, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -2079907665465935409}
@@ -1349,8 +1347,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: 624912a75a458d243aeecc8511f6d972,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: 741fc2654cfd14c49a0cf8409e8c0358, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1399,7 +1396,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 94b09218a024cd043beccdbdd303b191, type: 2}
+  m_Motion: {fileID: 7400000, guid: 741fc2654cfd14c49a0cf8409e8c0358, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
