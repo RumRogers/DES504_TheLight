@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_fiddling = false;
     [SerializeField] private bool m_ignoreSounds = false;    
     private bool m_busted = false;
+    private bool m_climbingIdle = false;
+    private bool m_climbStart = false;
 
     private bool m_hasJustJumped = false;
     [SerializeField] private bool m_hasJustLanded = false;
@@ -224,13 +226,20 @@ public class PlayerController : MonoBehaviour
             }
         }
         if(m_climbing)
-        {
+        {            
+            //m_playerAnimation.GetAnimator().SetBool("climbStart", false);
             if (input.y != 0 && !IsRegularClimbing())
             {
                 DetachFromLadder();
             }
+            else if(input.y == 0)
+            {
+                m_climbingIdle = true;
+                m_climbStart = false;
+            }
             else
             {
+                m_climbingIdle = false;
                 m_movement.y = input.y * m_climbSpeed;
             }       
         }
@@ -252,17 +261,18 @@ public class PlayerController : MonoBehaviour
                     if (m_onLadder)
                     {
                         m_climbing = true;
+                        m_climbingIdle = false;
                     }
                     else
                     {
-                        m_crouching = true;
+                        m_crouching = true;                        
                         //SetCharacterColliderToState(1);
                     }
                 }
             }
             else if (input.y == 0)
             {
-                m_crouching = false;
+                m_crouching = false;                
                 //SetCharacterColliderToState(0);
             }
 
@@ -438,11 +448,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private IEnumerator AttachToLadder()
-    {        
+    {
+        m_climbStart = true;
+        m_jumping = false;
+        m_falling = false;
         m_crouching = false;
         yield return new WaitForEndOfFrame();
         //m_playerAnimation.GetAnimator().runtimeAnimatorController = null;
-        m_playerAnimation.GetAnimator().enabled = false;
+        //m_playerAnimation.GetAnimator().enabled = false;
         m_climbing = true;
         Vector3 newPos = m_currentLadder.top.position;
         //newPos.z = m_currentLadder.top.position.z;
@@ -455,7 +468,9 @@ public class PlayerController : MonoBehaviour
     private void DetachFromLadder()
     {     
         gameObject.SetActive(false);
+        m_climbStart = false;
         m_climbing = false;
+        m_climbingIdle = false;
         m_onLadder = false;        
         Vector3 newPos = m_currentLadder.transform.position;
         newPos.z = m_currentLadder.bottom.position.z;
@@ -463,7 +478,7 @@ public class PlayerController : MonoBehaviour
         m_fallingStart = transform.position.y;
         m_rotation = Quaternion.Euler(0, 90f, 0);
         gameObject.SetActive(true);
-        m_playerAnimation.GetAnimator().enabled = true;
+        //m_playerAnimation.GetAnimator().enabled = true;
     }
 
   
@@ -548,6 +563,8 @@ public class PlayerController : MonoBehaviour
         m_playerAnimation.SetBool("isRunning", m_running);
         m_playerAnimation.SetBool("isJumping", m_jumping);
         m_playerAnimation.SetBool("isFalling", m_falling);
+        m_playerAnimation.SetBool("isClimbing", m_climbing);
+        m_playerAnimation.SetBool("isClimbingIdle", m_climbingIdle);
         m_playerAnimation.SetBool("isCrouching", m_crouching);
         m_playerAnimation.SetBool("isCrawling", m_crawling);
         m_playerAnimation.SetBool("isSwinging", m_swinging);
@@ -560,6 +577,7 @@ public class PlayerController : MonoBehaviour
             m_playerAnimation.SetBool("isGrounded", m_characterController.isGrounded);
         }
         m_playerAnimation.SetBool("isStunned", m_stunned);
+        m_playerAnimation.SetBool("climbStart", m_climbStart);
     }
 
     private void ManageSound()
@@ -682,7 +700,7 @@ public class PlayerController : MonoBehaviour
         gameObject.SetActive(true);
         m_playerAnimation.SetBool("isSwinging", true);
         yield return new WaitForSeconds(Time.deltaTime);
-        m_playerAnimation.GetAnimator().enabled = false;        
+        //m_playerAnimation.GetAnimator().enabled = false;        
     }
 
     public IEnumerator StopSwinging()
@@ -692,7 +710,7 @@ public class PlayerController : MonoBehaviour
         m_ignoreInput = false;
         m_swinging = false;
         yield return new WaitForSeconds(Time.deltaTime);
-        m_playerAnimation.GetAnimator().enabled = true;
+        //m_playerAnimation.GetAnimator().enabled = true;
     }
 
     public void ResetHasJustLanded()

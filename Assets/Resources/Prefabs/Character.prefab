@@ -1959,7 +1959,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 73cd582614613264c9a77f0f4f58ac9b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2004,15 +2004,15 @@ MonoBehaviour:
   m_speed: 4
   m_runningSpeedMultiplier: 2.5
   m_crouchSpeedPercentage: 0.35
-  m_jumpForce: 0.6
+  m_jumpForce: 0.7
   m_climbSpeed: 3
-  m_stunnedTime: 3
-  m_gravityOnJumping: 0.25
-  m_gravityOnFalling: 0.29
+  m_stunnedTime: 2
+  m_gravityOnJumping: 0.2
+  m_gravityOnFalling: 0.2
   m_additionalGravity: 0.5
-  m_gravityLimiter: -0.4
-  m_stunningFallThreshold: 5
-  m_deathFallThreshold: 10
+  m_gravityLimiter: -0.5
+  m_stunningFallThreshold: 6
+  m_deathFallThreshold: 14
   m_timelineController: {fileID: 0}
   m_starsSpawningPoint: {fileID: 848706213}
   m_starsCirclePrefab: {fileID: 3932560159281552968, guid: f645e36296efa4ff082b3e27127df5b7,
