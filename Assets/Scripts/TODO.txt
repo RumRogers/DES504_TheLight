@@ -31,18 +31,18 @@ FIXES:
 Change Character collider while he's crouching -> OK
 Character spotted position (actual position not enough) -> OK
 
-Add GLOBAL 5 mins TIMER
+Add GLOBAL 5 mins TIMER -> OK
 
 FIX JUMP FEEL AND GRAVITY -> guess so?
 
 Add new idle animation -> OK
 Add stunned animation  -> OK
 Add surrender anim -> OK
-Add all sounds
-Add pipe animations (use normal jump for jumping/landing)
+Add all sounds -> OK-ish
+Add pipe animations (use normal jump for jumping/landing) -> OK
 Crowbar usage (ADD A FUCKING SAFE) -> OK
 Add checkpoint after grabbing loot IMPORTANT!!!!!!!!!! -> OK
-Add crawling anim
+Add crawling anim -> OK
 
 Add inventory mask for tutorial -> OK
 

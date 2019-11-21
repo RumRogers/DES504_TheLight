@@ -40,18 +40,25 @@ public class TimedPlatform : Resettable
 
     void OnTriggerEnter(Collider collider)
     {        
-        m_contact = true;
-
-        if (Style == TimingStyle.STRICT_COUNTDOWN && !m_aboutToCollapse)
+        if(collider.CompareTag("Player"))
         {
-            m_aboutToCollapse = true;
-            StartCoroutine(CountdownToDestruction());
-        }      
+            m_contact = true;
+
+            if (Style == TimingStyle.STRICT_COUNTDOWN && !m_aboutToCollapse)
+            {
+                m_aboutToCollapse = true;
+                StartCoroutine(CountdownToDestruction());
+            }
+        }
+        
     }
 
     void OnTriggerExit(Collider collider)
     {
-        m_contact = false;    
+        if (collider.CompareTag("Player"))
+        {
+            m_contact = false;
+        }            
     }
 
     private IEnumerator CountdownToDestruction()
