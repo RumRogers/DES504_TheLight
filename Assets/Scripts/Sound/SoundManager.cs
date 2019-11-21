@@ -62,7 +62,7 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {       
-        //PlaySound(SoundID.BackgroundFX, true, 1f, true);
+        PlaySound(SoundID.BackgroundFX, null, true, 1f, true);
     }
 
 

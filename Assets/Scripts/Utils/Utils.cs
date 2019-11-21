@@ -29,4 +29,23 @@ public class Utils : MonoBehaviour
 
         callback();
     }
+
+    public static Transform FindChildByNameRecursive(Transform node, string name)
+    {
+        foreach(Transform t in node)
+        {
+            if(t.name.Equals(name))
+            {
+                return t;
+            }
+
+            Transform res = FindChildByNameRecursive(t, name);
+            if(res != null)
+            {
+                return res;
+            }
+        }
+
+        return null;
+    }
 }

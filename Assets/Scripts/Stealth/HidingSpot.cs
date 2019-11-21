@@ -29,7 +29,7 @@ public class HidingSpot : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {        
-        if(m_waitingTime > 0)
+        if(m_waitingTime > 0 || m_playerController.GotBusted)
         {
             return;
         }

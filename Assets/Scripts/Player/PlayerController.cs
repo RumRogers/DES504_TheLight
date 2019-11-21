@@ -125,7 +125,8 @@ public class PlayerController : MonoBehaviour
     public bool Climbing { get { return m_climbing; } }
     public bool InvulnerableToCops { get { return m_invulnerableToCops; } }
     public bool InvulnerableToWitnesses { get { return m_invulnerableToWitnesses; } }
-
+    public bool IsHiding { get { return m_hiding; } }
+    public bool GotBusted { get { return m_busted; } }
 
     public Vector3 RespawnPoint { get { return m_respawnPoint; } set { m_respawnPoint.x = value.x; m_respawnPoint.y = value.y + 1f; } }
 
@@ -378,8 +379,11 @@ public class PlayerController : MonoBehaviour
                         {
                             if(!GameManager.Instance.LootCollected)
                             {
+                                m_movement = Vector3.zero;
+                                m_ignoreInput = true;
+                                m_playerAnimation.GetAnimator().SetTrigger("die");
                                 PlayInstantly(SoundManager.SoundID.PlayerDeath);
-                                GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "You fell to your death. Whoops.");
+                                StartCoroutine(Utils.WaitAndExecute(1.5f, () => { GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "You fell to your death. Whoops."); }));
                             }
                             else
                             {

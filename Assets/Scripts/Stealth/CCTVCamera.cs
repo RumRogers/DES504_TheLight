@@ -30,8 +30,8 @@ public class CCTVCamera : MonoBehaviour
         m_target = GameObject.Find("CameraTarget").transform;
         m_playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-        m_lens = transform.Find("Lens");
-       
+        m_lens = Utils.FindChildByNameRecursive(transform, "Lens");
+
         Component[] components = GetComponentsInChildren(typeof(MeshRenderer), false);
         for(int i = 0; i < components.Length; i++)
         {

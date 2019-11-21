@@ -16,7 +16,8 @@ public class NPCBasicBehavior : CCTVCamera
     private IEnumerator m_patrolCoroutine;
     [SerializeField] private float m_chasingSpeed = 10;
     private Animator m_copAnimator;
-
+    [SerializeField] private bool m_chasing = false;
+    private bool m_gotcha = false;
     protected override void Awake()
     {
         base.Awake();
@@ -41,15 +42,23 @@ public class NPCBasicBehavior : CCTVCamera
     protected override void Update()
     {
         base.Update();
-        if(m_alarm)
-        {            
-            Chase();
+        if(m_playerController.IsHiding)
+        {
+            m_chasing = false;
         }
-        else if(m_patrolCoroutine == null)
-        {            
-            m_currentStart = transform.position;
-            m_patrolCoroutine = Patrol();
-            StartCoroutine(m_patrolCoroutine);
+        if(!m_gotcha)
+        {
+            if (m_chasing)
+            {
+                Chase();
+            }
+            else if (m_patrolCoroutine == null)
+            {
+                ChangeGoal();
+                m_currentStart = transform.position;
+                m_patrolCoroutine = Patrol();
+                StartCoroutine(m_patrolCoroutine);
+            }
         }
     }
 
@@ -162,12 +171,42 @@ public class NPCBasicBehavior : CCTVCamera
     {
         if(other.CompareTag("Player"))
         {
+            print("Chasing");
             //print("GOTCHA!");
             // lose   
+            m_chasing = true;
+            if (!m_playerController.InvulnerableToCops)
+            {                
+                //m_playerController.Bust();                
+            }            
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
             if(!m_playerController.InvulnerableToCops)
             {
-                m_playerController.Bust();                
-            }            
+                if (Vector3.Distance(transform.position, other.transform.position) < 2f)
+                {
+                    m_gotcha = true;
+                    //m_speed = 0;
+                    //m_chasingSpeed = 0;
+                    m_chasing = false;
+                    m_copAnimator.SetBool("isIdle", true);
+                    m_copAnimator.SetBool("isChasing", false);
+                    m_copAnimator.SetBool("isWalking", false);
+                    m_playerController.Bust();
+                }
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            m_chasing = false;
         }
     }
 }
