@@ -449,6 +449,7 @@ MonoBehaviour:
   m_pathEnd: {fileID: 0}
   m_platform: {fileID: 0}
   m_chasingSpeed: 10
+  m_chasing: 0
 --- !u!120 &1067180915
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -556,8 +557,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000002, y: 2, z: 4.035423}
-  m_Center: {x: 6.8537264e-15, y: 0, z: -1.5177114}
+  m_Size: {x: 1.0000002, y: 2, z: 12.647884}
+  m_Center: {x: -2.5919798e-14, y: 0, z: -5.8239427}
 --- !u!1 &784799499929558385
 GameObject:
   m_ObjectHideFlags: 0

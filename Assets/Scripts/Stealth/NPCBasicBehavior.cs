@@ -30,7 +30,8 @@ public class NPCBasicBehavior : CCTVCamera
         m_alarmBalloon.transform.parent = null;
         Billboard billboard = m_alarmBalloon.GetComponent<Billboard>();
         billboard.SetTarget(transform);
-        m_copAnimator = transform.GetChild(0).GetComponent<Animator>();        
+        m_copAnimator = transform.GetChild(0).GetComponent<Animator>();
+        //m_alarmBalloon.SetActive(true);
     }
 
     void Start()
@@ -41,7 +42,8 @@ public class NPCBasicBehavior : CCTVCamera
 
     protected override void Update()
     {
-        base.Update();
+        DrawCone();
+
         if(m_playerController.IsHiding)
         {
             m_chasing = false;
@@ -68,6 +70,7 @@ public class NPCBasicBehavior : CCTVCamera
         m_copAnimator.SetBool("isIdle", false);
         m_copAnimator.SetBool("isChasing", false);
         m_copAnimator.SetBool("isWalking", true);
+        m_alarmBalloon.SetActive(false);
 
         while (true)
         { 
@@ -138,6 +141,7 @@ public class NPCBasicBehavior : CCTVCamera
 
     void Chase()
     {
+        m_alarmBalloon.SetActive(true);
         m_copAnimator.SetBool("isIdle", false);
         m_copAnimator.SetBool("isChasing", true);
         m_copAnimator.SetBool("isWalking", false);
@@ -194,9 +198,10 @@ public class NPCBasicBehavior : CCTVCamera
                     //m_speed = 0;
                     //m_chasingSpeed = 0;
                     m_chasing = false;
+                    m_alarmBalloon.SetActive(false);
                     m_copAnimator.SetBool("isIdle", true);
                     m_copAnimator.SetBool("isChasing", false);
-                    m_copAnimator.SetBool("isWalking", false);
+                    m_copAnimator.SetBool("isWalking", false);                    
                     m_playerController.Bust();
                 }
             }
@@ -206,7 +211,7 @@ public class NPCBasicBehavior : CCTVCamera
     {
         if (other.CompareTag("Player"))
         {
-            m_chasing = false;
+            m_chasing = false;            
         }
     }
 }

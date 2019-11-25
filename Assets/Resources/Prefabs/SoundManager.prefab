@@ -40,7 +40,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968103742354288326}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f749dfa050c93414fa9627b2b3ba3815, type: 3}
@@ -142,12 +142,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_backgroundFX: {fileID: 8300000, guid: f749dfa050c93414fa9627b2b3ba3815, type: 3}
-  m_playerWalkFX: {fileID: 8300000, guid: dd1b21ec24a86eb4b8d0e928fd53b75f, type: 3}
+  m_playerStepFX: {fileID: 8300000, guid: dd1b21ec24a86eb4b8d0e928fd53b75f, type: 3}
   m_playerJumpFX: {fileID: 8300000, guid: 3886ece26ba8cc847b254775ee84e3b9, type: 3}
   m_playerRunFX: {fileID: 8300000, guid: 3b8dff13fec71b144aa3627166715b31, type: 3}
   m_playerLandFX: {fileID: 8300000, guid: 51dd87509eca05946a5c0c7f538f8ed0, type: 3}
+  m_playerHurtFX: {fileID: 8300000, guid: 5b0d87766494cdd41928df328baec2fc, type: 3}
+  m_playerDeathFX: {fileID: 8300000, guid: 7e7f7af3a19633c47afc14d654976241, type: 3}
+  m_playerStepLadderFX: {fileID: 8300000, guid: a390f299b9838fa4e8902e79c5606ccc,
+    type: 3}
+  m_playerFreezeFX: {fileID: 8300000, guid: 55301e0e0449272468d927270e2231b7, type: 3}
   m_itemPickUpFX: {fileID: 8300000, guid: 83575fc446e3a4aa3a58a6d8bf7063f7, type: 3}
   m_turnPipeFX: {fileID: 8300000, guid: 222471b4d045fbc43900b88c3563c444, type: 3}
+  m_catMeowingFX: {fileID: 8300000, guid: 17571fe8648abe94091fde5ce414204a, type: 3}
 --- !u!82 &1968103742354288330
 AudioSource:
   m_ObjectHideFlags: 0
@@ -155,7 +161,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968103742354288326}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 58045e538e425e744be4b4ec93b672f4, type: 3}

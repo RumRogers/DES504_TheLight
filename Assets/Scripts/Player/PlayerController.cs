@@ -738,6 +738,7 @@ public class PlayerController : MonoBehaviour
 
     public void Bust()
     {
+        PlayInstantly(SoundManager.SoundID.PlayerFreeze);
         m_playerAnimation.GetAnimator().SetTrigger("busted");
         m_busted = true;
         StartCoroutine(Utils.WaitAndExecute(1f, () => { GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "Busted!"); }));

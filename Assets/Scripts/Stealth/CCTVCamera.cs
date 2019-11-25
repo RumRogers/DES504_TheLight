@@ -154,7 +154,7 @@ public class CCTVCamera : MonoBehaviour
         }
     }
 
-    private void DrawCone()
+    protected void DrawCone()
     {        
         Vector3 a = Quaternion.Euler(0, m_fovDegrees / 2, 0) * m_lens.forward;
         Vector3 b = Quaternion.Euler(0, -m_fovDegrees / 2, 0) * m_lens.forward;

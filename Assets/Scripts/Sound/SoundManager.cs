@@ -13,6 +13,8 @@ public class SoundManager : MonoBehaviour
         PlayerHurt,
         PlayerDeath,
         PlayerLand,
+        PlayerStepLadder,
+        PlayerFreeze,
         ItemPickUp,
         Cat_Meowing,
         Pipe_Rotate
@@ -30,6 +32,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip m_playerLandFX;
     [SerializeField] private AudioClip m_playerHurtFX;
     [SerializeField] private AudioClip m_playerDeathFX;
+    [SerializeField] private AudioClip m_playerStepLadderFX;
+    [SerializeField] private AudioClip m_playerFreezeFX;
     [SerializeField] private AudioClip m_itemPickUpFX;
     [SerializeField] private AudioClip m_turnPipeFX;
     [SerializeField] private AudioClip m_catMeowingFX;
@@ -54,6 +58,8 @@ public class SoundManager : MonoBehaviour
         m_audioBindings[SoundID.PlayerLand] = m_playerLandFX;
         m_audioBindings[SoundID.PlayerHurt] = m_playerHurtFX;
         m_audioBindings[SoundID.PlayerDeath] = m_playerDeathFX;
+        m_audioBindings[SoundID.PlayerStepLadder] = m_playerStepLadderFX;
+        m_audioBindings[SoundID.PlayerFreeze] = m_playerFreezeFX;
         m_audioBindings[SoundID.ItemPickUp] = m_itemPickUpFX;
         m_audioBindings[SoundID.Pipe_Rotate] = m_turnPipeFX;
         m_audioBindings[SoundID.Cat_Meowing] = m_catMeowingFX;

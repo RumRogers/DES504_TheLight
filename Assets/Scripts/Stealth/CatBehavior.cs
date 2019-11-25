@@ -10,6 +10,7 @@ public class CatBehavior : MonoBehaviour
     [SerializeField] private float m_meowingSeconds;
     [SerializeField] private float m_alarmDistanceThreshold;
     [SerializeField] private GameObject m_noiseParticles;
+    private AudioSource m_audioSource;
 
     // Where the cat can walk to
     private Vector3 m_leftBound;
@@ -47,6 +48,7 @@ public class CatBehavior : MonoBehaviour
         m_catCollider = GetComponent<Collider>();
         m_catCollider.enabled = false;
         m_noiseParticles.SetActive(false);
+        m_audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -135,7 +137,8 @@ public class CatBehavior : MonoBehaviour
         m_animatorController.SetBool("isWalking", false);
         print("Meow!");
         m_isMeowing = true;
-        SoundManager.Instance.PlaySound(SoundManager.SoundID.Cat_Meowing);
+        //SoundManager.Instance.PlaySound(SoundManager.SoundID.Cat_Meowing, m_audioSource);
+        m_audioSource.Play();
         //StopCoroutine(RandomWalk());
         //StopCoroutine(ReachDestination());
         
