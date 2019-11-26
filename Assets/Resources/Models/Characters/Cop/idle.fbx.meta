@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 17fde5977017a49448582d4ce0798223
+guid: 7f8e8cce77e81874ab140a56eafe67a7
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Surrender
+    second: CopIdle
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -35,18 +35,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Surrender
+      name: CopIdle
       takeName: Take 001
       internalID: 1827226128182048838
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

@@ -1258,6 +1258,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 4a85905efc20d2144b2f1a09c614489a, type: 2}
+    - target: {fileID: -6057140222963153312, guid: 97f5e59c77ca2104085e9e1d7381871d,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 8e8af33bb4371a24c9f36d54929fcc92, type: 3}
     - target: {fileID: -3523294187882140501, guid: 97f5e59c77ca2104085e9e1d7381871d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
