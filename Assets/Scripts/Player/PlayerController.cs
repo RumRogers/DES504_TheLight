@@ -509,6 +509,10 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator GrabPipe(Vector3 pipeHotspot, Transform pipeEnd, Pipe.PipeDirection pipeDir)
     {       
+        if(m_stunned || m_sliding)
+        {
+            yield break;
+        }
         m_velocity = Vector3.zero;
         m_movement = Vector3.zero;
         m_sliding = true;
