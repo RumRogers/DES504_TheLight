@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_invulnerableToHeight = false;
     [SerializeField] private bool m_invulnerableToCops = false;
     [SerializeField] private bool m_invulnerableToWitnesses = false;
+    [SerializeField] private bool m_getStunned;
 
     // State vars
     [Header("Player state")]
@@ -152,6 +153,12 @@ public class PlayerController : MonoBehaviour
         Patch();
         m_isGrounded = m_characterController.isGrounded;
         GetInput();
+
+        if(m_getStunned)
+        {
+            m_getStunned = false;
+            StartCoroutine(GetStunned());
+        }
 
         if (GameManager.Instance.GamePaused || m_busted)
         {
@@ -704,6 +711,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator DoSwing(Vector3 anchorPoint)
     {
         m_playerAnimation.GetAnimator().applyRootMotion = false;
+        m_fallingStart = 0;
         m_ignoreInput = true;
         m_swinging = true;
         gameObject.SetActive(false);
