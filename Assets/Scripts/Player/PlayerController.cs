@@ -574,7 +574,7 @@ public class PlayerController : MonoBehaviour
         m_playerAnimation.SetBool("isWalking", m_walking);
         m_playerAnimation.SetBool("isRunning", m_running);
         m_playerAnimation.SetBool("isJumping", m_jumping);
-        m_playerAnimation.SetBool("isFalling", m_falling);
+        m_playerAnimation.SetBool("isFalling", m_falling && !m_climbing);
         m_playerAnimation.SetBool("isClimbing", m_climbing);
         m_playerAnimation.SetBool("isClimbingIdle", m_climbingIdle);
         m_playerAnimation.SetBool("isCrouching", m_crouching);
@@ -762,5 +762,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("forceLanding", true);
             StartCoroutine(Utils.WaitAndExecute(1f, () => { animator.SetBool("forceLanding", false); }));
         }
+        m_hasJustLanded = m_hasJustLanded && !m_climbing;
     }
 }
