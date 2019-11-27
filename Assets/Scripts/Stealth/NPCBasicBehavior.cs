@@ -18,6 +18,9 @@ public class NPCBasicBehavior : CCTVCamera
     private Animator m_copAnimator;
     [SerializeField] private bool m_chasing = false;
     private bool m_gotcha = false;
+    private bool m_suspicious = false;
+    private IEnumerator m_resetAfterChase = null;
+
     protected override void Awake()
     {
         base.Awake();
@@ -142,41 +145,60 @@ public class NPCBasicBehavior : CCTVCamera
     void Chase()
     {
         m_alarmBalloon.SetActive(true);
-        m_copAnimator.SetBool("isIdle", false);
-        m_copAnimator.SetBool("isChasing", true);
-        m_copAnimator.SetBool("isWalking", false);
 
-        if (m_patrolCoroutine != null)
+        if (m_suspicious)
         {
-            StopCoroutine(m_patrolCoroutine);
-            m_patrolCoroutine = null;
+            m_copAnimator.SetBool("isIdle", true);
+            m_copAnimator.SetBool("isChasing", false);
+            m_copAnimator.SetBool("isWalking", false);
         }
+        
+        else
+        {
+            m_copAnimator.SetBool("isIdle", false);
+            m_copAnimator.SetBool("isChasing", true);
+            m_copAnimator.SetBool("isWalking", false);
 
-        int dir = 1;
+            if (m_patrolCoroutine != null)
+            {
+                StopCoroutine(m_patrolCoroutine);
+                m_patrolCoroutine = null;
+            }
 
-        if (transform.position.x > m_target.position.x)
-        {
-            dir = -1;
-        }
+            int dir = 1;
 
-        Vector3 nextPos = transform.position + new Vector3(m_chasingSpeed * dir * Time.deltaTime, 0, 0);
-        if (dir == 1 && nextPos.x > m_rightBound.x)
-        {
-            nextPos.x = m_rightBound.x;
+            if (transform.position.x > m_target.position.x)
+            {
+                dir = -1;
+            }
+
+            Vector3 nextPos = transform.position + new Vector3(m_chasingSpeed * dir * Time.deltaTime, 0, 0);
+            if (dir == 1 && nextPos.x > m_rightBound.x)
+            {
+                nextPos.x = m_rightBound.x;
+                m_suspicious = true;
+            }
+            else if (dir == -1 && nextPos.x < m_leftBound.x)
+            {
+                nextPos.x = m_leftBound.x;
+                m_suspicious = true;
+            }
+
+            transform.position = nextPos;
         }
-        else if(dir == -1 && nextPos.x < m_leftBound.x)
-        {
-            nextPos.x = m_leftBound.x;
-        }
-        transform.position = nextPos;        
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            print("Chasing");
-            //print("GOTCHA!");
+            if(m_resetAfterChase != null)
+            {
+                StopCoroutine(m_resetAfterChase);
+                m_resetAfterChase = null;
+            }
+            
             // lose   
             m_chasing = true;
             if (!m_playerController.InvulnerableToCops)
@@ -211,7 +233,16 @@ public class NPCBasicBehavior : CCTVCamera
     {
         if (other.CompareTag("Player"))
         {
-            m_chasing = false;            
+            if (m_suspicious && m_resetAfterChase == null)
+            {
+                m_resetAfterChase = Utils.WaitAndExecute(2.5f, () =>
+                {
+                    m_chasing = false;
+                    m_suspicious = false;
+                    m_resetAfterChase = null;
+                });
+                StartCoroutine(m_resetAfterChase);
+            }    
         }
     }
 }
