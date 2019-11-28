@@ -2756,6 +2756,14 @@ PrefabInstance:
       propertyPath: m_jumpForce
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 2076707294, guid: 2fb5df208e7f10147b1a3d87d0042b94, type: 3}
+      propertyPath: m_invulnerableToHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076707294, guid: 2fb5df208e7f10147b1a3d87d0042b94, type: 3}
+      propertyPath: m_invulnerableToCops
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3363765689380519139, guid: 2fb5df208e7f10147b1a3d87d0042b94,
         type: 3}
       propertyPath: m_invulnerableToCops
@@ -10976,7 +10984,7 @@ PrefabInstance:
     - target: {fileID: 1935135676784974315, guid: e5fa387e1487bd846ae89393740f8f32,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1935135676784974315, guid: e5fa387e1487bd846ae89393740f8f32,
         type: 3}
@@ -27696,7 +27704,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 4e-45}
+  m_BoundingSphereOverride: {x: 0, y: 5.2e-44, z: 3.8482e-41, w: -1.1859902e-34}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -37068,7 +37076,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970037002}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -47.24, y: 90.61, z: 0.28}
+  m_LocalPosition: {x: -47.24, y: 114.04, z: 0.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 53710540}
@@ -37494,6 +37502,26 @@ PrefabInstance:
     - target: {fileID: 1570576685, guid: 014bf085a1525344e80bc3f7d5c819df, type: 3}
       propertyPath: m_Size.x
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1570576685, guid: 014bf085a1525344e80bc3f7d5c819df, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1570576685, guid: 014bf085a1525344e80bc3f7d5c819df, type: 3}
+      propertyPath: m_Size.y
+      value: 3.137474
+      objectReference: {fileID: 0}
+    - target: {fileID: 1570576685, guid: 014bf085a1525344e80bc3f7d5c819df, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1570576685, guid: 014bf085a1525344e80bc3f7d5c819df, type: 3}
+      propertyPath: m_Center.y
+      value: 0.56873703
+      objectReference: {fileID: 0}
+    - target: {fileID: 1570576685, guid: 014bf085a1525344e80bc3f7d5c819df, type: 3}
+      propertyPath: m_Center.z
+      value: -5.823942
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 014bf085a1525344e80bc3f7d5c819df, type: 3}

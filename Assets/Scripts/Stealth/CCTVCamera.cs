@@ -176,7 +176,7 @@ public class CCTVCamera : MonoBehaviour
         }
     }
 
-    private void RaiseAlarm()
+    protected void RaiseAlarm()
     {
         if(!m_witnessed)
         {

@@ -20,7 +20,8 @@ public class NPCBasicBehavior : CCTVCamera
     private bool m_gotcha = false;
     private bool m_suspicious = false;
     private IEnumerator m_resetAfterChase = null;
-
+    private BoxCollider m_boxCollider;
+    [SerializeField] private bool m_isPlayerInSight = false;
     protected override void Awake()
     {
         base.Awake();
@@ -34,6 +35,8 @@ public class NPCBasicBehavior : CCTVCamera
         Billboard billboard = m_alarmBalloon.GetComponent<Billboard>();
         billboard.SetTarget(transform);
         m_copAnimator = transform.GetChild(0).GetComponent<Animator>();
+        m_boxCollider = GetComponent<BoxCollider>();
+
         //m_alarmBalloon.SetActive(true);
     }
 
@@ -47,11 +50,26 @@ public class NPCBasicBehavior : CCTVCamera
     {
         DrawCone();
 
-        if(m_playerController.IsHiding)
+        m_isPlayerInSight = IsPlayerInSight();
+        //if(!IsPlayerInSight() && m_suspicious && m_resetAfterChase == null)
+        if (!m_isPlayerInSight && !m_suspicious && m_chasing && m_resetAfterChase == null)
         {
-            m_chasing = false;
+            m_suspicious = true;            
+            StopChasing();
         }
-        if(!m_gotcha)
+        else if(m_isPlayerInSight && m_suspicious)
+        {
+            m_suspicious = false;
+            m_chasing = true;
+            if(m_resetAfterChase != null)
+            {
+                StopCoroutine(m_resetAfterChase);
+                m_resetAfterChase = null;
+            }
+        }
+
+        if (!m_gotcha)
+        //if (!m_gotcha)
         {
             if (m_chasing)
             {
@@ -65,6 +83,14 @@ public class NPCBasicBehavior : CCTVCamera
                 StartCoroutine(m_patrolCoroutine);
             }
         }
+
+
+        /*if(m_playerController.IsHiding && m_chasing)
+        {
+            StopChasing();
+        }*/
+
+
     }
 
     IEnumerator Patrol()
@@ -193,7 +219,8 @@ public class NPCBasicBehavior : CCTVCamera
     {
         if(other.CompareTag("Player"))
         {
-            if(m_resetAfterChase != null)
+            RaiseAlarm();
+            if (m_resetAfterChase != null)
             {
                 StopCoroutine(m_resetAfterChase);
                 m_resetAfterChase = null;
@@ -229,7 +256,7 @@ public class NPCBasicBehavior : CCTVCamera
             }
         }
     }
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -244,5 +271,21 @@ public class NPCBasicBehavior : CCTVCamera
                 StartCoroutine(m_resetAfterChase);
             }    
         }
+    }*/
+
+    private bool IsPlayerInSight()
+    {
+        return m_boxCollider.bounds.Contains(m_target.position);
+    }
+
+    private void StopChasing()
+    {
+        m_resetAfterChase = Utils.WaitAndExecute(2.5f, () =>
+        {
+            m_chasing = false;
+            m_suspicious = false;
+            m_resetAfterChase = null;
+        });
+        StartCoroutine(m_resetAfterChase);
     }
 }
