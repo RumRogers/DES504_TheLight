@@ -8,6 +8,15 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Loser Messages")]
+    public string m_loseByWitnessesMsg = "Too many witnesses! You have been identified.";
+    public string m_loseByFallingMsg = "You fell to your death. Whoops.";
+    public string m_loseByTimeUpMsg = "The cops arrived. You got batoned to death.";
+    public string m_loseByCopMsg = "Busted!";
+
+    [Header("Winner Messages")]
+    public string m_levelCompleteMsg = "You did it! Nice job, dude!";
+
     public delegate void Callback();
     public delegate bool Predicate();
 

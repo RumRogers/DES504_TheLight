@@ -43,11 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03b56c2e7467644d8328ac17df37187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_missionFailed: {fileID: 0}
-  m_missionComplete: {fileID: 0}
-  m_missionFailedButtonSet: {fileID: 0}
-  m_missionCompleteButtonSet: {fileID: 0}
-  m_witnessImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_loseByWitnessesMsg: Too many witnesses! You have been identified.
+  m_loseByFallingMsg: You fell to your death. Whoops.
+  m_loseByTimeUpMsg: The cops arrived. You got batoned to death.
+  m_loseByCopMsg: Busted!
+  m_levelCompleteMsg: You did it! Nice job, dude!

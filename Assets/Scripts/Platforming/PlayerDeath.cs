@@ -21,7 +21,7 @@ public class PlayerDeath : MonoBehaviour
             if(!GameManager.Instance.LootCollected)
             {
                 m_playerController.PlayInstantly(SoundManager.SoundID.PlayerDeath);
-                GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "You fell to your death. Whoops.");
+                GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, GameManager.Instance.m_loseByFallingMsg);
             }
             else
             {
