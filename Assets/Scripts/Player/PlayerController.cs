@@ -383,7 +383,7 @@ public class PlayerController : MonoBehaviour
                                 m_ignoreInput = true;
                                 m_playerAnimation.GetAnimator().SetTrigger("die");
                                 PlayInstantly(SoundManager.SoundID.PlayerDeath);
-                                StartCoroutine(Utils.WaitAndExecute(1.5f, () => { GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "You fell to your death. Whoops."); }));
+                                StartCoroutine(Utils.WaitAndExecute(1.5f, () => { GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, GameManager.Instance.m_loseByFallingMsg); }));
                             }
                             else
                             {
@@ -687,7 +687,7 @@ public class PlayerController : MonoBehaviour
 
         if (m_lives == 0 && !m_invulnerableToWitnesses)
         {
-            GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "Too many witnesses! You have been identified.");
+            GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, GameManager.Instance.m_loseByWitnessesMsg);
         }
 
         GameManager.Instance.UpdateWitnessesUI(m_lives);
@@ -734,7 +734,7 @@ public class PlayerController : MonoBehaviour
         PlayInstantly(SoundManager.SoundID.PlayerFreeze);
         m_playerAnimation.GetAnimator().SetTrigger("busted");
         m_busted = true;
-        StartCoroutine(Utils.WaitAndExecute(1f, () => { GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "Busted!"); }));
+        StartCoroutine(Utils.WaitAndExecute(1f, () => { GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, GameManager.Instance.m_loseByCopMsg); }));
     }
 
 

@@ -52,7 +52,7 @@ public class Timer : MonoBehaviour
             m_timeLeft--;
         }
 
-        GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, "The cops arrived. You got batoned to death.");
+        GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionFailed, GameManager.Instance.m_loseByTimeUpMsg);
     }
     
 
