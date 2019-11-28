@@ -99,12 +99,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject m_starsCirclePrefab;
     private Vector3 m_respawnPoint;
 
-    [Header("Items Carried")]
-    [SerializeField] private Inventory.InventoryItems m_currentItem = Inventory.InventoryItems.None;
-    [SerializeField] private Transform m_armCrowbar;
-    [SerializeField] private Transform m_armWrench;
-    private Dictionary<Inventory.InventoryItems, Transform> m_inventoryBindings = new Dictionary<Inventory.InventoryItems, Transform>();
-
+    private Inventory.InventoryItems m_currentItem = Inventory.InventoryItems.None;
 
     private InputRetrieved input;
     private CurrentLadder m_currentLadder;
@@ -142,8 +137,6 @@ public class PlayerController : MonoBehaviour
         m_rotation = Quaternion.Euler(0, -90, 0);
         m_top = transform.Find("Head");
         m_bottom = transform.Find("Feet");
-        m_inventoryBindings[Inventory.InventoryItems.Crowbar] = m_armCrowbar;
-        m_inventoryBindings[Inventory.InventoryItems.MonkeyWrench] = m_armWrench;
         m_audioSource = GetComponent<AudioSource>();        
     }
 
@@ -557,18 +550,6 @@ public class PlayerController : MonoBehaviour
     private void SetCurrentItem(Inventory.InventoryItems item)
     {
         GameManager.Instance.UISetActiveInventoryItem(item);
-        foreach(var x in m_inventoryBindings)
-        {
-            if(x.Key == item)
-            {
-                x.Value.gameObject.SetActive(true);
-            }
-            else
-            {
-                x.Value.gameObject.SetActive(false);
-            }
-        }
-
         m_currentItem = item;
     }
 
