@@ -244,13 +244,13 @@ public class GameManager : MonoBehaviour
         switch (item)
         {
             case Inventory.InventoryItems.MonkeyWrench:
-                m_panelInventory.localPosition = new Vector3(-100, panelPos.y, panelPos.z);
+                m_panelInventory.localPosition = new Vector3(-70, panelPos.y, panelPos.z);
                 break;
             case Inventory.InventoryItems.None:
                 m_panelInventory.localPosition = new Vector3(0, panelPos.y, panelPos.z);
                 break;
             case Inventory.InventoryItems.Crowbar:
-                m_panelInventory.localPosition = new Vector3(100, panelPos.y, panelPos.z);
+                m_panelInventory.localPosition = new Vector3(73, panelPos.y, panelPos.z);
                 break;
             default:
                 break;
