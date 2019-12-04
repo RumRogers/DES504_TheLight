@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System;
 
@@ -10,6 +11,7 @@ public class Timer : MonoBehaviour
     private TextMeshProUGUI m_textCaption;
     private TextMeshProUGUI m_textTimeLeft;
     private Material m_textMaterial;
+    private Image m_timerUIBox;
     private IEnumerator m_timerCoroutine;
     public bool IsRunning { get; set; }
 
@@ -19,10 +21,11 @@ public class Timer : MonoBehaviour
         m_textCaption = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         m_textTimeLeft = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         m_timerCoroutine = null;
+        m_timerUIBox = transform.GetChild(2).GetComponent<Image>();
         m_textCaption.color = Utils.SetAlpha(m_textCaption.color, 0);
         m_textTimeLeft.color = Utils.SetAlpha(m_textTimeLeft.color, 0);
-        //m_textMaterial = transform.GetChild(1).GetComponent<Material>();
-}
+        m_timerUIBox.color = Utils.SetAlpha(m_timerUIBox.color, 0);        
+    }
 
     private void Update()
     {
@@ -40,14 +43,14 @@ public class Timer : MonoBehaviour
     }
     private IEnumerator RunTimer()
     {
-        while(m_timeLeft > 0)
+        m_timerUIBox.color = Utils.SetAlpha(m_timerUIBox.color, 255);
+        while (m_timeLeft > 0)
         {
             TimeSpan timeSpan = TimeSpan.FromSeconds(m_timeLeft);
-            m_textTimeLeft.text = timeSpan.Minutes + ":" + timeSpan.Seconds;
-            if(m_timeLeft == 10)
-            {
-                // change text material to red
-            }
+            string secondsPadding = timeSpan.Seconds < 10 ? "0" : "";
+            
+            
+            m_textTimeLeft.text = "0" + timeSpan.Minutes + ":" + secondsPadding + timeSpan.Seconds;
             yield return new WaitForSeconds(1);
             m_timeLeft--;
         }
