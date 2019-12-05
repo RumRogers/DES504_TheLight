@@ -1271,6 +1271,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimerUIBox
       objectReference: {fileID: 0}
+    - target: {fileID: 508873833689984144, guid: ddb1ababd3f49644e96ad44795619776,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -31.010002
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddb1ababd3f49644e96ad44795619776, type: 3}
 --- !u!224 &8293161146304087965 stripped
