@@ -1886,7 +1886,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2076707294, guid: 2fb5df208e7f10147b1a3d87d0042b94, type: 3}
       propertyPath: m_invulnerableToWitnesses
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2076707294, guid: 2fb5df208e7f10147b1a3d87d0042b94, type: 3}
       propertyPath: m_ignoreSounds
@@ -1898,15 +1898,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2076707294, guid: 2fb5df208e7f10147b1a3d87d0042b94, type: 3}
       propertyPath: m_getStunned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2076707294, guid: 2fb5df208e7f10147b1a3d87d0042b94, type: 3}
       propertyPath: m_invulnerableToCops
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2076707294, guid: 2fb5df208e7f10147b1a3d87d0042b94, type: 3}
       propertyPath: m_invulnerableToHeight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3363765689380519139, guid: 2fb5df208e7f10147b1a3d87d0042b94,
         type: 3}
