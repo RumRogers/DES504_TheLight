@@ -12,19 +12,32 @@ public class Timer : MonoBehaviour
     private TextMeshProUGUI m_textTimeLeft;
     private Material m_textMaterial;
     private Image m_timerUIBox;
+    private List<Image> m_timerUIBoxBackgroundCells;
     private IEnumerator m_timerCoroutine;
     public bool IsRunning { get; set; }
 
 
     private void Awake()
     {
-        m_textCaption = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        m_textTimeLeft = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        m_textCaption = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        m_textTimeLeft = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         m_timerCoroutine = null;
-        m_timerUIBox = transform.GetChild(2).GetComponent<Image>();
+        Transform timerUIBoxTransform = transform.GetChild(0);
+        m_timerUIBox = timerUIBoxTransform.GetComponent<Image>();
+        m_timerUIBoxBackgroundCells = new List<Image>();
+
+        foreach(Transform child in timerUIBoxTransform)
+        {
+            Image img = child.GetComponent<Image>();
+            img.color = Utils.SetAlpha(img.color, 0);
+            m_timerUIBoxBackgroundCells.Add(img);
+        }
+
         m_textCaption.color = Utils.SetAlpha(m_textCaption.color, 0);
         m_textTimeLeft.color = Utils.SetAlpha(m_textTimeLeft.color, 0);
-        m_timerUIBox.color = Utils.SetAlpha(m_timerUIBox.color, 0);        
+        m_timerUIBox.color = Utils.SetAlpha(m_timerUIBox.color, 0);
+        
+
     }
 
     private void Update()
@@ -33,8 +46,7 @@ public class Timer : MonoBehaviour
         {
             m_timerCoroutine = RunTimer();
             StartCoroutine(m_timerCoroutine);
-            m_textCaption.color = Utils.SetAlpha(m_textCaption.color, 255);
-            m_textTimeLeft.color = Utils.SetAlpha(m_textTimeLeft.color, 255);
+            
         }
         else if(!IsRunning && m_timerCoroutine != null)
         {
@@ -43,7 +55,14 @@ public class Timer : MonoBehaviour
     }
     private IEnumerator RunTimer()
     {
+        m_textCaption.color = Utils.SetAlpha(m_textCaption.color, 255);
+        m_textTimeLeft.color = Utils.SetAlpha(m_textTimeLeft.color, 255);        
         m_timerUIBox.color = Utils.SetAlpha(m_timerUIBox.color, 255);
+        foreach (Image img in m_timerUIBoxBackgroundCells)
+        {
+            img.color = Utils.SetAlpha(img.color, 255);
+        }
+
         while (m_timeLeft > 0)
         {
             TimeSpan timeSpan = TimeSpan.FromSeconds(m_timeLeft);

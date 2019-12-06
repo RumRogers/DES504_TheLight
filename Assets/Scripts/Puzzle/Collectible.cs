@@ -12,7 +12,17 @@ public class Collectible : Resettable
     [SerializeField] Inventory.InventoryItems m_itemID;
     [SerializeField] protected bool m_pickedUp = false;
     [SerializeField] private Vector3 m_rotationAxis = new Vector3(0, 1, 0);
+    private Transform m_particles;
 
+    private void Awake()
+    {
+        m_particles = transform.Find("CollectibleParticles");
+        if(m_particles != null)
+        {
+            m_particles.SetParent(m_particles.parent.parent);
+            m_particles.localScale = new Vector3(1f, 1f, 1f);
+        }
+    }
     private void Update()
     {
         transform.Rotate(m_rotationAxis, Space.World);
@@ -29,6 +39,10 @@ public class Collectible : Resettable
         {
             Inventory.Instance.PickUp(m_itemID);
             m_pickedUp = true;
+            if(m_particles != null)
+            {
+                m_particles.gameObject.SetActive(false);
+            }
             gameObject.SetActive(false);
 
             switch(m_itemID)

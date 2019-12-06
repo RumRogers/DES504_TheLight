@@ -162,6 +162,10 @@ public class PlayerController : MonoBehaviour
         {
             ManageInput(ref input);    
         }
+        else
+        {
+            m_movement.x = 0f;
+        }
 
         if(!m_stunned && !m_swinging)
         {

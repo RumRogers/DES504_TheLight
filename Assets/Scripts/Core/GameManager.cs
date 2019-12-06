@@ -135,11 +135,11 @@ public class GameManager : MonoBehaviour
             m_inventoryTutorialOverlay.gameObject.SetActive(false);
         }
 
-        m_globalTimeLeftInSeconds -= Time.deltaTime;
-        if(m_globalTimeLeftInSeconds <= 0)
+        //m_globalTimeLeftInSeconds -= Time.deltaTime;
+        /*if(m_globalTimeLeftInSeconds <= 0)
         {
             SceneManager.LoadScene(4);
-        }
+        }*/
     }
     public void ShowScreen(UIScreen screen, string message = "")
     {

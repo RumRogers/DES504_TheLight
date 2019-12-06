@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231330729108631796}
   - component: {fileID: 231330729108631799}
+  - component: {fileID: 256027620}
   m_Layer: 0
   m_Name: Policemen_Poster
   m_TagString: Untagged
@@ -25,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231330729108631797}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -7.8562374, y: 0.27099895, z: -11.710001}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 61.7, y: 0.77, z: -117.68}
+  m_LocalScale: {x: 1, y: 1, z: 0.8}
   m_Children:
   - {fileID: 7933650812248717687}
   m_Father: {fileID: 231330730385710003}
@@ -81,6 +82,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &256027620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231330729108631797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1f82dfe68545a49af4064e24d6f211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &231330729335741370
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,6 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231330729335741372}
   - component: {fileID: 231330729335741373}
+  - component: {fileID: 1010579027}
   m_Layer: 0
   m_Name: Cats_Poster
   m_TagString: Untagged
@@ -106,8 +120,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231330729335741370}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 5.9538918, y: 0.11, z: -19.68}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 66.92, y: 0.76, z: -101.86}
+  m_LocalScale: {x: 1, y: 1, z: 0.8}
   m_Children:
   - {fileID: 383925848859325229}
   m_Father: {fileID: 231330730385710003}
@@ -162,6 +176,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1010579027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231330729335741370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1f82dfe68545a49af4064e24d6f211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &231330729371498538
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231330729371498540}
   - component: {fileID: 231330729371498541}
+  - component: {fileID: 230063968}
   m_Layer: 0
   m_Name: TurningDrainpipes_Poster
   m_TagString: Untagged
@@ -187,8 +214,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231330729371498538}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 48.18376, y: 0.28999949, z: -3.7500005}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 66.95, y: 0.777, z: -92.99}
+  m_LocalScale: {x: 1, y: 1, z: 0.8}
   m_Children:
   - {fileID: 4281728875352978716}
   m_Father: {fileID: 231330730385710003}
@@ -243,6 +270,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &230063968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231330729371498538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1f82dfe68545a49af4064e24d6f211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &231330729799535487
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231330729799535486}
   - component: {fileID: 231330729799535473}
+  - component: {fileID: 1025308765}
   m_Layer: 0
   m_Name: Hiding_Poster
   m_TagString: Untagged
@@ -268,8 +308,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231330729799535487}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.07729912, y: 0.17999935, z: -11.74}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 66.72, y: 0.76, z: -125.9}
+  m_LocalScale: {x: 1, y: 1, z: 0.8}
   m_Children:
   - {fileID: 3617481568857234477}
   m_Father: {fileID: 231330730385710003}
@@ -324,6 +364,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1025308765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231330729799535487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1f82dfe68545a49af4064e24d6f211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &231330730217606751
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231330730217606737}
   - component: {fileID: 231330730217606750}
+  - component: {fileID: 1055125413}
   m_Layer: 0
   m_Name: IntermitantCameras_Poster
   m_TagString: Untagged
@@ -349,8 +402,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231330730217606751}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.093761444, y: 0.10400057, z: 4.100001}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 77.32, y: 0.78, z: -125.92}
+  m_LocalScale: {x: 1, y: 1, z: 0.8}
   m_Children:
   - {fileID: 7018508942532110750}
   m_Father: {fileID: 231330730385710003}
@@ -405,6 +458,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1055125413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231330730217606751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1f82dfe68545a49af4064e24d6f211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &231330730385710000
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +480,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231330730385710003}
   m_Layer: 0
-  m_Name: Tip_Posters
+  m_Name: Tip_Posters_Level_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -452,6 +517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231330730546375020}
   - component: {fileID: 231330730546375023}
+  - component: {fileID: 1483034421}
   m_Layer: 0
   m_Name: Wrench_Poster
   m_TagString: Untagged
@@ -467,8 +533,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231330730546375021}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 13.023762, y: 0.27, z: -30.51}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 83.1, y: 0.779, z: -93.04}
+  m_LocalScale: {x: 1, y: 1, z: 0.8}
   m_Children:
   - {fileID: 7568210396364201222}
   m_Father: {fileID: 231330730385710003}
@@ -523,6 +589,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1483034421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231330730546375021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1f82dfe68545a49af4064e24d6f211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &231330730871511698
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +611,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231330730871511700}
   - component: {fileID: 231330730871511701}
+  - component: {fileID: 1890777209}
   m_Layer: 0
   m_Name: RotatingCameras_Poster
   m_TagString: Untagged
@@ -548,8 +627,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231330730871511698}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 9.5137615, y: 0.28, z: -3.89}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 81.69, y: 0.78, z: -125.92}
+  m_LocalScale: {x: 1, y: 1, z: 0.8}
   m_Children:
   - {fileID: 3944140937449806541}
   m_Father: {fileID: 231330730385710003}
@@ -604,6 +683,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1890777209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231330730871511698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1f82dfe68545a49af4064e24d6f211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1401484360666476042
 PrefabInstance:
   m_ObjectHideFlags: 0
