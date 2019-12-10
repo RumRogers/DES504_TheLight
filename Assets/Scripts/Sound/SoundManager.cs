@@ -49,7 +49,7 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         m_audioSource = GetComponent<AudioSource>();
         m_audioBindings[SoundID.BackgroundFX] = m_backgroundFX;
         m_audioBindings[SoundID.PlayerStep] = m_playerStepFX;
