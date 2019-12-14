@@ -1569,19 +1569,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5965312115805248180, guid: 88f85e486df5b4f469e56e74926c8121,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.012
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965312115805248181, guid: 88f85e486df5b4f469e56e74926c8121,
+        type: 3}
+      propertyPath: m_Range
+      value: 8.8
+      objectReference: {fileID: 0}
     - target: {fileID: 5965312115805248181, guid: 88f85e486df5b4f469e56e74926c8121,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5965312115805248181, guid: 88f85e486df5b4f469e56e74926c8121,
-        type: 3}
-      propertyPath: m_BoundingSphereOverride.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5965312115805248181, guid: 88f85e486df5b4f469e56e74926c8121,
-        type: 3}
-      propertyPath: m_BoundingSphereOverride.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5965312116163433864, guid: 88f85e486df5b4f469e56e74926c8121,
@@ -1628,11 +1628,6 @@ PrefabInstance:
         type: 3}
       propertyPath: LightsModule.intensityCurve.scalar
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5965312116163433864, guid: 88f85e486df5b4f469e56e74926c8121,
-        type: 3}
-      propertyPath: ShapeModule.radiusThickness
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88f85e486df5b4f469e56e74926c8121, type: 3}

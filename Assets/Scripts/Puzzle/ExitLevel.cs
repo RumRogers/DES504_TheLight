@@ -10,11 +10,11 @@ public class ExitLevel : MonoBehaviour
         {
             if(Inventory.Instance.ContainsItem(Inventory.InventoryItems.Gold))
             {
-                GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionComplete, "You did it! Nice job, dude!");
+                GameManager.Instance.ShowScreen(GameManager.UIScreen.MissionComplete, "You did it! Nice work!");
             }
             else
             {
-                GameManager.Instance.SetLowerHUDText("You need to steal the money first, you moron.");
+                GameManager.Instance.SetLowerHUDText("You need to steal the money first!");
             }
         }
     }
