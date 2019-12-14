@@ -30,7 +30,7 @@ public class Readable : MonoBehaviour
     {
        if(m_readable && other.CompareTag("Player"))
         {
-            if(Input.GetButtonDown("Action"))
+            if(Input.GetKeyDown(KeyCode.R))
             {
                 m_readable = false;
                 StartCoroutine(Utils.WaitAndExecute(1f, () => { m_readable = true; }));

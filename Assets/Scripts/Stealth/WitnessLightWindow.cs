@@ -8,6 +8,7 @@ public class WitnessLightWindow : MonoBehaviour
     private Transform m_light;
     private Transform m_balloon;
     private BoxCollider m_collider;
+    private Transform m_windowGlass;
     [SerializeField] private float m_asleepDuration = 10f;
     [SerializeField] private float m_awakenDuration = 5f;
     [SerializeField] private bool m_isSleepwalker = false;
@@ -24,7 +25,7 @@ public class WitnessLightWindow : MonoBehaviour
         m_collider = GetComponent<BoxCollider>();
         m_balloon.gameObject.SetActive(false);
         m_playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-
+        m_windowGlass = transform.GetChild(3);
 
     }
     // Start is called before the first frame update
@@ -49,7 +50,7 @@ public class WitnessLightWindow : MonoBehaviour
     {
         m_witnessBody.gameObject.SetActive(peeking);
         m_light.gameObject.SetActive(peeking);
-        //m_collider.enabled = peeking;
+        m_windowGlass.gameObject.SetActive(!peeking);
         m_isPeeking = peeking;
     }
 

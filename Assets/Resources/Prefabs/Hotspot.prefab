@@ -256,7 +256,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.9254902, g: 0.85490197, b: 0.039215688, a: 0.4392157}
+      maxColor: {r: 0.9254902, g: 0.9137255, b: 0.7490196, a: 0.4392157}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1127,16 +1127,16 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.22566795
-          inSlope: 0.40061885
-          outSlope: 0.40061885
+          value: 0.40480614
+          inSlope: 1.818185
+          outSlope: 1.818185
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.21326873
-          value: 0.31110743
+          time: 0.16165587
+          value: 0.6987264
           inSlope: 0.53144157
           outSlope: 0.53144157
           tangentMode: 0
@@ -1144,8 +1144,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.44860888
-          value: 0.22753912
+          time: 0.44538927
+          value: 0.40344244
           inSlope: 0.034314934
           outSlope: 0.034314934
           tangentMode: 0
@@ -1153,8 +1153,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.5846676
-          value: 0.07747054
+          time: 0.5943417
+          value: 0.30549788
           inSlope: 0.10844855
           outSlope: 0.10844855
           tangentMode: 0
@@ -1162,8 +1162,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 0.22123599
+          time: 0.9709778
+          value: 0.46879458
           inSlope: -0.24843606
           outSlope: -0.24843606
           tangentMode: 0
@@ -4897,7 +4897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f43cfbde9f0bf49b0a0f333ec3964c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_hotspotMessage: Press E to read poster
+  m_hotspotMessage: Press R to read poster
 --- !u!1001 &9146111449729849842
 PrefabInstance:
   m_ObjectHideFlags: 0

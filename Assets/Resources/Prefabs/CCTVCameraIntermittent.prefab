@@ -30,7 +30,7 @@ PrefabInstance:
     - target: {fileID: 5376422643782160493, guid: 4596d90217deb1a46bdb46328f87fe14,
         type: 3}
       propertyPath: m_Name
-      value: CCTVCamera (1)
+      value: CCTVCameraIntermittent
       objectReference: {fileID: 0}
     - target: {fileID: 5376422643782160490, guid: 4596d90217deb1a46bdb46328f87fe14,
         type: 3}
