@@ -7,7 +7,7 @@ public class Collectible : Resettable
 {
     private static string m_msgPrefix = "You grabbed a";
     private static string m_msgPostfix = "Use it wisely.";
-    private static string m_msgTimerStarting = "You got the money... Time to skedaddle!!!";
+    private static string m_msgTimerStarting = "You got the money... Time to abscond!";
 
     [SerializeField] Inventory.InventoryItems m_itemID;
     [SerializeField] protected bool m_pickedUp = false;
