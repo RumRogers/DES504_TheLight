@@ -29,28 +29,31 @@ public class HidingSpot : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {        
-        if(m_waitingTime > 0 || m_playerController.GotBusted)
+        if(other.CompareTag("Player"))
         {
-            return;
-        }
+            if (m_waitingTime > 0 || m_playerController.GotBusted)
+            {
+                return;
+            }
 
-        if(Input.GetAxis("Vertical") != 0)
-        {
-            m_waitingTime = m_maxWaitingTime;
-        }
+            if (Input.GetAxis("Vertical") != 0)
+            {
+                m_waitingTime = m_maxWaitingTime;
+            }
 
-        if(Input.GetAxis("Vertical") > 0)
-        {
-            m_occupied = true;
-            StartCoroutine(m_playerController.HideTo(m_hidingLocation.position));
-        }
-        else if(Input.GetAxis("Vertical") < 0)
-        {
-            m_occupied = false;
+            if (Input.GetAxis("Vertical") > 0)
+            {
+                m_occupied = true;
+                StartCoroutine(m_playerController.HideTo(m_hidingLocation.position));
+            }
+            else if (Input.GetAxis("Vertical") < 0)
+            {
+                m_occupied = false;
 
-            Vector3 oldPos = m_hidingLocation.position;
-            oldPos.z = m_defaultZPos;
-            StartCoroutine(m_playerController.LeaveHidingSpot(oldPos));
-        }
+                Vector3 oldPos = m_hidingLocation.position;
+                oldPos.z = m_defaultZPos;
+                StartCoroutine(m_playerController.LeaveHidingSpot(oldPos));
+            }
+        }        
     }
 }
