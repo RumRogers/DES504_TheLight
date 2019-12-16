@@ -70,6 +70,13 @@ public class TestRopeHinge : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            m_playerTransform.position = m_anchorPoint.position;
+        }
+    }
     private IEnumerator DeactivateTriggerForSeconds(float seconds)
     {
         m_triggerCollider.enabled = false;

@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Patch();
         m_isGrounded = m_characterController.isGrounded;
@@ -181,13 +181,16 @@ public class PlayerController : MonoBehaviour
         }    
     }
 
-    private void GetInput()
+    private void Update()
     {
-        if(Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel"))
         {
             GameManager.Instance.SetPause(!GameManager.Instance.GamePaused, true);
         }
+    }
 
+    private void GetInput()
+    {
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
         input.jump = Input.GetButton("Jump");
@@ -700,12 +703,13 @@ public class PlayerController : MonoBehaviour
     public IEnumerator DoSwing(Vector3 anchorPoint)
     {
         m_playerAnimation.GetAnimator().applyRootMotion = false;
+        m_falling = false;
         m_fallingStart = 0;
         m_ignoreInput = true;
         m_swinging = true;
-        gameObject.SetActive(false);
+        /*gameObject.SetActive(false);
         transform.position = anchorPoint;
-        gameObject.SetActive(true);
+        gameObject.SetActive(true);*/
         m_playerAnimation.SetBool("isSwinging", true);
         yield return new WaitForSeconds(Time.deltaTime);
         //m_playerAnimation.GetAnimator().enabled = false;        
